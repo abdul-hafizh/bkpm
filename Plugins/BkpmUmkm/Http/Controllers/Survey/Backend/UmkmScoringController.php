@@ -32,10 +32,6 @@ class UmkmScoringController extends Controller
         $params['show_download']    = false;
         $view = "{$this->identifier}::survey.backend.index";
 
-        /*$inModal = request()->get('in-modal');
-        if ($inModal && encrypt_decrypt($inModal, 2)=='modal'){
-            $view = "{$this->identifier}::modal.datatable";
-        }*/
         return $umkmScoringDataTable->render($view, $params);
     }
 
