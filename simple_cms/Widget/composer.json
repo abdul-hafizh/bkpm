@@ -1,0 +1,26 @@
+{
+    "name": "simple_cms/widget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Widget\\Providers\\WidgetServiceProvider"
+            ],
+            "aliases": {
+                "Widget": "SimpleCMS\\Widget\\Facade",
+                "AsyncWidget": "SimpleCMS\\Widget\\AsyncFacade"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Widget\\": ""
+        }
+    }
+}

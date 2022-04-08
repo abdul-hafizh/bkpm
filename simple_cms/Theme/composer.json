@@ -1,0 +1,30 @@
+{
+    "name": "simple_cms/theme",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "opis/closure": "^3.5"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Theme\\Providers\\ThemeServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "SimpleCMS\\Theme\\Facades\\Theme"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Theme\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,14 @@
+<?php
+
+namespace Themes\{theme}\src\Http\Controllers;
+
+use SimpleCMS\Blog\Http\Controllers\BlogController;
+use Theme;
+
+class {Theme}Controller extends BlogController
+{
+    public function test()
+    {
+        return Theme::scope('test')->render();
+    }
+}

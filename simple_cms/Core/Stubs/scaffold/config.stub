@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'name' => '$STUDLY_NAME$',
+    'slug' => '$LOWER_NAME$',
+    'namespace' => '$MODULE_NAMESPACE$\$STUDLY_NAME$\\'
+];

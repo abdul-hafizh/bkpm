@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class $CLASS$ extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        if (Schema::hasTable('$TABLE$')) {
+            Schema::table('$TABLE$', function (Blueprint $table) {
+                // example; change this.
+                if (!Schema::hasColumn('$TABLE$', 'column_name')) {
+                    $table->string('column_name')->after('column_name_after');
+                }
+                $FIELDS_UP$
+            });
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        /*Schema::table('$TABLE$', function (Blueprint $table) {
+            $FIELDS_DOWN$
+        });*/
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "simple_cms/slider",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Slider\\Providers\\SliderServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Slider\\": ""
+        }
+    }
+}

@@ -1,0 +1,10 @@
+/*
+ * Created By : Ahmad Windi Wijayanto
+ * Email : ahmadwindiwijayanto@gmail.com
+ * website : https://whendy.net
+ * --------- 3/13/20, 9:09 PM ---------
+ */
+
+.treeview ul.fa-ul {padding-left: 0;margin-left: 1em;margin-bottom: 0;list-style-type: none;}
+.treeview ul.fa-ul .fa-li {left: -1.5em;width: 1.5em;}
+.treeview ul.fa-ul .fa-li {cursor: pointer;}

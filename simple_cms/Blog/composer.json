@@ -1,0 +1,25 @@
+{
+    "name": "simple_cms/blog",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Blog\\Providers\\BlogServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Blog\\": ""
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "slug": "{theme}",
+    "name": "{Theme}",
+    "author": "Ahmad Windi Wijayanto",
+    "email": "ahmadwindiwijayanto@gmail.com",
+    "description": "This is basic theme for SimpleCMS.",
+    "homepage": "https://whendy.net",
+    "license": "MIT",
+    "version": "1.0"
+}

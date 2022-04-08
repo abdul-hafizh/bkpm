@@ -1,0 +1,38 @@
+{
+    "name": "simple_cms/translation",
+    "description": "A Translation package for Laravel 5 with database and cache support",
+    "keywords": [
+        "whendy",
+        "laravel-translator",
+        "laravel",
+        "translator",
+        "translation",
+        "localization"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Translation\\Providers\\TranslationServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "laravel/framework": "~6.0|~7.0",
+        "doctrine/dbal": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Translation\\": ""
+        }
+    }
+}

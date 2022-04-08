@@ -1,0 +1,17 @@
+#boxOpenMap {
+    width:100%;
+    height: 400px;
+}
+.sizeOpenMap {
+    width: 100%;
+    height: 100%;
+}
+.leaflet-container .leaflet-control-search {
+    margin-left: 6em!important;
+    margin-top: -60px!important;
+}
+.leaflet-container .leaflet-control-search  input.search-input {
+    display: block!important;
+    width: 400px!important;
+    height: 30px!important;
+}

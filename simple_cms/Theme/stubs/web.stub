@@ -1,0 +1,54 @@
+<?php
+
+Route::group(['middleware' => ['web'], 'as' => 'simple_cms.blog.', 'simple_cms'=>'Theme {Theme}'], function () {
+
+    Route::group(['middleware' => ['theme']], function ()
+    {
+        Route::get('/test', [
+            'title' => 'Test',
+            'uses' => '{Theme}Controller@test'
+        ])->name('test');
+
+        Route::get('/', [
+            'title'=>'Home',
+            'uses'=>'{Theme}Controller@index'
+        ])->name('index');
+
+        Route::get('/contact-us', [
+            'title' => 'CONTACT US',
+            'uses' => '{Theme}Controller@contact'
+        ])->name('contact');
+
+        Route::post('/contact-us', [
+            'title' => 'CONTACT US',
+            'uses' => '{Theme}Controller@contact_post'
+        ])->name('contact_post');
+
+        Route::get('/search/{search?}', [
+            'title' => 'Blog Search',
+            'uses' => '{Theme}Controller@search'
+        ])->name('search');
+
+        Route::get('/category/{post_slug}', [
+            'title' => 'Blog Category',
+            'uses' => '{Theme}Controller@category'
+        ])->name('category');
+
+        Route::get('/tag/{post_slug}', [
+            'title' => 'Blog Tag',
+            'uses' => '{Theme}Controller@tag'
+        ])->name('tag');
+
+        Route::get('/{year}/{month}/{post_slug?}', [
+            'title' => 'Blog Archive',
+            'uses' => '{Theme}Controller@archive'
+        ])->name('archive')->where(['year'=> '[0-9]+', 'month' => '[0-9]+', 'post_slug' => '.*']);
+
+        Route::get('/{post_slug}', [
+            'title' => 'Blog Posts',
+            'uses' => '{Theme}Controller@posts'
+        ])->name('post')->where(['post_slug' => '(?!backend|admin|auth|wilayah|captcha)[^\/]+' ]);
+
+    });
+
+});

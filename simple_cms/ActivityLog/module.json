@@ -1,0 +1,13 @@
+{
+    "name": "ActivityLog",
+    "alias": "activitylog",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\ActivityLog\\Providers\\ActivityLogServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

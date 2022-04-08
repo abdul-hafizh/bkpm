@@ -1,0 +1,13 @@
+{
+    "name": "ACL",
+    "alias": "acl",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\ACL\\Providers\\ACLServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

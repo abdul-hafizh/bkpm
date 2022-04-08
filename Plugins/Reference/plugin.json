@@ -1,0 +1,13 @@
+{
+	"name": "Reference",
+	"title": "Reference",
+	"slug": "reference",
+	"identifier": "simple_cms.plugins.reference",
+	"author": "Ahmad Windi Wijayanto",
+	"link_author": "https:\/\/github.com\/whendy",
+	"version": "1.0.0",
+	"description": "This description was generated automatically.",
+	"enabled": true,
+	"setting": false,
+	"detail": false
+}

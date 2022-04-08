@@ -1,0 +1,120 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
+use SimpleCMS\Core\Supports\CoreSupport;
+
+class $CLASS$ extends ServiceProvider
+{
+    /**
+     * Boot the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerTranslations();
+        $this->registerViews();
+        $this->registerFactories();
+        $this->loadMigrationsFrom(module_path('$MODULE$', '$MIGRATIONS_PATH$'));
+
+        /* This register RouteServiceProvider **/
+        // if (!$this->app->runningInConsole()) {
+            $this->app->register(RouteServiceProvider::class);
+        // }
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerConfig();
+    }
+
+    /**
+     * Register config.
+     *
+     * @return void
+     */
+    protected function registerConfig()
+    {
+        $configs = $this->app['files']->glob(__DIR__.'/../Config/*.php');
+        foreach ($configs as $config) {
+            $config = str_replace('.php','',$config);
+            $config = explode('/',$config);
+            $config = end($config);
+            $file_config = $config.'.php';
+            if($config=='config'){
+                $this->publishes([
+                    module_path('$MODULE$', '$PATH_CONFIG$/'.$file_config) => config_path('$LOWER_NAME$.php'),
+                ], 'config');
+            }
+            $this->mergeConfigFrom(
+                module_path('$MODULE$', '$PATH_CONFIG$/'.$file_config), ($config=='config' ? '$LOWER_NAME$' : $config)
+            );
+        }
+    }
+
+    /**
+     * Register views.
+     *
+     * @return void
+     */
+    public function registerViews()
+    {
+        $viewPath = resource_path('views/simple_cms/$LOWER_NAME$');
+
+        $sourcePath = module_path('$MODULE$', '$PATH_VIEWS$');
+
+        $this->publishes([
+            $sourcePath => $viewPath
+        ],'views');
+
+        $this->loadViewsFrom(array_merge(array_map(function ($path) {
+            return $path . '/simple_cms/$LOWER_NAME$';
+        }, $this->app['config']->get('view.paths')), [$sourcePath]), '$LOWER_NAME$');
+    }
+
+    /**
+     * Register translations.
+     *
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        $langPath = resource_path('lang/simple_cms/$LOWER_NAME$');
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, '$LOWER_NAME$');
+        } else {
+            $this->loadTranslationsFrom(module_path('$MODULE$', '$PATH_LANG$'), '$LOWER_NAME$');
+        }
+    }
+
+    /**
+     * Register an additional directory of factories.
+     *
+     * @return void
+     */
+    public function registerFactories()
+    {
+        if (! app()->environment('production') && $this->app->runningInConsole()) {
+            app(Factory::class)->load(module_path('$MODULE$', '$FACTORIES_PATH$'));
+        }
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [];
+    }
+}

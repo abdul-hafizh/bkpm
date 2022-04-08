@@ -1,0 +1,13 @@
+{
+    "name": "EloquentViewable",
+    "alias": "eloquentviewable",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\EloquentViewable\\Providers\\EloquentViewableServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

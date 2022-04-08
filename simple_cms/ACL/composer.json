@@ -1,0 +1,30 @@
+{
+    "name": "simple_cms/acl",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\ACL\\Providers\\ACLServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "laravel/ui": "^2.0",
+        "laravel/socialite": "^4.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\ACL\\": ""
+        }
+    }
+}

@@ -1,0 +1,45 @@
+{
+    "name": "simple_cms/eloquentviewable",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\EloquentViewable\\Providers\\EloquentViewableServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\EloquentViewable\\": ""
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "illuminate/cache": "^6.0|^7.0",
+        "illuminate/contracts": "^6.0|^7.0",
+        "illuminate/cookie": "^6.0|^7.0",
+        "illuminate/database": "^6.0|^7.0",
+        "illuminate/http": "^6.0|^7.0",
+        "illuminate/support": "^6.0|^7.0",
+        "jaybizzle/crawler-detect": "^1.2",
+        "nesbot/carbon": "^2.31"
+    },
+    "require-dev": {
+        "illuminate/config": "^6.0|^7.0",
+        "mockery/mockery": "^1.2.4",
+        "orchestra/testbench": "^4.0|^5.0",
+        "phpunit/phpunit": "^6.5|^7.0|^8.0"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "name": "FileManager",
+    "alias": "filemanager",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\FileManager\\Providers\\FileManagerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

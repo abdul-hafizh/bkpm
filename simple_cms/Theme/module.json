@@ -1,0 +1,13 @@
+{
+    "name": "Theme",
+    "alias": "theme",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\Theme\\Providers\\ThemeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

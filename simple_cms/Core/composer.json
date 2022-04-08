@@ -1,0 +1,44 @@
+{
+    "name": "simple_cms/core",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Core\\Providers\\CoreServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "barryvdh/laravel-elfinder": "^0.4.5",
+        "hassankhan/config": "^2.1",
+        "laravelcollective/html": "^6.1",
+        "maatwebsite/excel": "^3.1",
+        "predis/predis": "^1.1",
+        "sentry/sentry-laravel": "^1.7",
+        "symfony/yaml": "^5.0",
+        "yajra/laravel-datatables-buttons": "^4.9",
+        "yajra/laravel-datatables-oracle": "^9.9",
+        "yajra/laravel-datatables-html": "^4.23",
+        "nwidart/laravel-modules": "^6.2",
+        "nesbot/carbon": "^2.31",
+        "laravel/helpers": "^1.2",
+        "predis/predis": "^1.1",
+        "arcanedev/seo-helper": "^3.0",
+        "barryvdh/laravel-dompdf": "^0.8.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Core\\": ""
+        }
+    }
+}

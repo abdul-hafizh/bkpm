@@ -1,0 +1,37 @@
+{
+    "name": "simple_cms/activitylog",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "require": {
+        "php" : "^7.2",
+        "illuminate/config": "^7.0",
+        "illuminate/database": "^7.0",
+        "illuminate/support": "^7.0",
+        "spatie/string": "^2.2"
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "phpunit/phpunit": "^8.0",
+        "orchestra/testbench": "^4.0|^5.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\ActivityLog\\Providers\\ActivityLogServiceProvider"
+            ],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\ActivityLog\\": ""
+        }
+    }
+}

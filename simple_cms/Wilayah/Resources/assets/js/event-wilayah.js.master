@@ -1,0 +1,284 @@
+/**
+ * Created by whendy on 10/12/16.
+ */
+
+$(function() {
+    $(window).on('shown.bs.modal', function (e) {
+        e.preventDefault();
+        $(document).ready(function (e) {
+            if( $(document).find('.modal .selectWilayahNegara').length || $(document).find('.modal .selectWilayahNegara1').length ) {
+                AutoLoadWilayah();
+            }
+        });
+    });
+
+    $(document).ready(function(){
+        AutoLoadWilayah();
+
+        /* wilayah */
+        $(document).on('change','.selectWilayahNegara, .selectWilayahProvinsi, .selectWilayahKabupaten, .selectWilayahKecamatan',function (e) {
+            // e.preventDefault();
+            var self = $(this),
+                values = self.attr('data-value');
+            if (self.hasAttr('data-value')) {
+                values = (typeof values === 'string' ? JSON.parse(values) : values);
+                values.kode = self.val();
+                switch (values.to) {
+                    case 'provinsi' :
+                        $('.selectWilayahProvinsi,.selectWilayahKabupaten,.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kabupaten' :
+                        $('.selectWilayahKabupaten,.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kecamatan' :
+                        $('.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                }
+                // if (values.kode !== '') {
+                    loadWilayah(values);
+                // }
+            }
+        });
+        $(document).on('change','.selectWilayahNegara1, .selectWilayahProvinsi1, .selectWilayahKabupaten1, .selectWilayahKecamatan1',function (e) {
+            // e.preventDefault();
+            var self = $(this),
+                values = self.attr('data-value');
+            if (self.hasAttr('data-value')) {
+                values = (typeof values === 'string' ? JSON.parse(values) : values);
+                values.kode = self.val();
+                switch (values.to) {
+                    case 'provinsi' :
+                        $('.selectWilayahProvinsi1,.selectWilayahKabupaten1,.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kabupaten' :
+                        $('.selectWilayahKabupaten1,.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kecamatan' :
+                        $('.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                }
+                // if (values.kode !== '') {
+                    loadWilayah1(values);
+                // }
+            }
+        });
+    });
+});
+
+function loadNegaraFirst() {
+    var selectNegara = $('.selectWilayahNegara', document),
+        selectNegaraValue = selectNegara.attr('data-value'),
+        selectNegara1 = $('.selectWilayahNegara1', document),
+        selectNegaraValue1 = selectNegara1.attr('data-value');
+    if (selectNegara.length){
+        selectNegaraValue = (typeof selectNegaraValue === "string" ? JSON.parse(selectNegaraValue) : selectNegaraValue);
+        selectNegaraValue.to = 'negara';
+        loadWilayah(selectNegaraValue);
+    }
+    if (selectNegara1.length){
+        selectNegaraValue1 = (typeof selectNegaraValue1 === "string" ? JSON.parse(selectNegaraValue1) : selectNegaraValue1);
+        selectNegaraValue1.to = 'negara';
+        loadWilayah1(selectNegaraValue1);
+    }
+}
+
+function AutoLoadWilayah() {
+    var wilayahNegara = $('.selectWilayahNegara'),
+        wilayahProvinsi = $('.selectWilayahProvinsi'),
+        wilayahKabupaten = $('.selectWilayahKabupaten'),
+        wilayahKecamatan = $('.selectWilayahKecamatan'),
+        wilayahDesa = $('.selectWilayahDesa');
+
+    /* GET WILAYAH Provinsi Berdasarkan Negara */
+    if(wilayahNegara.length && wilayahNegara.val()!=='') {
+        var dataValueWilayahNegara = wilayahNegara.attr('data-value'),
+            hasAttributeNegara = wilayahNegara.hasAttr('data-value');
+        dataValueWilayahNegara = (typeof dataValueWilayahNegara === 'string' ? JSON.parse(dataValueWilayahNegara) : dataValueWilayahNegara);
+        if (hasAttributeNegara) {
+            dataValueWilayahNegara.kode = wilayahNegara.val();
+            loadWilayah(dataValueWilayahNegara);
+        }
+
+        /* GET WILAYAH KABUPATEN Berdasarkan Provinsi */
+        if ( hasAttributeNegara && dataValueWilayahNegara.selected_next !== '') {
+            var dataValueWilayahProvinsi = wilayahProvinsi.attr('data-value'),
+                hasAttributeProvinsi = wilayahProvinsi.hasAttr('data-value');
+            dataValueWilayahProvinsi = (typeof dataValueWilayahProvinsi === 'string' ? JSON.parse(dataValueWilayahProvinsi) : dataValueWilayahProvinsi);
+            if (hasAttributeProvinsi) {
+                dataValueWilayahProvinsi.kode = dataValueWilayahNegara.selected_next;
+                loadWilayah(dataValueWilayahProvinsi);
+            }
+
+            /* GET WILAYAH KECAMATAN Berdasarkan Kabupaten */
+            if ( hasAttributeProvinsi && dataValueWilayahProvinsi.selected_next !== '') {
+                var dataValueWilayahKabupaten = wilayahKabupaten.attr('data-value'),
+                    hasAttributeKabupaten = wilayahKabupaten.hasAttr('data-value');
+                dataValueWilayahKabupaten = (typeof dataValueWilayahKabupaten === 'string' ? JSON.parse(dataValueWilayahKabupaten) : dataValueWilayahKabupaten);
+                if (hasAttributeKabupaten) {
+                    dataValueWilayahKabupaten.kode = dataValueWilayahProvinsi.selected_next;
+                    loadWilayah(dataValueWilayahKabupaten);
+                }
+
+                /* GET WILAYAH DESA Berdasarkan Kecamatan */
+                if ( hasAttributeKabupaten && dataValueWilayahKabupaten.selected_next !== '') {
+                    var dataValueWilayahKecamatan = wilayahKecamatan.attr('data-value'),
+                        hasAttributeKecamatan = wilayahKecamatan.hasAttr('data-value');
+                    dataValueWilayahKecamatan = (typeof dataValueWilayahKecamatan === 'string' ? JSON.parse(dataValueWilayahKecamatan) : dataValueWilayahKecamatan);
+                    if (hasAttributeKecamatan) {
+                        dataValueWilayahKecamatan.kode = dataValueWilayahKabupaten.selected_next;
+                        loadWilayah(dataValueWilayahKecamatan);
+                    }
+                }
+            }
+        }
+    }
+
+    /* wilayah1 */
+
+    var wilayahNegara1 = $('.selectWilayahNegara1',document),
+        wilayahProvinsi1 = $('.selectWilayahProvinsi1',document),
+        wilayahKabupaten1 = $('.selectWilayahKabupaten1',document),
+        wilayahKecamatan1 = $('.selectWilayahKecamatan1',document),
+        wilayahDesa1 = $('.selectWilayahDesa1',document);
+
+    /* GET WILAYAH Provinsi Berdasarkan Negara */
+    if(wilayahNegara1.length && wilayahNegara1.val()!=='') {
+        var dataValueWilayahNegara1 = wilayahNegara1.attr('data-value'),
+            hasAttributeNegara1 = wilayahNegara1.hasAttr('data-value');
+        dataValueWilayahNegara1 = (typeof dataValueWilayahNegara1 === 'string' ? JSON.parse(dataValueWilayahNegara1) : dataValueWilayahNegara1);
+        if (hasAttributeNegara1) {
+            dataValueWilayahNegara1.kode = wilayahNegara1.val();
+            loadWilayah(dataValueWilayahNegara1);
+        }
+        /* GET WILAYAH KABUPATEN Berdasarkan Provinsi */
+        if ( hasAttributeNegara1 && dataValueWilayahNegara1.selected_next !== '') {
+            var dataValueWilayahProvinsi1 = wilayahProvinsi1.attr('data-value'),
+                hasAttributeProvinsi1 = wilayahProvinsi1.hasAttr('data-value');
+            dataValueWilayahProvinsi1 = (typeof dataValueWilayahProvinsi1 === 'string' ? JSON.parse(dataValueWilayahProvinsi1) : dataValueWilayahProvinsi1);
+            if (hasAttributeProvinsi1) {
+                dataValueWilayahProvinsi1.kode = dataValueWilayahNegara1.selected_next;
+                loadWilayah1(dataValueWilayahProvinsi1);
+            }
+
+            /* GET WILAYAH KECAMATAN Berdasarkan Kabupaten */
+            if ( hasAttributeProvinsi1 && dataValueWilayahProvinsi1.selected_next !== '') {
+                var dataValueWilayahKabupaten1 = wilayahKabupaten1.attr('data-value'),
+                    hasAttributeKabupaten1 = wilayahKabupaten1.hasAttr('data-value');
+                dataValueWilayahKabupaten1 = (typeof dataValueWilayahKabupaten1 === 'string' ? JSON.parse(dataValueWilayahKabupaten1) : dataValueWilayahKabupaten1);
+                if (hasAttributeKabupaten1) {
+                    dataValueWilayahKabupaten1.kode = dataValueWilayahProvinsi1.selected_next;
+                    loadWilayah1(dataValueWilayahKabupaten1);
+                }
+
+                /* GET WILAYAH DESA Berdasarkan Kecamatan */
+                if ( hasAttributeKabupaten1 && dataValueWilayahKabupaten1.selected_next !== '') {
+                    var dataValueWilayahKecamatan1 = wilayahKecamatan1.attr('data-value'),
+                        hasAttributeKecamatan1 = wilayahKecamatan1.hasAttr('data-value');
+                    dataValueWilayahKecamatan1 = (typeof dataValueWilayahKecamatan1 === 'string' ? JSON.parse(dataValueWilayahKecamatan1) : dataValueWilayahKecamatan1);
+                    if (hasAttributeKecamatan1) {
+                        dataValueWilayahKecamatan1.kode = dataValueWilayahKabupaten1.selected_next;
+                        loadWilayah1(dataValueWilayahKecamatan1);
+                    }
+                }
+            }
+        }
+    }
+}
+
+function loadWilayah (params) {
+    $.ajax({
+        url:simple_cms._url + '/wilayah/get/ajax', type:'POST', dataType:'json',  cache:false, data:params,
+        success: function(data){
+            var res = data.body;
+            if (res.length) {
+                var html = '<option value="">-Pilih-</option>',
+                    wilayah = params.to,
+                    selected_current = params.selected_current,
+                    selected_next = params.selected_next,
+                    kode_wilayah = 'kode_'+wilayah,
+                    nama_wilayah = 'nama_'+wilayah,
+                    selectorPlace = '.selectWilayah' + wilayah.ucwords(),
+                    kabupaten_show = (typeof params.kabupaten_show !== 'undefined' ? params.kabupaten_show : []);
+                kabupaten_show = (typeof kabupaten_show === 'string' ? JSON.parse(kabupaten_show) : kabupaten_show);
+                for(var i=0;i < res.length;i++){
+                    if(typeof params.kabupaten_show !== 'undefined'){
+                        if($.inArray(res[i][kode_wilayah],kabupaten_show) !== -1) {
+                            html += '<option value="' + res[i][kode_wilayah] + '" ' + (res[i][kode_wilayah] === selected_next ? 'selected' : '') + '>' + res[i][nama_wilayah] + '</option>';
+                        }
+                    }else {
+                        selected_next = (wilayah === 'negara' ? selected_current : selected_next);
+                        html += '<option value="'+res[i][kode_wilayah]+'" '+(res[i][kode_wilayah]===selected_next?'selected':'')+'>'+res[i][nama_wilayah]+'</option>';
+                    }
+                }
+                $(selectorPlace, document).html(html);
+                if (wilayah === 'negara'){
+                    AutoLoadWilayah();
+                }
+            }else{
+                switch (params.to){
+                    case 'provinsi' :
+                        $('.selectWilayahProvinsi,.selectWilayahKabupaten,.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kabupaten' :
+                        $('.selectWilayahKabupaten,.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kecamatan' :
+                        $('.selectWilayahKecamatan,.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'desa' :
+                        $('.selectWilayahDesa').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                }
+            }
+        }
+    });
+}
+
+function loadWilayah1 (params) {
+    $.ajax({
+        url:simple_cms._url + '/wilayah/get/ajax', type:'POST', dataType:'json',  cache:false, data:params,
+        success: function(data){
+            var res = data.body;
+            if (res.length) {
+                var html = '<option value="">-Pilih-</option>',
+                    wilayah = params.to,
+                    selected_current = params.selected_current,
+                    selected_next = params.selected_next,
+                    kode_wilayah = 'kode_'+wilayah,
+                    nama_wilayah = 'nama_'+wilayah,
+                    selectorPlace = '.selectWilayah' + wilayah.ucWords() + '1',
+                    kabupaten_show = (typeof params.kabupaten_show !== 'undefined' ? params.kabupaten_show : []);
+                kabupaten_show = (typeof kabupaten_show === 'string' ? JSON.parse(kabupaten_show) : kabupaten_show);
+                for(var i=0;i < res.length;i++){
+                    if(typeof params.kabupaten_show !== 'undefined'){
+                        if($.inArray(res[i][kode_wilayah],kabupaten_show) !== -1) {
+                            html += '<option value="' + res[i][kode_wilayah] + '" ' + (res[i][kode_wilayah] === selected_next ? 'selected' : '') + '>' + res[i][nama_wilayah] + '</option>';
+                        }
+                    }else {
+                        selected_next = (wilayah === 'negara' ? selected_current : selected_next);
+                        html += '<option value="'+res[i][kode_wilayah]+'" '+(res[i][kode_wilayah]===selected_next?'selected':'')+'>'+res[i][nama_wilayah]+'</option>';
+                    }
+                }
+                $(selectorPlace, document).html(html);
+                if (wilayah === 'negara'){
+                    AutoLoadWilayah();
+                }
+            }else{
+                switch (params.to){
+                    case 'provinsi' :
+                        $('.selectWilayahProvinsi1,.selectWilayahKabupaten1,.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kabupaten' :
+                        $('.selectWilayahKabupaten1,.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'kecamatan' :
+                        $('.selectWilayahKecamatan1,.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                    case 'desa' :
+                        $('.selectWilayahDesa1').html('<option value="" selected>-Pilih-</option>');
+                        break;
+                }
+            }
+        }
+    });
+}

@@ -1,0 +1,32 @@
+{
+    "name": "simple_cms/menu",
+    "description": "",
+    "authors": [
+        {
+            "name": "Ahmad Windi Wijayanto",
+            "email": "ahmadwindiwijayanto@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "^7.0",
+        "illuminate/config": "^7.0",
+        "illuminate/view": "^7.0",
+        "laravelcollective/html": "6.*"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SimpleCMS\\Menu\\Providers\\MenuServiceProvider"
+            ],
+            "aliases": {
+                "Menu": "SimpleCMS\\Menu\\Facades\\Menu"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SimpleCMS\\Menu\\": ""
+        }
+    }
+}

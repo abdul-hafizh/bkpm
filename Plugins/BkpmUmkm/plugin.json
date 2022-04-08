@@ -1,0 +1,13 @@
+{
+    "name": "BkpmUmkm",
+    "title": "BkpmUmkm",
+    "slug": "bkpmumkm",
+    "identifier": "simple_cms.plugins.bkpmumkm",
+    "author": "Ahmad Windi Wijayanto",
+    "link_author": "https:\/\/github.com\/whendy",
+    "version": "1.0.0",
+    "description": "This description was generated automatically.",
+    "enabled": true,
+    "setting": false,
+    "detail": false
+}

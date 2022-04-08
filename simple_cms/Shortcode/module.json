@@ -1,0 +1,13 @@
+{
+    "name": "Shortcode",
+    "alias": "shortcode",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\Shortcode\\Providers\\ShortcodeServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

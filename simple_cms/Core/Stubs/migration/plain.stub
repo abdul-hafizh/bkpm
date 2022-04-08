@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class $CLASS$ extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        if ( ! Schema::hasTable('$TABLE$') )
+        {
+            Schema::create('$TABLE$', function (Blueprint $table) {
+                $table->bigIncrements('id');
+    $FIELDS$
+                $table->softDeletes()->index();
+                $table->timestamps();
+                $table->index('created_at', '$TABLE$_created_at_index');
+                $table->index('updated_at', '$TABLE$_updated_at_index');
+                $table->engine = 'InnoDB';
+            });
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('$TABLE$');
+    }
+}

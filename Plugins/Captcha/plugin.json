@@ -1,0 +1,13 @@
+{
+    "name": "Captcha",
+    "title": "Captcha",
+    "slug": "captcha",
+    "identifier": "captcha",
+    "author": "Ahmad Windi Wijayanto",
+    "link_author": "https:\/\/github.com\/whendy",
+    "version": "1.0.0",
+    "description": "Show captcha or invisible captcha in Comment Form, Login, Register, Lost Password, Reset Password. Also can implement in any other form easily.",
+    "enabled": true,
+    "setting": false,
+    "detail": false
+}

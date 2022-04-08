@@ -1,0 +1,13 @@
+{
+    "name": "Core",
+    "alias": "core",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "SimpleCMS\\Core\\Providers\\CoreServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

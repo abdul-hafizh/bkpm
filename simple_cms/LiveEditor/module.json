@@ -1,0 +1,13 @@
+{
+    "name": "LiveEditor",
+    "alias": "liveeditor",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\LiveEditor\\Providers\\LiveEditorServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

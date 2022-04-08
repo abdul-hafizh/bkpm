@@ -1,0 +1,65 @@
+<?php
+
+namespace {{namespace}};
+
+use SimpleCMS\Widget\AbstractWidget;
+
+class {{class}} extends AbstractWidget
+{
+    /**
+     * The configuration array.
+     *
+     * @var array
+     */
+    protected $config = [];
+
+    /**
+     * The setting widget cached.
+     *
+     */
+    // protected $widget_setting_cache;
+
+    protected $widgetDirectory = "{{class}}";
+    // protected $frontendTemplate = 'frontend';
+    // protected $backendTemplate  = 'backend';
+    // protected $theme;
+
+    /**
+     * Text constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct([
+            'name' => 'Text',
+            'description' => 'Arbitrary text or HTML.',
+            'content' => null,
+        ]);
+
+        // $this->widget_setting_cache = app('simple_cms_setting');
+        // $this->theme = themeActive();
+    }
+
+    /**
+     * Treat this method as a controller action.
+     * Return view() or other content to display.
+     */
+    /*
+    public function run()
+    {
+        //
+    }
+    */
+
+    /**
+     * This method for setting this widget.
+     * Return view() or other content to display.
+     * @param null $group
+     * @param int $position
+     */
+    /*
+    public function formSetting($group = null, $position = 0)
+    {
+
+    }
+    */
+}

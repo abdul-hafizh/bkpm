@@ -1,0 +1,13 @@
+{
+    "name": "Wilayah",
+    "alias": "wilayah",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\Wilayah\\Providers\\WilayahServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Menu",
+    "alias": "menu",
+    "description": "",
+    "keywords": [],
+    "order": 2,
+    "providers": [
+        "SimpleCMS\\Menu\\Providers\\MenuServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

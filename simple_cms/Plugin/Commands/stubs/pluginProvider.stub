@@ -1,0 +1,89 @@
+<?php
+
+namespace {namespace}Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class {name}ServiceProvider extends ServiceProvider
+{
+	/**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->registerConfig();
+        $this->publishAssets();
+
+    }
+
+	/**
+     * Boot the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerTranslations();
+        $this->registerViews();
+        if (!$this->app->runningInConsole()) {
+            $this->app->register(\{namespace}Providers\RouteServiceProvider::class);
+        }
+    }
+
+    /**
+     * Register config.
+     *
+     * @return void
+     */
+    protected function registerConfig()
+    {
+        $path_config = base_path('Plugins/{name}/Config');
+        $this->mergeConfigFrom(
+            $path_config . '/config.php', 'simple_cms.plugins.{identifier}'
+        );
+    }
+
+    /**
+     * Register views.
+     *
+     * @return void
+     */
+    public function registerViews()
+    {
+        $this->app['view']->addNamespace('simple_cms.plugins.{identifier}', base_path('Plugins/{name}/Resources/views'));
+    }
+
+    /**
+     * Register translations.
+     *
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        $this->app['translator']->addNamespace('simple_cms.plugins.{identifier}', base_path('Plugins/{name}/Resources/lang'));
+    }
+
+    /**
+     * Publish/Link assets to public folder.
+     */
+    public function publishAssets()
+    {
+        $link_path = public_path('plugins/{identifier}');
+        $target_path = base_path('Plugins/{name}/Resources/assets');
+        if (!$this->app['files']->exists($link_path) && $this->app['files']->exists($target_path)) {
+            $this->app->make('files')->link($target_path, $link_path);
+        }
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [];
+    }
+}

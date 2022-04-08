@@ -1,0 +1,38 @@
+.myDropZone, .myDropZone * {
+    box-sizing: border-box
+}
+.myDropZone input[type=file],
+.myDropZone input[type=file]:focus {
+    position: absolute;
+    outline: none !important;
+    width: 100%;
+    height: 150px;
+    cursor: pointer;
+    opacity: 0;
+}
+.myDropZone {
+    min-height: 150px;
+    border: 2px dashed rgba(64, 62, 62, 0.49);
+    /*background: white;*/
+    /*padding: 20px 20px*/
+    background-image: linear-gradient(rgb(248 247 247 / 78%),rgba(248 247 247 / 78%)), url(../image/dropzone.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.myDropZoneView .mdz-image {
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 120px;
+    height: 100px;
+    position: relative;
+    display: block;
+    z-index: 10;
+}
+
+.myDropZoneView .mdz-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

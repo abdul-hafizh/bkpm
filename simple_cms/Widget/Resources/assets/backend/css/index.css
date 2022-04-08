@@ -1,0 +1,29 @@
+/*
+ * Created By : Ahmad Windi Wijayanto
+ * Email : ahmadwindiwijayanto@gmail.com
+ * website : https://whendy.net
+ * --------- 4/16/20, 4:50 PM ---------
+ */
+
+.widgets-available .card, .widgets-clone .card {
+    background-color: #f4f6f9!important;
+}
+.widgets-available .card {
+    margin-bottom: 0;
+}
+.widgets-available .widgets-description {
+    padding: 0 7px 7px 7px;
+}
+.widgets-available .card-tools {
+    display: none;
+}
+
+.widgets-clone .card-body {
+    font-size: 14px;
+}
+.widgets-clone .card-body .form-group label {
+    margin-bottom: 0;
+}
+.widgets-clone .widgets-description {
+    display: none;
+}

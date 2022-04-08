@@ -1,0 +1,13 @@
+{
+    "name": "Slider",
+    "alias": "slider",
+    "description": "",
+    "keywords": [],
+    "order": 1,
+    "providers": [
+        "SimpleCMS\\Slider\\Providers\\SliderServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

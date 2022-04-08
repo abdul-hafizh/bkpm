@@ -1,0 +1,15 @@
+/*
+ * Created By : Ahmad Windi Wijayanto
+ * Email : ahmadwindiwijayanto@gmail.com
+ * website : https://whendy.net
+ * --------- 3/19/20, 3:06 PM ---------
+ */
+
+.table-noborder td, .table-noborder th,
+.table-no-border td, .table-no-border th{
+    border: 0!important;
+}
+.table-nopadding td, .table-nopadding th,
+.table-no-padding td, .table-no-padding th{
+    padding: 0!important;
+}

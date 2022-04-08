@@ -1,0 +1,27 @@
+{
+  "name": "simple_cms/theme",
+  "type": "SimpleCMS theme",
+  "description": "Theme {Theme} for SimpleCMS",
+  "homepage": "http://whendy.net",
+  "authors": [
+    {
+      "name": "Ahmad Windi Wijayanto",
+      "homepage": "http://whendy.net"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Themes\\{Theme}\\Providers\\RouteServiceProvider"
+      ]
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Themes\\{Theme}\\": "src/"
+    }
+  }
+}
