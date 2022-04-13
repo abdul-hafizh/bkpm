@@ -163,10 +163,8 @@ class UmkmBersediaDataTable extends DataTable
      */
     public function html()
     {
-        $buttons = [
-            //Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.survey.add", ['company' => $this->company_category]).'"')->text("<i class='fas fa-plus'></i> " . trans("label.add_new_survey_{$this->company_category}")),
-            Button::make('export'),
-            /*Button::make('print'),*/
+        $buttons = [            
+            Button::make('export'),            
             Button::make('reset'),
             Button::make('reload')
         ];
@@ -197,20 +195,21 @@ CDATA;
             Column::make('no_index', 'no_index')->title('No')
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),
+                
             Column::make('umkm.name')->title(trans('label.name_umkm')),
             Column::make("{$this->company_category}.nib")->title(trans("label.nib_{$this->company_category}")),
             Column::make('umkm.provinsi.nama_provinsi')->title(trans('wilayah::label.province')),
             Column::make('umkm.address')->title(trans('label.address_umkm')),
             Column::make("{$this->company_category}.name_pic")->title(trans("label.name_pic_of_{$this->company_category}")),
             Column::make('statusRaw')->name('status')->title(trans('label.status'))->printable(false),
-//            Column::make('status')->visible(false),
+
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
                 ->exportable(false)
                 ->printable(false)
                 ->width('auto')
-                //->addClass('text-center')
         ];
+        
         if ($this->viewed){
             unset($columns[7]);
         }
