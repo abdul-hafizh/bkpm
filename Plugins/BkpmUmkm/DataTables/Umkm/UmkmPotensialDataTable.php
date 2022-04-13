@@ -23,7 +23,7 @@ class UmkmPotensialDataTable extends DataTable
     protected $company_category = CATEGORY_UMKM;
     protected $viewed = false;
     protected $belum_disurvey = false;
-    protected $periode, $wilayah_id, $provinsi_id;
+    protected $periode, $wilayah_id, $provinsi_id, $provinsi_id_select;
     protected $has_not_nib='';
 
     public function __construct()
@@ -44,6 +44,7 @@ class UmkmPotensialDataTable extends DataTable
         $this->has_not_nib = (request()->has('nib') && filter(request()->input('nib')) != '' ? filter(request()->input('nib')) : '');
         $this->wilayah_id = (request()->has('wilayah_id') && filter(request()->input('wilayah_id')) != '' ? filter(request()->input('wilayah_id')) : 'all');
         $this->provinsi_id = (request()->has('provinsi_id') && filter(request()->input('provinsi_id')) != '' ? filter(request()->input('provinsi_id')) : 'all');
+        $this->provinsi_id_select = (request()->has('provinsi_id_select') && filter(request()->input('provinsi_id_select')) != '' ? filter(request()->input('provinsi_id_select')) : 'all');
     }
 
     /**
@@ -171,6 +172,8 @@ class UmkmPotensialDataTable extends DataTable
                 $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
                 if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
                     $provinces = [$this->provinsi_id];
+                }if ($this->provinsi_id_select&&$this->provinsi_id_select!=='all'&&in_array($this->provinsi_id_select, $provinces)){
+                    $provinces = [$this->provinsi_id_select];
                 }
                 $model->whereIn('companies.id_provinsi', $provinces);
                 break;
@@ -181,8 +184,10 @@ class UmkmPotensialDataTable extends DataTable
                     if($this->wilayah_id!='all') {
                         $provinces = $wilayah[$this->wilayah_id]['provinces'];
                     }
-                    if ($this->provinsi_id && $this->provinsi_id !== 'all'&&in_array($this->provinsi_id, $provinces)) {
+                    if ($this->provinsi_id && $this->provinsi_id !== 'all' && in_array($this->provinsi_id, $provinces)) {
                         $provinces = [$this->provinsi_id];
+                    }if ($this->provinsi_id_select && $this->provinsi_id_select !== 'all' && in_array($this->provinsi_id_select, $provinces)) {
+                        $provinces = [$this->provinsi_id_select];
                     }elseif ($this->provinsi_id == 'all' && $this->wilayah_id=='all'){
                         foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
                             if (count($wilayah1['provinces'])){

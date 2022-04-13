@@ -35,14 +35,7 @@ class SurveyService
             $survey->company_id = $company_id;
             $survey->surveyor_id = $surveyor_id;
             $survey->estimated_date = Carbon::parse(filter($request->input('estimated_date')))->format('Y-m-d');
-            $survey->save();
-
-            /*$data = [
-                'company_id' => $company_id,
-                'surveyor_id' => $surveyor_id,
-                'estimated_date' => Carbon::parse(filter($request->input('estimated_date')))->format('Y-m-d')
-            ];
-            $survey = SurveyModel::query()->updateOrCreate(['company_id' => $company_id], $data);*/
+            $survey->save();          
 
             $message = ($id ? 'Edit' : 'Add') . ' survey ' . trans("label.survey_{$category_company}");
             $logProperties['attributes'] = $survey->toArray();
@@ -194,7 +187,6 @@ class SurveyService
             $survey_result = SurveyResultModel::query()->updateOrCreate(['survey_id' => $survey_id], $data_survey_result);
 
             $logProperties['attributes'] = $survey->with(['survey_result', $category_company])->first()->toArray();
-//            $logProperties['attributes']['survey_result'] = $survey_result->toArray();
 
             if ($data_survey['status'] == 'verified'){
                 $message = '<strong>'. trans('label.verified') .'</strong> survey ' . trans("label.survey_{$category_company}");
@@ -433,7 +425,7 @@ class SurveyService
                     ]);
                 }
             }
-            /*========================================*/
+            /*====================================================*/
             if ($request->file('data.dokumentasi_profil_usaha.legalitas.siup_upload.file')) {
                 if (!isset($data['data']['dokumentasi_profil_usaha']['legalitas']['siup']["file"])){
                     $data['data']['dokumentasi_profil_usaha']['legalitas']['siup']["file"] = [];

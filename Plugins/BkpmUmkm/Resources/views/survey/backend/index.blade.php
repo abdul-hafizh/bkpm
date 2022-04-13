@@ -55,17 +55,19 @@
             let dataTables_wrapper= $('div.dataTables_wrapper').find('div.row');
             dataTables_wrapper.find('div.toolbar-button-datatable').removeClass('col-md-6').addClass('col-md-8');
             dataTables_wrapper.find('div.text-right').removeClass('col-md-6').addClass('col-md-4');
-
         });
+        
         @php
             $periodes = [];
             foreach (list_years() as $y) {
                 $periodes[] = $y;
             }
         @endphp
+
         const periodes = @json($periodes),
-            label_all_provinsi = '@lang('label.all_provinsi')';
+        label_all_provinsi = '@lang('label.all_provinsi')';
         let filter_wilayah_status = '';
+
         @if(in_array(auth()->user()->group_id, [GROUP_QC_KORWIL,GROUP_ASS_KORWIL,GROUP_TA,GROUP_SUPER_ADMIN,GROUP_ADMIN]))
             filter_wilayah_status += '<div class="col-2 form-group">';
             filter_wilayah_status += '<label>@lang('label.wilayah')</label>';
