@@ -120,20 +120,10 @@ $(document).ready(function () {
 
     $(document).on('change', 'select.filterDataTableWilayah', function(){
         let self = $(this),
-            selectProvinsiOption = '<option value="all" selected>'+label_all_provinsi +'</option>',
+            //selectProvinsiOption = '<option value="all" selected>'+label_all_provinsi +'</option>',
+	    selectProvinsiOption = '<option value="all">'+label_all_provinsi +'</option>',
             provinces = $('select.filterDataTableWilayah > option:selected', document).attr('data-provinces');
         provinces = (typeof provinces === "string" ? JSON.parse(provinces):provinces);
-
-        if ($('select.select2FilterDataTableProvinsi',document).length && self.val()==='all'){
-            let reMapProvincesAll = [];
-            $.each($('select.filterDataTableWilayah > option', document), function(){
-                let getProv = $(this).attr('data-provinces');
-                getProv = (typeof getProv === "string" ? JSON.parse(getProv):getProv);
-                $.merge(reMapProvincesAll, getProv);
-            });
-            provinces = reMapProvincesAll;
-        }
-
         if (provinces.length) {
             $.each(provinces, function(idx, val){
                 selectProvinsiOption += `<option value="${val.kode_provinsi}">${val.nama_provinsi}</option>`;
@@ -144,12 +134,12 @@ $(document).ready(function () {
 
     $('select[name="status_survey"]').trigger('change');
 
-    $('.select2FilterDataTableProvinsi',document).select2({
+    /*$('.select2FilterDataTableProvinsi',document).select2({
         placeholder: "--Select--",
         allowClear: true,
         theme: 'bootstrap4',
         width: '100%',
         multiple:true,
         tags: true
-    });
+    });*/
 });

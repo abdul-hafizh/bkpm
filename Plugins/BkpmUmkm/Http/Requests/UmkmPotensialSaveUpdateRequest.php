@@ -27,19 +27,31 @@ class UmkmPotensialSaveUpdateRequest extends FormRequest
         $pic_id = encrypt_decrypt(filter($this->input('pic_id')), 2);
         $id_provinsi = filter($this->input('id_provinsi'));
         $company_category = CATEGORY_UMKM;
-        $this->role = [            
+        $this->role = [
+            /*'name'  => "required|unique:companies,name,{$id},id,category,{$company_category},id_provinsi,{$id_provinsi}",*/
             'name'  => "required",
+//            'type'  => 'required',
+//            'business_sector_id' => 'required|exists:business_sectors,id',
             'code_kbli' => 'required',
             'email'         => 'required|email',
             'id_negara'     => 'required',
             'id_provinsi'   => 'required',
+//            'name_director'  => 'required',
             'name_pic' => 'required',
             'email_pic' => "required|email|unique:users,email,{$pic_id}",
             'phone_pic' => "required|unique:users,mobile_phone,{$pic_id}",
+//            'infrastructure'=> 'required',
+//            'total_employees'=> 'required',
+//            'net_worth' => 'required',
+//            'omset_every_year' => 'required',
+//            'estimated_venture_capital' => 'required'
         ];
         if ($this->has('business_sector_id') && $this->input('business_sector_id')) {
             $this->role['business_sector_id'] = 'required|exists:business_sectors,id';
         }
+        /*if ($this->has('code_kbli') && $this->input('code_kbli')) {
+            $this->role['code_kbli'] = 'required|exists:kbli,code';
+        }*/
         if (!$pic_id){
             $this->role['password'] = ['required', 'string', 'min:8', 'confirmed'];
         }

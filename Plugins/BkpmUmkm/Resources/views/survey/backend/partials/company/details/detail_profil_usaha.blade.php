@@ -180,17 +180,6 @@
                 </td>
             </tr>
             <tr class="row">
-                <td class="col-md-1 col-sm-3 col-xs-3"></td>
-                <td class="col-md-3 col-sm-8 col-xs-8">Jumlah Kantor Cabang </td>
-                <td class="col-md-8 col-sm-12 col-xs-12">                    
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">                                                        
-                            {{ (isset($profil_usaha['jumlah_kantor_cabang']) ? $profil_usaha['jumlah_kantor_cabang'] : '-') }}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="row">
                 <td class="col-md-1 col-sm-3 col-xs-3">1.9</td>
                 <td class="col-md-3 col-sm-8 col-xs-8">Nomor Telepon/Fax/Ponsel Perusahaan </td>
                 <td class="col-md-8 col-sm-12 col-xs-12">
@@ -280,15 +269,8 @@
             <tr class="row">
                 <td class="col-md-1 col-sm-3 col-xs-3">1.12</td>
                 <td class="col-md-3 col-sm-8 col-xs-8">Nama Kontak Person </td>
-                <td class="col-md-8 col-sm-12 col-xs-12">                    
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 col-xs-12">
-                            Nama : {{ (isset($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : '-') }}
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12">
-                            Jabatan : {{ (isset($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : '-') }}
-                        </div>
-                    </div>
+                <td class="col-md-8 col-sm-12 col-xs-12">
+                    {{ (isset($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : '-') }}
                 </td>
             </tr>
             <tr class="row">

@@ -5,7 +5,7 @@
 @endsection
 @push('css_stack')
     {!! library_datatables('css') !!}
-    {!! library_select2('css') !!}
+    
 @endpush
 @section('layout')
     <div class="container-fluid">
@@ -77,11 +77,8 @@
             filter_wilayah_status += '</div>';
             filter_wilayah_status += '<div class="col-3 form-group">';
             filter_wilayah_status += '<label>@lang('label.provinsi')</label>';
-            @if(request()->route()->getName() == "simple_cms.plugins.bkpmumkm.backend.survey.company.index" || request()->route()->getName() == "simple_cms.plugins.bkpmumkm.backend.survey.umkm.index")
-                filter_wilayah_status += '<select class="form-control form-control-sm eventDataTableLoadDataTrashedForm filterDataTableProvinsi select2FilterDataTableProvinsi" name="provinsi_id[]">';
-            @else
-                filter_wilayah_status += '<select class="form-control form-control-sm eventDataTableLoadDataTrashedForm filterDataTableProvinsi" select2FilterDataTableProvinsi" name="provinsi_id[]">';
-            @endif
+	    filter_wilayah_status += '<select class="form-control form-control-sm eventDataTableLoadDataTrashedForm filterDataTableProvinsi" name="provinsi_id">';
+            filter_wilayah_status += '<option value="all">@lang('label.all_provinsi')</option>';            
             filter_wilayah_status += '<option value="all" selected>@lang('label.all_provinsi')</option>';
             filter_wilayah_status += '</select>';
             filter_wilayah_status += '</div>';
@@ -99,7 +96,7 @@
         filter_wilayah_status += '</select>';
         filter_wilayah_status += '</div>';
     </script>
-    {!! library_select2('js') !!}
+    
     {!! library_datatables('js') !!}
     {!! $dataTable->scripts() !!}
     {!! module_script('core','js/events.js') !!}
