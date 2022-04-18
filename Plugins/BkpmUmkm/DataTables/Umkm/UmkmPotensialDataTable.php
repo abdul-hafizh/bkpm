@@ -23,7 +23,7 @@ class UmkmPotensialDataTable extends DataTable
     protected $company_category = CATEGORY_UMKM;
     protected $viewed = false;
     protected $belum_disurvey = false;
-    protected $periode, $wilayah_id, $provinsi_id, $provinsi_id_select;
+    protected $periode, $wilayah_id, $provinsi_id, $sektor_id;
     protected $has_not_nib='';
 
     public function __construct()
@@ -44,7 +44,7 @@ class UmkmPotensialDataTable extends DataTable
         $this->has_not_nib = (request()->has('nib') && filter(request()->input('nib')) != '' ? filter(request()->input('nib')) : '');
         $this->wilayah_id = (request()->has('wilayah_id') && filter(request()->input('wilayah_id')) != '' ? filter(request()->input('wilayah_id')) : 'all');
         $this->provinsi_id = (request()->has('provinsi_id') && filter(request()->input('provinsi_id')) != '' ? filter(request()->input('provinsi_id')) : 'all');
-        $this->provinsi_id_select = (request()->has('provinsi_id_select') && filter(request()->input('provinsi_id_select')) != '' ? filter(request()->input('provinsi_id_select')) : 'all');
+        $this->sektor_id = (request()->has('sektor_id') && filter(request()->input('sektor_id')) != '' ? filter(request()->input('sektor_id')) : 'all');
     }
 
     /**
@@ -203,12 +203,12 @@ class UmkmPotensialDataTable extends DataTable
         }
         if ($this->belum_disurvey){
             $model->whereRaw("companies.id NOT IN (select surveys.company_id FROM surveys where surveys.status in ('done','progress','revision','verified', 'bersedia', 'menolak', 'tutup', 'pindah'))");
-        }
-        /*if ($this->viewed && empty($this->has_not_nib)){*/
+        }        
+        
         $model->whereHas('survey', function ($q){
             $q->whereYear('surveys.created_at', $this->periode);
         });
-        /*}*/
+        
         if (!empty($this->has_not_nib)){
             switch ($this->has_not_nib){
                 case 'has':
@@ -219,6 +219,11 @@ class UmkmPotensialDataTable extends DataTable
                     break;
             }
         }
+
+        if (!empty($this->sektor_id != 'all')){
+            $model->where('companies.business_sector_id', '=', $this->sektor_id);
+        }
+
         switch ($this->trash){
             case 'not-trash':
                 $model->withoutTrashed();
