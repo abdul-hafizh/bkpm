@@ -107,7 +107,7 @@ $(document).ready(function () {
     });
 
     let dataTableID = $(document).find('table.dataTable').attr('id'),
-        periode = '<div class="form-group col-2">';
+    periode = '<div class="form-group col-2">';
     periode += '<label>Periode</label>';
     periode += '<select class="form-control form-control-sm eventDataTableLoadDataTrashedForm" name="periode">';
     $.each(periodes, function(idx, val){
