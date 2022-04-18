@@ -50,9 +50,9 @@
                             <label class="">Jenis Supply</label>                            
                             <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>
                                 <option value="">Pilih Jenis Supply</option>
-                                <option value="Rantai Pasok" {{ $kk['jenis_supply'] == 'Rantai Pasok' ? 'selected' : '' }}>Rantai Pasok</option>
-                                <option value="Bahan Baku Penolong" {{ $kk['jenis_supply'] == 'Bahan Baku Penolong' ? 'selected' : '' }}>Bahan Baku Penolong</option>
-                                <option value="Jasa-jasa Lainnya" {{ $kk['jenis_supply'] == 'Jasa-jasa Lainnya' ? 'selected' : '' }}>Jasa-jasa Lainnya</option>
+                                <option value="Rantai Pasok">Rantai Pasok</option>
+                                <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>
+                                <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>
                             </select>
                         </div>
                     </td>
