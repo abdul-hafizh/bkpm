@@ -54,12 +54,7 @@
                                 <option value="Rantai Pasok" {{ $kk['jenis_supply'] == 'Rantai Pasok' ? 'selected' : '' }}>Rantai Pasok</option>
                                 <option value="Bahan Baku Penolong" {{ $kk['jenis_supply'] == 'Bahan Baku Penolong' ? 'selected' : '' }}>Bahan Baku Penolong</option>
                                 <option value="Jasa-jasa Lainnya" {{ $kk['jenis_supply'] == 'Jasa-jasa Lainnya' ? 'selected' : '' }}>Jasa-jasa Lainnya</option>
-                                @endisset     
-                                @if(is_null($kk['jenis_supply']))
-                                <option value="Rantai Pasok">Rantai Pasok</option>
-                                <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>
-                                <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>
-                                @endif                        
+                                @endisset                         
                             </select>
                         </div>
                     </td>
