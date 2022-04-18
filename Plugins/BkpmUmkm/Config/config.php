@@ -17,6 +17,7 @@ return [
     'template_download_form_survey' => [
         'surat_pengantar'   => 'surat_pengantar',
         'surat_tugas'   => 'surat_tugas',
-        'kuesioner'     => 'kuesioner'        
+        'kuesioner'     => 'kuesioner'
+        /*'berita_acara'  => 'berita_acara'*/
     ]
 ];

@@ -192,7 +192,7 @@
             </tr>
             <tr class="row">
                 <td class="col-md-1 col-sm-3 col-xs-3"></td>
-                <td class="col-md-3 col-sm-8 col-xs-8">Koordinat GPS Lokasi asd<strong class="text-danger">**</strong></td>
+                <td class="col-md-3 col-sm-8 col-xs-8">Koordinat GPS Lokasi <strong class="text-danger">**</strong></td>
                 <td class="col-md-8 col-sm-12 col-xs-12">
                     <div id="boxOpenMap">
                         <div id="openMap" class="sizeOpenMap"></div>
@@ -205,17 +205,6 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             Latitude <strong class="text-danger">**</strong>
                             <input id="mapLat" type="text" name="data[profil_usaha][koordinat_gps_latitude]" value="{{ (isset($profil_usaha['koordinat_gps_latitude'])&&!empty($profil_usaha['koordinat_gps_latitude']) ? $profil_usaha['koordinat_gps_latitude'] : $survey->company->latitude) }}" placeholder="Latitude" class="form-control form-control-sm">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr class="row">
-                <td class="col-md-1 col-sm-3 col-xs-3"></td>
-                <td class="col-md-3 col-sm-8 col-xs-8">Jumlah Kantor Cabang <strong class="text-danger">**</strong></td>
-                <td class="col-md-8 col-sm-12 col-xs-12">                    
-                    <div class="row">
-                        <div class="col-sm-12 col-xs-12">                            
-                            <input type="number" min="0" max="999" name="data[profil_usaha][jumlah_kantor_cabang]" value="{{ (isset($profil_usaha['jumlah_kantor_cabang'])&&!empty($profil_usaha['jumlah_kantor_cabang']) ? $profil_usaha['jumlah_kantor_cabang'] : '-') }}" placeholder="Jumlah Kantor Cabang" class="form-control form-control-sm">
                         </div>
                     </div>
                 </td>
@@ -311,16 +300,7 @@
                 <td class="col-md-1 col-sm-3 col-xs-3">1.12</td>
                 <td class="col-md-3 col-sm-8 col-xs-8">Nama Kontak Person <strong class="text-danger">**</strong></td>
                 <td class="col-md-8 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 col-xs-12">
-                            Nama
-                            <input type="text" name="data[profil_usaha][nama_cp]" value="{{ (isset($profil_usaha['nama_cp'])&&!empty($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : $survey->company->name_pic) }}" placeholder="Nama Kontak Person" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-6 col-sm-12 col-xs-12">
-                            Jabatan
-                            <input type="text" name="data[profil_usaha][jabatan_cp]" value="{{ (isset($profil_usaha['jabatan_cp'])&&!empty($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : '') }}" placeholder="Jabatan Person" class="form-control form-control-sm">
-                        </div>
-                    </div>
+                    <input type="text" name="data[profil_usaha][nama_cp]" value="{{ (isset($profil_usaha['nama_cp'])&&!empty($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : $survey->company->name_pic) }}" placeholder="Nama Kontak Person" class="form-control form-control-sm">
                 </td>
             </tr>
             <tr class="row">

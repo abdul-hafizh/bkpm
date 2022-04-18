@@ -14,16 +14,15 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class UmkmBersediaDataTable extends DataTable
+class CompanyBersediaDataTableOld extends DataTable
 {
-    protected $dataTableID = 'surveyUmkmBersediaDatatable';
+    protected $dataTableID = 'surveyCompanyBersediaDatatable';
     protected $trash = 'all';
     protected $config;
     protected $identifier;
     protected $user;
-    protected $company_category = CATEGORY_UMKM;
+    protected $company_category = CATEGORY_COMPANY;
     protected $status = 'bersedia';
-    protected $viewed = false;
     protected $periode;
 
     public function __construct()
@@ -32,11 +31,6 @@ class UmkmBersediaDataTable extends DataTable
         $this->identifier = $this->config['identifier'];
         $this->trash = (request()->has('trashed') && filter(request()->input('trashed')) != '' ? filter(request()->input('trashed')) : 'all');
         $this->user = auth()->user();
-        $inModal = request()->get('in-modal');
-        if ($inModal){
-            $this->viewed = true;
-            $this->trash = 'not-trash';
-        }
         $this->periode = (request()->has('periode') && filter(request()->input('periode')) != '' ? filter(request()->input('periode')) : \Carbon\Carbon::now()->format('Y'));
     }
 
@@ -51,7 +45,7 @@ class UmkmBersediaDataTable extends DataTable
         return datatables()
             ->eloquent($query)
             ->editColumn("{$this->company_category}.name", function($q){
-                if ( hasRoute("{$this->identifier}.backend.verified_bersedia.detail") && hasRoutePermission("{$this->identifier}.backend.verified_bersedia.detail") && $q->survey_result && !$q->trashed() && !$this->viewed ){
+                if ( hasRoute("{$this->identifier}.backend.verified_bersedia.detail") && hasRoutePermission("{$this->identifier}.backend.verified_bersedia.detail") && $q->survey_result && !$q->trashed() ){
                     return '<a href="'. route("{$this->identifier}.backend.verified_bersedia.detail", ['company' => $this->company_category, 'status' => $q->status, 'survey'=>encrypt_decrypt($q->id)]) .'" title="'.trans("label.detail_{$this->company_category}_{$q->status}").'">'. $q->{$this->company_category}->name .'</a>';
                 }
                 return $q->{$this->company_category}->name;
@@ -84,7 +78,7 @@ class UmkmBersediaDataTable extends DataTable
                 $style_button = ($q->status == $this->status ? 'success' : ($q->status == 'done' ? 'info' : 'warning'));
                 $status = '<div class="btn-group-sm">
                                 <button type="button" class="btn btn-'.$style_button.' dropdown-toggle btn-sm" data-toggle="dropdown">'. $status .'</button>';
-                if (hasRoutePermission("{$this->identifier}.backend.survey.change_status") && in_array($q->status, [$this->status]) && enable_periode($q->created_at) && !$this->viewed) {
+                if (hasRoutePermission("{$this->identifier}.backend.survey.change_status") && in_array($q->status, [$this->status])) {
                     $status .= ' <div class="dropdown-menu  dropdown-menu-right">
                                     <a class="dropdown-item eventSurveyChangeStatus text-info" href="javascript:void(0);" data-selecteddatatable="'.$this->dataTableID.'" data-action="'. route("{$this->identifier}.backend.survey.change_status", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('verified')]) .'">'. trans("label.survey_status_tidak_bersedia") .'</a>
                                 </div>';
@@ -197,10 +191,10 @@ CDATA;
             Column::make('no_index', 'no_index')->title('No')
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),
-            Column::make('umkm.name')->title(trans('label.name_umkm')),
+            Column::make("{$this->company_category}.name")->title(trans("label.name_{$this->company_category}")),
             Column::make("{$this->company_category}.nib")->title(trans("label.nib_{$this->company_category}")),
-            Column::make('umkm.provinsi.nama_provinsi')->title(trans('wilayah::label.province')),
-            Column::make('umkm.address')->title(trans('label.address_umkm')),
+            Column::make("{$this->company_category}.provinsi.nama_provinsi")->title(trans('wilayah::label.province')),
+            Column::make("{$this->company_category}.address")->title(trans("label.address_{$this->company_category}")),
             Column::make("{$this->company_category}.name_pic")->title(trans("label.name_pic_of_{$this->company_category}")),
             Column::make('statusRaw')->name('status')->title(trans('label.status'))->printable(false),
 //            Column::make('status')->visible(false),
@@ -211,9 +205,6 @@ CDATA;
                 ->width('auto')
                 //->addClass('text-center')
         ];
-        if ($this->viewed){
-            unset($columns[7]);
-        }
         if ($this->user->group_id == GROUP_SURVEYOR){
             unset($columns[4]);
         }
@@ -227,6 +218,6 @@ CDATA;
      */
     protected function filename()
     {
-        return 'umkm_bersedia_' . date('YmdHis');
+        return "{$this->company_category}_bersedia_" . date('YmdHis');
     }
 }

@@ -5,7 +5,6 @@ namespace Plugins\BkpmUmkm\Http\Controllers\Umkm\Backend;
 use Plugins\BkpmUmkm\DataTables\Umkm\UmkmPotensialDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Http\Requests\UmkmImportRequest;
 use Plugins\BkpmUmkm\Http\Requests\UmkmPotensialSaveUpdateRequest;
 use Plugins\BkpmUmkm\Models\CompanyModel;
@@ -29,7 +28,6 @@ class UmkmPotensialController extends Controller
     public function index(UmkmPotensialDataTable $umkmDataTable)
     {
         $params['title'] = trans('label.umkm_potensial');
-        $params['sektor'] = DB::table('business_sectors')->get();
         $view = "{$this->identifier}::umkm.backend.potensial.index";
         $inModal = request()->get('in-modal');
         if ($inModal && encrypt_decrypt($inModal, 2)=='modal'){
@@ -42,6 +40,8 @@ class UmkmPotensialController extends Controller
     {
         $params['umkm']         = new CompanyModel();
         $params['title']        = trans('label.add_new_umkm_potensial');
+        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
+        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         return view( $this->identifier . '::umkm.backend.potensial.add_edit')->with($params);
     }
 
@@ -53,6 +53,8 @@ class UmkmPotensialController extends Controller
             return abort(404);
         }
         $params['title']        = trans('label.edit_umkm_potensial');
+        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
+        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         return view( $this->identifier . '::umkm.backend.potensial.add_edit')->with($params);
     }
 

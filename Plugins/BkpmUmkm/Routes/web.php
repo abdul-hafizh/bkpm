@@ -494,6 +494,7 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
 
         });
 
+
         /* Company & UMKM Verified/Bersedia Route */
         /* Company */
         Route::group(['prefix' => 'perusahaan', 'as'=>'company.survey.'], function() {
