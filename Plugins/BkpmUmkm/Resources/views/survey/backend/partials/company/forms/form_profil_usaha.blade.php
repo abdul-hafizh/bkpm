@@ -211,7 +211,7 @@
             </tr>
             <tr class="row">
                 <td class="col-md-1 col-sm-3 col-xs-3"></td>
-                <td class="col-md-3 col-sm-8 col-xs-8">Jumlah Kantor Cabang <strong class="text-danger">**</strong></td>
+                <td class="col-md-3 col-sm-8 col-xs-8">Jumlah Kantor Cabang</td>
                 <td class="col-md-8 col-sm-12 col-xs-12">                    
                     <div class="row">
                         <div class="col-sm-12 col-xs-12">                            
