@@ -311,7 +311,16 @@
                 <td class="col-md-1 col-sm-3 col-xs-3">1.12</td>
                 <td class="col-md-3 col-sm-8 col-xs-8">Nama Kontak Person <strong class="text-danger">**</strong></td>
                 <td class="col-md-8 col-sm-12 col-xs-12">
-                    <input type="text" name="data[profil_usaha][nama_cp]" value="{{ (isset($profil_usaha['nama_cp'])&&!empty($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : $survey->company->name_pic) }}" placeholder="Nama Kontak Person" class="form-control form-control-sm">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            Nama
+                            <input type="text" name="data[profil_usaha][nama_cp]" value="{{ (isset($profil_usaha['nama_cp'])&&!empty($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : $survey->company->name_pic) }}" placeholder="Nama Kontak Person" class="form-control form-control-sm">
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            Jabatan
+                            <input type="text" name="data[profil_usaha][jabatan_cp]" value="{{ (isset($profil_usaha['jabatan_cp'])&&!empty($profil_usaha['jabatan_cp']) ? $profil_usaha['nama_cp'] : '') }}" placeholder="Jabatan" class="form-control form-control-sm">
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr class="row">

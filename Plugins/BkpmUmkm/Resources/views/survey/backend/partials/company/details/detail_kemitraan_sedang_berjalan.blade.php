@@ -47,6 +47,11 @@
                             {{ (isset($ksb['jenis_pekerjaan'])?$ksb['jenis_pekerjaan']:'-') }}
                         </div>
                         <div class="form-group">
+                            <label class="">Jenis Supply</label>
+                            <br/>
+                            {{ (isset($ksb['jenis_supply'])?$ksb['jenis_supply']:'-') }}
+                        </div>
+                        <div class="form-group">
                             <label class="">Spesifikasi/Persyaratan</label>
                             <br/>
                             {!! nl2br(isset($ksb['persyaratan'])?$ksb['persyaratan']:'-') !!}
