@@ -48,7 +48,7 @@
                             <label class="d-md-none d-lg-none d-xl-none">@lang('label.kebutuhan_kemitraan_nilai_kontrak')</label>
                             <input type="text" name="data[kebutuhan_kemitraan][{{ $index_kk }}][nilai]" value="{{ (isset($kk['nilai'])?$kk['nilai']:'0') }}" placeholder="@lang('label.kebutuhan_kemitraan_nilai_kontrak')" class="form-control form-control-sm nominal nilai_kontrak">                        
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="">Jenis Supply</label>                            
                             <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>
                                 <option value="">Pilih Jenis Supply</option>
@@ -56,7 +56,7 @@
                                 <option value="Bahan Baku Penolong" {{ $kk['jenis_supply'] == 'Bahan Baku Penolong' ? 'selected' : '' }}>Bahan Baku Penolong</option>
                                 <option value="Jasa-jasa Lainnya" {{ $kk['jenis_supply'] == 'Jasa-jasa Lainnya' ? 'selected' : '' }}>Jasa-jasa Lainnya</option>
                             </select>
-                        </div>
+                        </div> -->
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <div class="form-group">
