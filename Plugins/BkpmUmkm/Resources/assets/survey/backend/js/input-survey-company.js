@@ -56,6 +56,15 @@ $(document).ready(function () {
             '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_pekerjaan]" value="" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">\n' +
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
+            '           <label class="d-md-none d-lg-none d-xl-none">Jenis Supply</label>\n' +            
+            '           <select name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_supply]" class="form-control form-control-sm" required>\n' +
+            '                <option value="">Pilih Jenis Supply</option>\n' +
+            '                <option value="Rantai Pasok">Rantai Pasok</option>\n' +
+            '                <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
+            '                <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>\n' +
+            '            </select>\n' +
+            '       </td>\n' +
+            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <label class="d-md-none d-lg-none d-xl-none">Produk</label>\n' +
             '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][produk]" value="" placeholder="Produk" class="form-control form-control-sm">\n' +
             '       </td>\n' +
