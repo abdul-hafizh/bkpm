@@ -282,7 +282,7 @@
                             Nama : {{ (isset($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : '-') }}
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
-                            Jabatan : {{ (isset($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : '-') }}
+                            Jabatan : {{ (isset($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : '-') }}
                         </div>
                     </div>
                 </td>
