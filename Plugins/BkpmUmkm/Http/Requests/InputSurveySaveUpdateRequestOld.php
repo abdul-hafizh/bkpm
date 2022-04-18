@@ -336,6 +336,7 @@ class InputSurveySaveUpdateRequestOld extends FormRequest
                         empty(filter($this->input('data.profil_usaha.ponsel'))) OR
                         empty(filter($this->input('data.profil_usaha.email'))) OR
                         empty(filter($this->input('data.profil_usaha.nama_cp'))) OR
+                        empty(filter($this->input('data.profil_usaha.jabatan_cp'))) OR
                         empty(filter($this->input('data.profil_usaha.email_cp'))) OR
                         empty(filter($this->input('data.profil_usaha.ponsel_cp'))) OR
                         empty(filter($this->input('data.profil_usaha.modal_awal')))

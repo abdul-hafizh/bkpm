@@ -25,9 +25,16 @@
             @foreach($kebutuhan_kemitraan as $k_kk => $kk)
                 <tr class="row">
                     <td class="col-md-2 col-sm-12 col-xs-12">
-                        <label class="d-md-none d-lg-none d-xl-none">Jenis Pekerjaan</label>
-                        <br class="d-md-none d-lg-none d-xl-none"/>
-                        {{ (isset($kk['jenis_pekerjaan'])?$kk['jenis_pekerjaan']:'-') }}
+                        <div class="form-group">                            
+                            <label class="d-md-none d-lg-none d-xl-none">Jenis Pekerjaan</label>
+                            <br class="d-md-none d-lg-none d-xl-none"/>
+                            {{ (isset($kk['jenis_pekerjaan'])?$kk['jenis_pekerjaan']:'-') }}
+                        </div>     
+                        <div class="form-group">                            
+                            <label class="d-md-none d-lg-none d-xl-none">Jenis Supply</label>
+                            <br class="d-md-none d-lg-none d-xl-none"/>
+                            {{ (isset($kk['jenis_supply'])?$kk['jenis_supply']:'-') }}
+                        </div>     
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <label class="d-md-none d-lg-none d-xl-none">Produk</label>

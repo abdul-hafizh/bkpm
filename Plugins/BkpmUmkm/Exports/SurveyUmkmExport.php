@@ -195,6 +195,7 @@ class SurveyUmkmExport extends DefaultValueBinder implements FromQuery, WithMapp
                 (isset($profil_usaha['twitter']) ? $profil_usaha['twitter'] : ''),
                 (isset($profil_usaha['linkedin']) ? $profil_usaha['linkedin'] : ''),
                 (isset($profil_usaha['nama_cp']) ? $profil_usaha['nama_cp'] : ''),
+                (isset($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : ''),
                 (isset($profil_usaha['email_cp']) ? $profil_usaha['email_cp'] : ''),
                 (isset($profil_usaha['telepon_cp']) ? $profil_usaha['telepon_cp'] : ''),
                 (isset($profil_usaha['fax_cp']) ? $profil_usaha['fax_cp'] : ''),
