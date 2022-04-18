@@ -31,8 +31,9 @@
                             <input type="text" name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_pekerjaan]" value="{{ (isset($kk['jenis_pekerjaan'])?$kk['jenis_pekerjaan']:'') }}" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">
                         </div>                        
                         <div class="form-group">
-                            <label class="d-md-none d-lg-none d-xl-none">Jenis Supply</label>                            
-                            <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm">
+                            <label class="">Jenis Supply</label>                            
+                            <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>
+                                <option value="">Pilih Jenis Supply</option>
                                 <option value="Rantai Pasok">Rantai Pasok</option>
                                 <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>
                                 <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>
