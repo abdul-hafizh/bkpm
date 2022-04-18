@@ -45,9 +45,16 @@
                         {!! nl2br(isset($kk['persyaratan'])?$kk['persyaratan']:'-') !!}
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
-                        <label class="d-md-none d-lg-none d-xl-none">@lang('label.kebutuhan_kemitraan_nilai_kontrak')</label>
-                        <br class="d-md-none d-lg-none d-xl-none"/>
-                        {{ (isset($kk['nilai'])?$kk['nilai']:'') }}
+                        <div class="form-group">
+                            <label class="d-md-none d-lg-none d-xl-none">@lang('label.kebutuhan_kemitraan_nilai_kontrak')</label>
+                            <br class="d-md-none d-lg-none d-xl-none"/>
+                            {{ (isset($kk['nilai'])?$kk['nilai']:'') }}
+                        </div>
+                        <div class="form-group">
+                            <label class="">Jenis Supply</label>
+                            <br/>
+                            {{ (isset($kk['jenis_supply'])?$kk['jenis_supply']:'') }}
+                        </div>
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <div class="form-group">
