@@ -151,6 +151,7 @@ class SurveyCompanyExport extends DefaultValueBinder implements FromQuery, WithM
                 (isset($profil_usaha['kode_pos']) ? $profil_usaha['kode_pos'] : ''),
                 (isset($profil_usaha['koordinat_gps_longitude']) ? $profil_usaha['koordinat_gps_longitude'] : ''),
                 (isset($profil_usaha['koordinat_gps_latitude']) ? $profil_usaha['koordinat_gps_latitude'] : ''),
+                (isset($profil_usaha['jumlah_kantor_cabang']) ? $profil_usaha['jumlah_kantor_cabang'] : ''),
                 (isset($profil_usaha['telepon']) ? $profil_usaha['telepon'] : ''),
                 (isset($profil_usaha['fax']) ? $profil_usaha['fax']: ''),
                 (isset($profil_usaha['ponsel']) ? $profil_usaha['ponsel']: ''),
