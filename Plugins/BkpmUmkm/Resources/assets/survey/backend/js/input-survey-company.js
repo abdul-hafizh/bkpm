@@ -72,15 +72,6 @@ $(document).ready(function () {
             '               <label class="d-md-none d-lg-none d-xl-none">'+ kebutuhan_kemitraan_nilai_kontrak +'</label>\n' +
             '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][nilai]" value="0" placeholder="'+ kebutuhan_kemitraan_nilai_kontrak +'" class="form-control form-control-sm nominal nilai_kontrak">\n' +
             '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '                <label class="">Jenis Supply</label>\n' +
-            '                <select name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_supply]" class="form-control form-control-sm" required>\n' +
-            '                    <option value="">Pilih Jenis Supply</option>\n' +
-            '                    <option value="Rantai Pasok">Rantai Pasok</option>\n' +
-            '                    <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
-            '                    <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>\n' +
-            '                </select>\n' +
-            '           </div>\n' +
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <div class="form-group">\n' +
