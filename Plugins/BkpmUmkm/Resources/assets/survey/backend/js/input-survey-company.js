@@ -74,7 +74,7 @@ $(document).ready(function () {
             '           </div>\n' +
             '           <div class="form-group">\n' +
             '               <label class="">Jenis Supply</label>\n' +            
-            '               <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>\n' +
+            '               <select name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_supply]" class="form-control form-control-sm" required>\n' +
             '                   <option value="">Pilih Jenis Supply</option>\n' +
             '                   <option value="Rantai Pasok">Rantai Pasok</option>\n' +
             '                   <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
@@ -84,7 +84,7 @@ $(document).ready(function () {
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_terms_of_payment +'123</label>\n' +
+            '               <label class="">'+ kebutuhan_kemitraan_terms_of_payment +'</label>\n' +
             '               <textarea name="data[kebutuhan_kemitraan]['+ indexName +'][terms_of_payment]" rows="2" placeholder="'+ kebutuhan_kemitraan_terms_of_payment +'" class="form-control form-control-sm"></textarea>\n' +
             '           </div>\n' +
             '           <div class="form-group">\n' +
