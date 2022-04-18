@@ -166,6 +166,7 @@ class SurveyUmkmExport2020 extends DefaultValueBinder implements FromQuery, With
                 (isset($profil_usaha['kode_pos']) ? $profil_usaha['kode_pos'] : ''),
                 (isset($profil_usaha['koordinat_gps_longitude']) ? $profil_usaha['koordinat_gps_longitude'] : ''),
                 (isset($profil_usaha['koordinat_gps_latitude']) ? $profil_usaha['koordinat_gps_latitude'] : ''),
+                (isset($profil_usaha['jumlah_kantor_cabang']) ? $profil_usaha['jumlah_kantor_cabang'] : ''),
                 (isset($profil_usaha['telepon']) ? $profil_usaha['telepon'] . ";\n" : '') . (isset($profil_usaha['fax']) ? $profil_usaha['fax'] . ";\n" : '') . (isset($profil_usaha['ponsel']) ? $profil_usaha['ponsel'] . ";\n" : ''),
                 (isset($profil_usaha['email']) ? $profil_usaha['email'] : ''),
                 "Website: ". (isset($profil_usaha['website']) ? $profil_usaha['website'] : '-') ."\nFacebook: ". (isset($profil_usaha['facebook']) ? $profil_usaha['facebook'] : '-') ."\nInstagram: ". (isset($profil_usaha['instagram']) ? $profil_usaha['instagram'] : '-') ."\nTwitter: ". (isset($profil_usaha['twitter']) ? $profil_usaha['twitter'] : '-') ."\nLinkedIn: " . (isset($profil_usaha['linkedin']) ? $profil_usaha['linkedin'] : '-'),
