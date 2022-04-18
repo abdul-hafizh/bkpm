@@ -29,7 +29,15 @@
                         <div class="form-group">
                             <label class="d-md-none d-lg-none d-xl-none">Jenis Pekerjaan</label>
                             <input type="text" name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_pekerjaan]" value="{{ (isset($kk['jenis_pekerjaan'])?$kk['jenis_pekerjaan']:'') }}" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">
-                        </div>   
+                        </div>                        
+                        <div class="form-group">
+                            <label class="d-md-none d-lg-none d-xl-none">Jenis Supply</label>                            
+                            <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm">
+                                <option value="{{ ($kk['jenis_supply']=='Rantai Pasok' ? 'selected' : '') }}">Rantai Pasok</option>
+                                <option value="{{ ($kk['jenis_supply']=='Bahan Baku Penolong' ? 'selected' : '') }}">Bahan Baku Penolong</option>
+                                <option value="{{ ($kk['jenis_supply']=='Jasa-jasa Lainnya' ? 'selected' : '') }}">Jasa-jasa Lainnya</option>
+                            </select>
+                        </div>
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <label class="d-md-none d-lg-none d-xl-none">Produk</label>
