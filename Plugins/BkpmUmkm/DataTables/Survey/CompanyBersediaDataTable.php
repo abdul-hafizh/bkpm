@@ -68,19 +68,6 @@ class CompanyBersediaDataTable extends DataTable
             ->editColumn('sector.name', function($q){
                 return ($q->sector ? $q->sector->name : '-');
             })
-            /*->addColumn('kbli_name_raw', function($q){
-                if ($q->kbli){
-                    $html = "<ul class='table-ul'>";
-                    foreach ($q->kbli as $kbli) {
-                        $html .= "<li>[{$kbli->code}] {$kbli->name}</li>";
-                    }
-                    $html .= "</ul>";
-                    return $html;
-                }else{
-                    $q->sync_kbli_single_to_multiple();
-                }
-                return '-';
-            })*/
             ->addColumn('company_status.statusRaw', function ($q) {
                 /* Bersedia, Tidak Bersedia, Tidak Respon, Konsultasi BKPM, Menunggu Konfirmasi */
                 $status = ($q->company_status && $q->company_status->status  ? trans("label.company_status_{$q->company_status->status}") : '--------');
@@ -174,9 +161,7 @@ class CompanyBersediaDataTable extends DataTable
     public function html()
     {
         $buttons = [
-            //Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.survey.add", ['company' => $this->company_category]).'"')->text("<i class='fas fa-plus'></i> " . trans("label.add_new_survey_{$this->company_category}")),
             Button::make('export'),
-            /*Button::make('print'),*/
             Button::make('reset'),
             Button::make('reload')
         ];
