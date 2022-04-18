@@ -5,6 +5,7 @@ namespace Plugins\BkpmUmkm\Http\Controllers\Umkm\Backend;
 use Plugins\BkpmUmkm\DataTables\Umkm\UmkmPotensialDataTable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Http\Requests\UmkmImportRequest;
 use Plugins\BkpmUmkm\Http\Requests\UmkmPotensialSaveUpdateRequest;
 use Plugins\BkpmUmkm\Models\CompanyModel;
@@ -28,6 +29,7 @@ class UmkmPotensialController extends Controller
     public function index(UmkmPotensialDataTable $umkmDataTable)
     {
         $params['title'] = trans('label.umkm_potensial');
+        $params['sektor'] = DB::table('business_sectors')->get();
         $view = "{$this->identifier}::umkm.backend.potensial.index";
         $inModal = request()->get('in-modal');
         if ($inModal && encrypt_decrypt($inModal, 2)=='modal'){
