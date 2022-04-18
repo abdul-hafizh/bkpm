@@ -29,7 +29,7 @@ class UmkmPotensialController extends Controller
     public function index(UmkmPotensialDataTable $umkmDataTable)
     {
         $params['title'] = trans('label.umkm_potensial');
-        $params['provinsi_id'] = DB::table('provinsi')->get();
+        $params['sektor'] = DB::table('business_sectors')->get();
         $view = "{$this->identifier}::umkm.backend.potensial.index";
         $inModal = request()->get('in-modal');
         if ($inModal && encrypt_decrypt($inModal, 2)=='modal'){
