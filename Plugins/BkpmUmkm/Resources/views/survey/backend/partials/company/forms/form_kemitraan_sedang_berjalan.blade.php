@@ -43,10 +43,6 @@
                             <input type="text" name="data[kemitraan_sedang_berjalan][{{ $index_ksb }}][jenis_pekerjaan]" value="{{ (isset($ksb['jenis_pekerjaan'])?$ksb['jenis_pekerjaan']:'') }}" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">
                         </div>
                         <div class="form-group">
-                            <label class="">Jenis Supply</label>
-                            <input type="text" name="data[kemitraan_sedang_berjalan][{{ $index_ksb }}][jenis_supply]" value="{{ (isset($ksb['jenis_supply'])?$ksb['jenis_pekerjaan']:'') }}" placeholder="Jenis Supply" class="form-control form-control-sm">
-                        </div>
-                        <div class="form-group">
                             <label class="">Spesifikasi/Persyaratan</label>
                             <textarea name="data[kemitraan_sedang_berjalan][{{ $index_ksb }}][persyaratan]" rows="2" placeholder="Spesifikasi/Persyaratan" class="form-control form-control-sm">{!! nl2br(isset($ksb['persyaratan'])?$ksb['persyaratan']:'') !!}</textarea>
                         </div>
