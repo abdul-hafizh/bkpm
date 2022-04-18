@@ -318,7 +318,7 @@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             Jabatan
-                            <input type="text" name="data[profil_usaha][jabatan_cp]" value="{{ (isset($profil_usaha['jabatan_cp'])&&!empty($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : '') }}" placeholder="Jabatan Person" class="form-control form-control-sm">
+                            <input type="text" name="data[profil_usaha][jabatan_cp]" value="{{ (isset($profil_usaha['jabatan_cp'])&&!empty($profil_usaha['jabatan_cp']) ? $profil_usaha['jabatan_cp'] : '') }}" placeholder="Jabatan Person" class="form-control form-control-sm" required>
                         </div>
                     </div>
                 </td>
