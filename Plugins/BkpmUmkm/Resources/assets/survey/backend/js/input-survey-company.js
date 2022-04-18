@@ -53,16 +53,7 @@ $(document).ready(function () {
         html += '<tr class="itemKebutuhanKemitraan row">\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <label class="d-md-none d-lg-none d-xl-none">Jenis Pekerjaan</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_pekerjaan]" value="" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">\n' +
-            
-            '           <label class="d-md-none d-lg-none d-xl-none">Jenis Supply</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_supply]" value="" placeholder="Jenis Supply" class="form-control form-control-sm">\n' +
-            '           <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>\n' +
-            '                <option value="">Pilih Jenis Supply</option>\n' +
-            '                <option value="Rantai Pasok">Rantai Pasok</option>\n' +
-            '                <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
-            '                <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>\n' +
-            '            </select>\n' +
+            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_pekerjaan]" value="" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">\n' +             
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <label class="d-md-none d-lg-none d-xl-none">Produk</label>\n' +
@@ -77,12 +68,23 @@ $(document).ready(function () {
             '           <textarea name="data[kebutuhan_kemitraan]['+ indexName +'][persyaratan]" rows="2" placeholder="Spesifikasi/Persyaratan" class="form-control form-control-sm"></textarea>\n' +
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <label class="d-md-none d-lg-none d-xl-none">'+ kebutuhan_kemitraan_nilai_kontrak +'</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][nilai]" value="0" placeholder="'+ kebutuhan_kemitraan_nilai_kontrak +'" class="form-control form-control-sm nominal nilai_kontrak">\n' +
+            '           <div class="form-group">\n' +
+            '               <label class="d-md-none d-lg-none d-xl-none">'+ kebutuhan_kemitraan_nilai_kontrak +'</label>\n' +
+            '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][nilai]" value="0" placeholder="'+ kebutuhan_kemitraan_nilai_kontrak +'" class="form-control form-control-sm nominal nilai_kontrak">\n' +
+            '           </div>\n' +
+            '           <div class="form-group">\n' +
+            '               <label class="">Jenis Supply</label>\n' +            
+            '               <select name="data[kebutuhan_kemitraan][{{ $index_kk }}][jenis_supply]" class="form-control form-control-sm" required>\n' +
+            '                   <option value="">Pilih Jenis Supply</option>\n' +
+            '                   <option value="Rantai Pasok">Rantai Pasok</option>\n' +
+            '                   <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
+            '                   <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>\n' +
+            '               </select>\n' +
+            '           </div>\n' +
             '       </td>\n' +
             '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
             '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_terms_of_payment +'</label>\n' +
+            '               <label class="">'+ kebutuhan_kemitraan_terms_of_payment +'123</label>\n' +
             '               <textarea name="data[kebutuhan_kemitraan]['+ indexName +'][terms_of_payment]" rows="2" placeholder="'+ kebutuhan_kemitraan_terms_of_payment +'" class="form-control form-control-sm"></textarea>\n' +
             '           </div>\n' +
             '           <div class="form-group">\n' +
