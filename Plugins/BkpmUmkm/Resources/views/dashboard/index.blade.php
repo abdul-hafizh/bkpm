@@ -139,23 +139,17 @@
                 <div class="card-footer p-0">
                     <table class="table table-sm">
                         <thead>
-                        <tr class="text-center">
-                            <!-- <th>{{ trans('label.company_status_not_set') }}</th> -->
+                        <tr class="text-center">                            
                             <th>{{ trans('label.company_status_bersedia') }}</th>
                             <th>{{ trans('label.company_status_tidak_bersedia') }}</th>
                             <th>{{ trans('label.company_status_tidak_respon') }}</th>
-                            <!-- <th>{{ trans('label.company_status_konsultasi_bkpm') }}</th>
-                            <th>{{ trans('label.company_status_menunggu_konfirmasi') }}</th> -->
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="text-center">
-                            <!-- <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'not_set', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_not_set') .'"' : '') !!}>{{ number_format($count_ub_not_set,0,",",".") }}</a></td> -->
                             <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_bersedia') .'"' : '') !!}>{{ number_format($count_ub_bersedia,0,",",".") }}</a></td>
                             <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'tidak_bersedia', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_tidak_bersedia') .'"' : '') !!}>{{ number_format($count_ub_tidak_bersedia,0,",",".") }}</a></td>
                             <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'tidak_respon', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_tidak_respon') .'"' : '') !!}>{{ number_format($count_ub_tidak_respon,0,",",".") }}</a></td>
-                            <!-- <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'konsultasi_bkpm', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_konsultasi_bkpm') .'"' : '') !!}>{{ number_format($count_ub_konsultasi_bkpm,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'menunggu_konfirmasi', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.company_status_menunggu_konfirmasi') .'"' : '') !!}>{{ number_format($count_ub_menunggu_konfirmasi,0,",",".") }}</a></td> -->
                         </tr>
                         </tbody>
                     </table>
@@ -288,6 +282,45 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="ub_by_respon-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="ub_by_respon-bar-tab" data-toggle="pill" href="#ub_by_respon-bar-content" role="tab" aria-controls="ub_by_respon-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ub_by_respon-pie-tab" data-toggle="pill" href="#ub_by_respon-pie-content" role="tab" aria-controls="ub_by_respon-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="ub_by_respon-tabContent">
+                        <div class="tab-pane fade show active" id="ub_by_respon-bar-content" role="tabpanel" aria-labelledby="ub_by_respon-bar-tab">
+                            <div id="ub_by_respon_bar"></div>
+                        </div>
+                        <div class="tab-pane fade" id="ub_by_respon-pie-content" role="tabpanel" aria-labelledby="ub_by_respon-pie-tab">
+                            <div id="ub_by_respon_pie"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-0">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="text-center">
+                            <th>Total Perusahaan</th>                            
+                            <th>Respon</th>                            
+                            <th>Tidak Respon</th>                            
+                            <th>Tidak Aktif</th>                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     @endif
     {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="card">
@@ -321,22 +354,6 @@
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="card">
             <div class="card-body">
-                <!-- <ul class="nav nav-tabs" id="survey-umkm-tab" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="survey-umkm-pie-tab" data-toggle="pill" href="#survey-umkm-pie-content" role="tab" aria-controls="survey-umkm-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="survey-umkm-bar-tab" data-toggle="pill" href="#survey-umkm-bar-content" role="tab" aria-controls="survey-umkm-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="survey-umkm-tabContent">
-                    <div class="tab-pane fade show active" id="survey-umkm-pie-content" role="tabpanel" aria-labelledby="survey-umkm-pie-tab">
-                        <div id="survey_umkm_pie"></div>
-                    </div>
-                    <div class="tab-pane fade" id="survey-umkm-bar-content" role="tabpanel" aria-labelledby="survey-umkm-bar-tab">
-                        <div id="survey_umkm_bar"></div>
-                    </div>
-                </div> -->
                 <div id="survey_umkm_bar"></div>
             </div>
             <div class="card-footer p-0">

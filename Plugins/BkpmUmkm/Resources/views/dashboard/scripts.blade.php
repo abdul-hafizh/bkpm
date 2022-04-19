@@ -2,12 +2,9 @@
     const subtitle_periode_chart = '@lang('label.subtitle_periode_chart'): {{ $year }}',
         ub_title = '@lang('label.grafik_ub')',
         ub_data = [
-            // {name: "@lang('label.company_status_not_set')", y: {{ (int)$count_ub_not_set }} },
             {name: "@lang('label.company_status_bersedia')", y: {{ (int)$count_ub_bersedia }} },
             {name: "@lang('label.company_status_tidak_bersedia')", y: {{ (int)$count_ub_tidak_bersedia }} },
             {name: "@lang('label.company_status_tidak_respon')", y: {{ (int)$count_ub_tidak_respon }} },
-            // {name: "@lang('label.company_status_konsultasi_bkpm')", y: {{ (int)$count_ub_konsultasi_bkpm }} },
-            // {name: "@lang('label.company_status_menunggu_konfirmasi')", y: {{ (int)$count_ub_menunggu_konfirmasi }} }
         ],
         survey_ub_title = '@lang('label.grafik_survey_ub')',
         survey_ub_data = [
@@ -35,10 +32,6 @@
         umkm_bersedia_menolak_tutup_pindah_data = [
             {name: "{{ trans('label.survey_umkm_status_bersedia') }}", y: {{ (int)$countUMKMBermitra }} },
             {name: "{{ trans('label.survey_umkm_status_menolak') }}", y: {{ (int)$countUMKMBelumBermitra }} }
-            // {name: "{{ trans('label.survey_umkm_status_bersedia') }}", y: {{ (int)$countSurveyUMKMBersedia }} },
-            // {name: "{{ trans('label.survey_umkm_status_menolak') }}", y: {{ (int)$countSurveyUMKMMenolak }} },
-            // {name: "{{ trans('label.survey_status_tutup') }}", y: {{ (int)$countSurveyUMKMTutup }} },
-            // {name: "{{ trans('label.survey_status_pindah') }}", y: {{ (int)$countSurveyUMKMPindah }} }
         ],
         umkm_has_or_not_nib_title = "@lang('label.umkm_has_or_not_nib')",
         umkm_has_or_not_nib_data = [
@@ -57,6 +50,13 @@
             {name: "{{ trans('label.wilayah_2') }}", y: {{ (int)$countUBWilayah2 }} },
             {name: "{{ trans('label.wilayah_3') }}", y: {{ (int)$countUBWilayah3 }} },
             {name: "{{ trans('label.wilayah_4') }}", y: {{ (int)$countUBWilayah4 }} }
+        ],
+        ub_by_respon_title = "Perusahaan Berdasarkan Respon",
+        ub_by_respon_data = [
+            {name: "Total Perusahaan", y: {{ (int)$countUB }} },
+            {name: "Respon", y: {{ (int)$countRespon }} },
+            {name: "Tidak Respon", y: {{ (int)$countTdkRespon }} },
+            {name: "Tidak Aktif", y: {{ (int)$countTdkAktif }} }
         ];
     $(document).find('.modal').on('hidden.bs.modal',function (e) {
         e.preventDefault();

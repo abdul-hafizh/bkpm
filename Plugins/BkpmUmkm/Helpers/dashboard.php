@@ -7,181 +7,6 @@
  * --------- 03 June 2020 14.13 ---------
  */
 
-/*if ( ! function_exists('dashboard_bkpm_umkm') )
-{
-    function dashboard_bkpm_umkm()
-    {
-        $config = app('config')->get('simple_cms.plugins.bkpmumkm');
-        $identifier = $config['identifier'];
-        $user = auth()->user();
-        $bkpmumkm_wilayah = bkpmumkm_wilayah($user->id_provinsi);
-        $params = [
-            'countUB'                   => 0,
-            'countUMKMObservasi'        => 0,
-            'countUMKMPotensial'        => 0,
-            'countUMKMPotensialBelumDisurvey' => 0,
-
-            'countSurveyUBProgress'   => 0,
-            'countSurveyUBDone'       => 0,
-            'countSurveyUBVerified'   => 0,
-            'countSurveyUBBersedia'   => 0,
-
-            'countSurveyUMKMProgress'   => 0,
-            'countSurveyUMKMDone'       => 0,
-            'countSurveyUMKMVerified'   => 0,
-            'countSurveyUMKMBersedia'   => 0,
-            'countSurveyUMKMMenolak'    => 0,
-            'countSurveyUMKMTutup'      => 0,
-            'countSurveyUMKMPindah'     => 0
-        ];
-        $params['user'] = $user;
-        $params['identifier'] = $identifier;
-
-        $ub = \Plugins\BkpmUmkm\Models\CompanyModel::where('category', CATEGORY_COMPANY);
-        $umkm_observasi = \Plugins\BkpmUmkm\Models\CompanyModel::where('category', CATEGORY_UMKM)->whereStatus(UMKM_OBSERVASI);
-        $umkm_potensial = \Plugins\BkpmUmkm\Models\CompanyModel::where('category', CATEGORY_UMKM)->whereStatus(UMKM_POTENSIAL);
-
-        $survey_ub_progress     = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'progress');
-        $survey_ub_done         = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'done');
-        $survey_ub_verified     = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'verified');
-        $survey_ub_bersedia     = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'bersedia');
-
-        $survey_umkm_progress   = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'progress');
-        $survey_umkm_done       = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'done');
-        $survey_umkm_verified   = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'verified'); //['bersedia', 'menolak', 'tutup', 'pindah', 'verified']);
-        $survey_umkm_bersedia   = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'bersedia');
-        $survey_umkm_menolak    = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'menolak');
-        $survey_umkm_tutup      = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'tutup');
-        $survey_umkm_pindah     = \Plugins\BkpmUmkm\Models\SurveyModel::where('surveys.status', 'pindah');
-
-        switch ($user->group_id){
-            case GROUP_SURVEYOR:
-                $params['countSurveyUMKMProgress']  = $survey_umkm_progress->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMDone']      = $survey_umkm_done->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMVerified']  = $survey_umkm_verified->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMBersedia']  = $survey_umkm_bersedia->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMMenolak']  = $survey_umkm_menolak->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMTutup']  = $survey_umkm_tutup->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                $params['countSurveyUMKMPindah']  = $survey_umkm_pindah->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->where('surveys.surveyor_id', $user->id)->count();
-                break;
-            case GROUP_QC_KORPROV:
-                $ub->where('id_provinsi', $user->id_provinsi);
-                $umkm_observasi->where('id_provinsi', $user->id_provinsi);
-                $umkm_potensial->where('id_provinsi', $user->id_provinsi);
-
-                $params['countUB'] = $ub->count();
-                $params['countUMKMObservasi'] = $umkm_observasi->count();
-                $params['countUMKMPotensial'] = $umkm_potensial->count();
-
-                $params['countSurveyUMKMProgress']  = $survey_umkm_progress->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMDone']      = $survey_umkm_done->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMVerified']  = $survey_umkm_verified->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMBersedia']  = $survey_umkm_bersedia->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMMenolak']  = $survey_umkm_menolak->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMTutup']  = $survey_umkm_tutup->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                $params['countSurveyUMKMPindah']  = $survey_umkm_pindah->whereHas('umkm', function($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();
-                break;
-            case GROUP_QC_KORWIL:
-            case GROUP_ASS_KORWIL:
-            case GROUP_TA:
-                $ub->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces']);
-                $umkm_observasi->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces']);
-                $umkm_potensial->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces']);
-
-                $params['countUB'] = $ub->count();
-                $params['countUMKMObservasi'] = $umkm_observasi->count();
-                $params['countUMKMPotensial'] = $umkm_potensial->count();
-
-                $params['countSurveyUMKMProgress']  = $survey_umkm_progress->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMDone']      = $survey_umkm_done->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMVerified']  = $survey_umkm_verified->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMBersedia']  = $survey_umkm_bersedia->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMMenolak']  = $survey_umkm_menolak->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMTutup']  = $survey_umkm_tutup->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-                $params['countSurveyUMKMPindah']  = $survey_umkm_pindah->whereHas('umkm', function($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();
-
-                break;
-            case GROUP_QC_KOROP:
-            case GROUP_ADMIN:
-            case GROUP_SUPER_ADMIN:
-                $params['countUB'] = $ub->count();
-                $params['countUMKMObservasi'] = $umkm_observasi->count();
-                $params['countUMKMPotensial'] = $umkm_potensial->count();
-
-                $params['countSurveyUMKMProgress']  = $survey_umkm_progress->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMDone']      = $survey_umkm_done->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMVerified']  = $survey_umkm_verified->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMBersedia']  = $survey_umkm_bersedia->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMMenolak']  = $survey_umkm_menolak->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMTutup']  = $survey_umkm_tutup->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                $params['countSurveyUMKMPindah']  = $survey_umkm_pindah->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();
-                break;
-        }
-
-        $params['countUMKMPotensialBelumDisurvey'] = (int)$params['countUMKMPotensial'] - ((int)$params['countSurveyUMKMProgress'] + (int)$params['countSurveyUMKMDone'] + (int)$params['countSurveyUMKMVerified']);
-        $params['countUMKMPotensialBelumDisurvey'] = (int)$params['countUMKMPotensialBelumDisurvey'] - ( (int)$params['countSurveyUMKMBersedia'] + (int)$params['countSurveyUMKMMenolak'] + (int)$params['countSurveyUMKMTutup'] + (int)$params['countSurveyUMKMPindah'] );
-
-        \Core::asset()->write('dashboard-bkpmumkm-js', 'script', view("{$identifier}::dashboard.scripts")->with($params)->render());
-        echo view("{$identifier}::dashboard.index")->with($params)->render();
-    }
-}*/
-
 if ( ! function_exists('dashboard_bkpm_umkm') )
 {
     function dashboard_bkpm_umkm()
@@ -194,7 +19,6 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $bkpmumkm_wilayah = bkpmumkm_wilayah($user->id_provinsi);
         $params = [
             'countUB'                   => 0,
-
             'count_ub_not_set'          => 0,
             'count_ub_bersedia'         => 0,
             'count_ub_tidak_bersedia'   => 0,
@@ -233,7 +57,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             'countUBWilayah1'           => 0,
             'countUBWilayah2'           => 0,
             'countUBWilayah3'           => 0,
-            'countUBWilayah4'           => 0
+            'countUBWilayah4'           => 0,
+
+            'countRespon'               => 0,
+            'countTdkRespon'            => 0,
+            'countTdkAktif'             => 0
         ];
         $params['user'] = $user;
         $params['identifier'] = $identifier;
@@ -242,17 +70,14 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             ->whereHas('company_status', function($q) use($year){
                 $q->whereYear('companies_status.created_at', $year);
             });
-        // $umkm_potensial = \Plugins\BkpmUmkm\Models\SurveyModel::whereYear('surveys.created_at', $year);
 
         $kemitraan_ub          = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
-        $kemitraan_umkm        = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);
-        // $umkm_bermitra         = DB::select("SELECT distinct(umkm_mitra.id) from (SELECT companies.* FROM `companies` JOIN surveys on companies.id=surveys.company_id WHERE surveys.status='bersedia' and year(surveys.created_at)=?) as umkm_mitra join kemitraan ON umkm_mitra.id=kemitraan.umkm_id", [$year]);
+        $kemitraan_umkm        = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);        
         $umkm_bermitra         = DB::select("SELECT * from kemitraan WHERE year(created_at)=?", [$year]);
         $idUmkmBermitra = [];
         foreach($umkm_bermitra as $v){
             $idUmkmBermitra[]=$v->umkm_id;
-        }
-        // $umkm_belum_bermitra = DB::table('companies')->select("companies.*")->join('surveys', 'companies.id', 'surveys.company_id')->where('companies.category','umkm')->where('surveys.status','bersedia')->whereYear('surveys.created_at', $year)->whereNotIn('companies.id', $idUmkmBermitra)->get();
+        }        
         $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
         $umkm_belum_bermitra = count($count_umkm_bersedia) - count($umkm_bermitra);
         
@@ -300,6 +125,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $survey_umkm_tutup      = \Plugins\BkpmUmkm\Models\SurveyModel::whereYear('surveys.created_at', $year)->where('surveys.status', 'tutup');
         $survey_umkm_pindah     = \Plugins\BkpmUmkm\Models\SurveyModel::whereYear('surveys.created_at', $year)->where('surveys.status', 'pindah');
 
+        /* RESPON */
+        $ub_respon       = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1);
+        $ub_tdk_respon   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 2);
+        $ub_tdk_aktif    = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 3);
+
         $umkm_has_nib = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.nib', '<>', '')->whereHas('survey', function ($q) use($year){
             $q->whereYear('surveys.created_at', $year);
         });
@@ -334,15 +164,12 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
                 })->where('surveys.surveyor_id', $user->id)->count();
                 break;
+                
             case GROUP_QC_KORPROV:
                 $ub->where('id_provinsi', $user->id_provinsi);
 
                 $params['countUB'] = $ub->count();
 
-                /*$params['countUMKMPotensial'] = $umkm_potensial->whereHas('umkm', function ($q) use($user){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
-                        ->where('companies.id_provinsi', $user->id_provinsi);
-                })->count();*/
                 $params['countUMKMPotensial'] = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
                     ->where('companies.id_provinsi', $user->id_provinsi)
                     ->whereHas('survey', function ($q) use($year){
@@ -488,8 +315,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $params['count_ub_tidak_bersedia'] = $ub_tidak_bersedia->count();
                 $params['count_ub_tidak_respon'] = $ub_tidak_respon->count();
                 $params['count_ub_konsultasi_bkpm'] = $ub_konsultasi_bkpm->count();
-                $params['count_ub_menunggu_konfirmasi'] = $ub_menunggu_konfirmasi->count();
-
+                $params['count_ub_menunggu_konfirmasi'] = $ub_menunggu_konfirmasi->count();                
 
                 $params['countSurveyUB_belum_survey']   = $survey_ub_belum_survey->whereHas(CATEGORY_COMPANY.'.company_status', function($q){
                     $q->whereIn('companies_status.status', ['bersedia']);
@@ -506,8 +332,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $params['countSurveyUB_revision']       = $survey_ub_revision->whereHas(CATEGORY_COMPANY.'.company_status', function($q){
                     $q->whereIn('companies_status.status', ['bersedia']);
                 })->count();
-
-                // selectRaw('SUM(jsonget_int(REPLACE(REPLACE(JSON_EXTRACT(survey_results.data, "$.kebutuhan_kemitraan.*.total_potensi_nilai"), \',\', \'\'), \'" "\',\'","\'), \'[+]\')) AS total_potensi_nilai_all')
+                
                 $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah){
                     $q->whereHas('company', function ($q) use($bkpmumkm_wilayah){
                         $q->where('companies.category', CATEGORY_COMPANY);
@@ -523,10 +348,6 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                         }
                     }
                 }
-
-                /*$params['countUMKMPotensial'] = $umkm_potensial->whereHas('umkm', function ($q){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
-                })->count();*/
 
                 $params['countUMKMPotensial'] = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)
                     ->where('companies.status', UMKM_POTENSIAL)
@@ -588,6 +409,10 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['countUMKMBermitra'] = count($umkm_bermitra);
         $params['countUMKMBelumBermitra'] = $umkm_belum_bermitra;
 
+        $params['countRespon'] = $ub_respon->count();
+        $params['countTdkRespon'] = $ub_tdk_respon->count();
+        $params['countTdkAktif'] = $ub_tdk_aktif->count();
+
         $kemitraan = \Plugins\BkpmUmkm\Models\KemitraanModel::selectRaw('SUM(kemitraan.nominal_investasi) AS total_nominal_investasi')->whereIn("kemitraan.status", ['bersedia'])
             ->with([CATEGORY_COMPANY => function($q) use($year){
                 return $q->with(['survey' => function($q) use($year){
@@ -615,9 +440,6 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         if ($kemitraan){
             $params['count_total_realisasi_nilai_kontrak'] = (int) $kemitraan->total_nominal_investasi;
         }
-
-        /*$params['countUMKMPotensialBelumDisurvey'] = (int)$params['countUMKMPotensial'] - ((int)$params['countSurveyUMKMProgress'] + (int)$params['countSurveyUMKMDone'] + (int)$params['countSurveyUMKMVerified']);
-        $params['countUMKMPotensialBelumDisurvey'] = (int)$params['countUMKMPotensialBelumDisurvey'] - ( (int)$params['countSurveyUMKMBersedia'] + (int)$params['countSurveyUMKMMenolak'] + (int)$params['countSurveyUMKMTutup'] + (int)$params['countSurveyUMKMPindah'] );*/
 
         $params['year'] = $year;
 
