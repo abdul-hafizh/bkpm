@@ -373,7 +373,6 @@ class InputSurveySaveUpdateRequest extends FormRequest
                         empty(filter($this->input('data.profil_usaha.provinsi'))) OR
                         empty(filter($this->input('data.profil_usaha.koordinat_gps_longitude'))) OR
                         empty(filter($this->input('data.profil_usaha.koordinat_gps_latitude'))) OR
-                        empty(filter($this->input('data.profil_usaha.jumlah_kantor_cabang'))) OR
                         empty(filter($this->input('data.profil_usaha.telepon'))) OR
                         empty(filter($this->input('data.profil_usaha.ponsel'))) OR
                         empty(filter($this->input('data.profil_usaha.email'))) OR
@@ -381,7 +380,6 @@ class InputSurveySaveUpdateRequest extends FormRequest
                         empty(filter($this->input('data.profil_usaha.jabatan_cp'))) OR
                         empty(filter($this->input('data.profil_usaha.email_cp'))) OR
                         empty(filter($this->input('data.profil_usaha.ponsel_cp')))
-                        /*empty(filter($this->input('data.profil_usaha.modal_usaha')))*/
                     );
                 }
                 if ($not_valid) {
