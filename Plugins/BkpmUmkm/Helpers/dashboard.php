@@ -126,6 +126,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $survey_umkm_pindah     = \Plugins\BkpmUmkm\Models\SurveyModel::whereYear('surveys.created_at', $year)->where('surveys.status', 'pindah');
 
         /* RESPON */
+        $ub_responed       = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->whereIn('companies.flag_respon', [1,2]);
         $ub_respon       = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1);
         $ub_tdk_respon   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 2);
         $ub_tdk_aktif    = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 3);
@@ -414,6 +415,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['countUMKMBermitra'] = count($umkm_bermitra);
         $params['countUMKMBelumBermitra'] = $umkm_belum_bermitra;
 
+        $params['countResponed'] = $ub_responed->count();
         $params['countRespon'] = $ub_respon->count();
         $params['countTdkRespon'] = $ub_tdk_respon->count();
         $params['countTdkAktif'] = $ub_tdk_aktif->count();

@@ -305,8 +305,7 @@
                 <div class="card-footer p-0">
                     <table class="table table-sm">
                         <thead>
-                        <tr class="text-center">
-                            <th>Total Perusahaan</th>                            
+                        <tr class="text-center">                          
                             <th>Respon</th>                            
                             <th>Tidak Respon</th>                            
                             <th>Tidak Aktif</th>                            
@@ -344,11 +343,47 @@
                 <div class="card-footer p-0">
                     <table class="table table-sm">
                         <thead>
-                        <tr class="text-center">
-                            <th>Total Respon</th>                            
+                        <tr class="text-center">                        
                             <th>Belum Terjadwal</th>                            
                             <th>Zoom</th>                            
                             <th>Offline</th>                            
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="ub_by_responed-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="ub_by_responed-bar-tab" data-toggle="pill" href="#ub_by_responed-bar-content" role="tab" aria-controls="ub_by_responed-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="ub_by_responed-pie-tab" data-toggle="pill" href="#ub_by_responed-pie-content" role="tab" aria-controls="ub_by_responed-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="ub_by_responed-tabContent">
+                        <div class="tab-pane fade show active" id="ub_by_responed-bar-content" role="tabpanel" aria-labelledby="ub_by_responed-bar-tab">
+                            <div id="ub_by_responed_bar"></div>
+                        </div>
+                        <div class="tab-pane fade" id="ub_by_responed-pie-content" role="tabpanel" aria-labelledby="ub_by_responed-pie-tab">
+                            <div id="ub_by_responed_pie"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-0">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="text-center">                        
+                            <th>Total UB</th>                            
+                            <th>Sudah Dikontak</th>                               
                         </tr>
                         </thead>
                         <tbody>

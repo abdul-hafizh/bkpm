@@ -51,16 +51,19 @@
             {name: "{{ trans('label.wilayah_3') }}", y: {{ (int)$countUBWilayah3 }} },
             {name: "{{ trans('label.wilayah_4') }}", y: {{ (int)$countUBWilayah4 }} }
         ],
-        ub_by_respon_title = "Perusahaan Berdasarkan Respon",
-        ub_by_respon_data = [
+        ub_by_responed_title = "Perusahaan Berdasarkan Responed",
+        ub_by_responed_data = [
             {name: "Total Perusahaan", y: {{ (int)$countUB }} },
+            {name: "Responed", y: {{ (int)$countResponed }} },
+        ],
+        ub_by_respon_title = "Perusahaan Berdasarkan Respon",
+        ub_by_respon_data = [            
             {name: "Respon", y: {{ (int)$countRespon }} },
             {name: "Tidak Respon", y: {{ (int)$countTdkRespon }} },
             {name: "Tidak Aktif", y: {{ (int)$countTdkAktif }} }
         ],
         ub_by_meeting_title = "Perusahaan Berdasarkan Meeting",
-        ub_by_meeting_data = [
-            {name: "Total Respon", y: {{ (int)$countRespon }} },
+        ub_by_meeting_data = [            
             {name: "Belum Terjadwal", y: {{ (int)$countBlmJadwal }} },
             {name: "Zoom", y: {{ (int)$countZoom }} },
             {name: "Offline", y: {{ (int)$countOffline }} }
