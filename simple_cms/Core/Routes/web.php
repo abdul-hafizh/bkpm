@@ -11,18 +11,6 @@
 |
 */
 
-//Route::get('/', function(){
-//    if (! auth()->check() ) {
-//        return redirect()->route('simple_cms.acl.auth.login');
-//    }
-//    return redirect()->route('simple_cms.dashboard.backend.index');
-    /*$user = \SimpleCMS\ACL\Models\User::find(1);
-    event(new NewRegisterAccountEvent($user));
-    return view('acl::emails.auth.register');*/
-    /*$data['info'] = 'Hello World';
-    return Theme::view('index', $data);*/
-//})->middleware(['theme']);
-
 /* Settings */
 
 Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['localize'], 'as'=>'simple_cms.setting.','simple_cms'=>'Setting'], function()

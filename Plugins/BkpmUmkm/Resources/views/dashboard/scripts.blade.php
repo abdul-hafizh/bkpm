@@ -57,6 +57,13 @@
             {name: "Respon", y: {{ (int)$countRespon }} },
             {name: "Tidak Respon", y: {{ (int)$countTdkRespon }} },
             {name: "Tidak Aktif", y: {{ (int)$countTdkAktif }} }
+        ],
+        ub_by_meeting_title = "Perusahaan Berdasarkan Meeting",
+        ub_by_meeting_data = [
+            {name: "Total Respon", y: {{ (int)$countRespon }} },
+            {name: "Belum Terjadwal", y: {{ (int)$countBlmJadwal }} },
+            {name: "Zoom", y: {{ (int)$countZoom }} },
+            {name: "Offline", y: {{ (int)$countOffline }} }
         ];
     $(document).find('.modal').on('hidden.bs.modal',function (e) {
         e.preventDefault();

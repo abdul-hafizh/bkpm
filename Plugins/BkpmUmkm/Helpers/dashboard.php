@@ -130,6 +130,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $ub_tdk_respon   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 2);
         $ub_tdk_aktif    = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 3);
 
+        /* MEETING */
+        $ub_blm_jadwal   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', '<', 1);
+        $ub_zoom   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+        $ub_offline   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+
         $umkm_has_nib = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.nib', '<>', '')->whereHas('survey', function ($q) use($year){
             $q->whereYear('surveys.created_at', $year);
         });
@@ -412,6 +417,10 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['countRespon'] = $ub_respon->count();
         $params['countTdkRespon'] = $ub_tdk_respon->count();
         $params['countTdkAktif'] = $ub_tdk_aktif->count();
+
+        $params['countBlmJadwal'] = $ub_blm_jadwal->count();
+        $params['countZoom'] = $ub_zoom->count();
+        $params['countOffline'] = $ub_offline->count();
 
         $kemitraan = \Plugins\BkpmUmkm\Models\KemitraanModel::selectRaw('SUM(kemitraan.nominal_investasi) AS total_nominal_investasi')->whereIn("kemitraan.status", ['bersedia'])
             ->with([CATEGORY_COMPANY => function($q) use($year){
