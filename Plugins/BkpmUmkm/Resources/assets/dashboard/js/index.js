@@ -684,6 +684,94 @@ $(document).ready(function () {
     }
 
     /* PMDN / PMA Berdasarkan Respon */
+    if ($('#ub_by_responed_bar').length) {
+        Highcharts.chart('ub_by_responed_bar', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ub_by_responed_title
+            },
+            subtitle: {
+                text: subtitle_periode_chart
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: 'Total'
+                }
+
+            },
+            credits: {
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y}'
+                    }
+                }
+            },
+            tooltip: {
+                pointFormat: 'Total: <b>{point.y}</b>'
+            },
+
+            series: [
+                {
+                    name: "Total",
+                    colorByPoint: true,
+                    data: ub_by_responed_data
+                }
+            ]
+        });
+    }
+    if ($('#ub_by_responed_pie').length) {
+        Highcharts.chart('ub_by_responed_pie', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie',
+            },
+            title: {
+                text: ub_by_responed_title
+            },
+            subtitle: {
+                text: subtitle_periode_chart
+            },
+            credits: {
+                enabled: false
+            },
+            tooltip: {
+                pointFormat: 'Total: <b>{point.y}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.y}'
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Total',
+                colorByPoint: true,
+                data: ub_by_responed_data
+            }]
+        });
+    }
+
+    /* PMDN / PMA Berdasarkan Respon */
     if ($('#ub_by_respon_bar').length) {
         Highcharts.chart('ub_by_respon_bar', {
             chart: {
