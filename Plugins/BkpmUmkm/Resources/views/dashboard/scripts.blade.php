@@ -71,4 +71,4 @@
         $('.modal-load-body').html('');
     });
 </script>
-{!! plugins_script("bkpmumkm", "dashboard/js/index.js") !!}
+
