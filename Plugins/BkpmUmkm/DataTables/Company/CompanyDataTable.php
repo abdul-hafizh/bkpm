@@ -21,6 +21,8 @@ class CompanyDataTable extends DataTable
     protected $identifier;
     protected $user;
     protected $status;
+    protected $flag_respon='';
+    protected $flag_zoom='';
     protected $company_category = CATEGORY_COMPANY;
     protected $viewed = false;
     protected $periode, $wilayah_id, $provinsi_id;
@@ -39,6 +41,8 @@ class CompanyDataTable extends DataTable
         $this->status = (request()->has('status') && filter(request()->input('status')) != '' ? filter(request()->input('status')) : 'all');
         $this->wilayah_id = (request()->has('wilayah_id') && filter(request()->input('wilayah_id')) != '' ? filter(request()->input('wilayah_id')) : 'all');
         $this->provinsi_id = (request()->has('provinsi_id') && filter(request()->input('provinsi_id')) != '' ? filter(request()->input('provinsi_id')) : 'all');
+        $this->flag_respon = (request()->has('flag_respon') && filter(request()->input('flag_respon')) != '' ? filter(request()->input('flag_respon')) : '');
+        $this->flag_zoom = (request()->has('flag_zoom') && filter(request()->input('flag_zoom')) != '' ? filter(request()->input('flag_zoom')) : '');
     }
 
     /**
@@ -242,6 +246,38 @@ class CompanyDataTable extends DataTable
                 }
                 break;
         }
+
+        if (!empty($this->flag_respon)){
+            switch ($this->flag_respon){
+                case 'respon':
+                    $model->whereIn('companies.flag_respon', [1,2,3]);
+                    break;
+                case 'respon1':
+                    $model->where('companies.flag_respon', 1);
+                    break;
+                case 'respon2':
+                    $model->where('companies.flag_respon', 2);
+                    break;
+                case 'respon3':
+                    $model->where('companies.flag_respon', 3);
+                    break;
+            }
+        }
+
+        if (!empty($this->flag_zoom)){
+            switch ($this->flag_zoom){
+                case 'blmJadwal':
+                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
+                    break;
+                case 'online':
+                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+                    break;
+                case 'offline':
+                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+                    break;
+            }
+        }
+
         switch ($this->trash){
             case 'not-trash':
                 $model->withoutTrashed();
