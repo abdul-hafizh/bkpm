@@ -44,7 +44,7 @@
             {name: "{{ trans('label.kemitraan_ub_pma') }}", y: {{ (int)$countKemitraanUB_PMA }} },
             {name: "{{ trans('label.kemitraan_umkm') }}", y: {{ (int)$countKemitraanUMKM }} }
         ],
-        ub_by_wilayah_title = "{{ trans('label.pmdn_pma_berdasarkan_wilayah') }}",
+        ub_by_wilayah_title = "PMA/PMDN Yang Potensi Kontrak",
         ub_by_wilayah_data = [
             {name: "{{ trans('label.wilayah_1') }}", y: {{ (int)$countUBWilayah1 }} },
             {name: "{{ trans('label.wilayah_2') }}", y: {{ (int)$countUBWilayah2 }} },
@@ -65,8 +65,8 @@
         ub_by_meeting_title = "Perusahaan Berdasarkan Kelanjutan Komunikasi",
         ub_by_meeting_data = [            
             {name: "Belum Terjadwal", y: {{ (int)$countBlmJadwal }} },
-            {name: "Zoom", y: {{ (int)$countZoom }} },
-            {name: "Offline", y: {{ (int)$countOffline }} }
+            {name: "Online Meeting", y: {{ (int)$countZoom }} },
+            {name: "Offline Meeting", y: {{ (int)$countOffline }} }
         ];
     $(document).find('.modal').on('hidden.bs.modal',function (e) {
         e.preventDefault();
