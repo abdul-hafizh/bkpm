@@ -313,7 +313,8 @@
                         </thead>
                         <tbody>
                         <tr class="text-center">
-                            
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.index_company') .'"' : '') !!}>{{ number_format($countUB,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_respon' => 1, 'periode' => $year]) .'" data-method="GET" data-title="Sudah Dihubungi"' : '') !!}>{{ number_format($countResponed,0,",",".") }}</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -351,7 +352,9 @@
                         </thead>
                         <tbody>
                         <tr class="text-center">
-                            
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="Perusahaan Yang Merespon"' : '') !!}>{{ number_format($countRespon,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_respon' => 1, 'periode' => $year]) .'" data-method="GET" data-title="Perusahaan Tidak Merespon"' : '') !!}>{{ number_format($countTdkRespon,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_respon' => 1, 'periode' => $year]) .'" data-method="GET" data-title="Perusahaan TIdak Aktif"' : '') !!}>{{ number_format($countTdkAktif,0,",",".") }}</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -383,13 +386,15 @@
                         <thead>
                         <tr class="text-center">                        
                             <th>Belum Terjadwal</th>                            
-                            <th>Zoom</th>                            
-                            <th>Offline</th>                            
+                            <th>Online Meeting</th>                            
+                            <th>Offline Meeting</th>                            
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="text-center">
-                            
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="Belum Terjadwal"' : '') !!}>{{ number_format($countBlmJadwal,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_respon' => 1, 'periode' => $year]) .'" data-method="GET" data-title="Online Meeting"' : '') !!}>{{ number_format($countZoom,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_respon' => 1, 'periode' => $year]) .'" data-method="GET" data-title="Offline Meeting"' : '') !!}>{{ number_format($countOffline,0,",",".") }}</a></td>
                         </tr>
                         </tbody>
                     </table>

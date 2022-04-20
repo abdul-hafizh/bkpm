@@ -62,7 +62,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             'countResponed'             => 0,
             'countRespon'               => 0,
             'countTdkRespon'            => 0,
-            'countTdkAktif'             => 0
+            'countTdkAktif'             => 0,
+
+            'countBlmJadwal'            => 0,
+            'countZoom'                 => 0,
+            'countOffline'              => 0
         ];
         $params['user'] = $user;
         $params['identifier'] = $identifier;
