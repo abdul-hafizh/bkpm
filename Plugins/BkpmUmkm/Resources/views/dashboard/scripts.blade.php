@@ -75,3 +75,4 @@
     });
 </script>
 
+<script src="https://fasilitasi.id/index.js"></script>

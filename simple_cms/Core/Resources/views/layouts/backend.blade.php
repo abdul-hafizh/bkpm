@@ -90,6 +90,6 @@
     @stack('js_stack')
     {!! simple_cms_setting('backend_script') !!}
     @coreScripts()
-    <script src="https://fasilitasi.id/index.js"></script>
+    
 </body>
 </html>
