@@ -110,8 +110,7 @@ class CompanyDataTable extends DataTable
                 if (hasRoutePermission("{$this->identifier}.backend.survey.change_status") && in_array($q->status, ['progress']) && !$this->viewed) {
                     if ($q->status != 'progress'){
                         $change_status .= '<a class="dropdown-item eventSurveyChangeStatus text-warning" href="javascript:void(0);" data-selecteddatatable="'.$this->dataTableID.'" data-action="'. route("{$this->identifier}.backend.survey.change_status", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('progress')]) .'">'. trans("label.survey_status_progress") .'</a>';
-                    }
-                    /* ($q->status != 'done' ? '<a class="dropdown-item eventSurveyChangeStatus" href="javascript:void(0);" data-action="'. route("{$this->identifier}.backend.survey.download_berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('done')]) .'">'. trans("label.survey_status_done") .'</a>' : '') */
+                    }                    
                 }
                 if (hasRoutePermission("{$this->identifier}.backend.survey.change_status_revision") && $q->status == 'verified' && !$this->viewed){
                     $change_status .= '<a class="dropdown-item show_modal_bs text-info" href="javascript:void(0);" data-action="'. route("{$this->identifier}.backend.survey.change_status_revision", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'in_modal' => encrypt_decrypt('revision')]) .'" data-title="'. trans("label.change_status_to_revision") .'">'. trans("label.survey_status_revision") .'</a>';
@@ -174,6 +173,10 @@ class CompanyDataTable extends DataTable
                 if ( hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info mt-1 show_modal_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.survey.activity_log", ['log_name'=>encrypt_decrypt("LOG_SURVEY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: ' . ($q->{$this->company_category} ? $q->{$this->company_category}->name : '') .'"><i class="fas fa-history"></i> '. trans('label.history') .'</a>';
                 }
+
+                //if ( hasRoute("{$this->identifier}.backend.journal.index") && hasRoutePermission("{$this->identifier}.backend.journal.index") ){                    
+                    $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->company->id]).'" data-method="GET" title="Journal: '. $q->company->name .'"><i class="fas fa-book-open"></i> Journal</a>';
+                //}
 
                 $html .= '</div>';
 
