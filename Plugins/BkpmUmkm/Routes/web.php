@@ -122,7 +122,7 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
             Route::post("/activity-log", [
                 'title' => "Company: Activity Log [Backend]",
                 'uses' => '\\SimpleCMS\ActivityLog\Http\Controllers\ActivityLogController@modal'
-            ])->name("activity_log");
+            ])->name("activity_log");            
             Route::post("/import", [
                 'title' => "Company: Import [Backend]",
                 'uses' => 'Company\Backend\CompanyController@import'
@@ -494,6 +494,13 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
 
         });
 
+        /* Journal Route */
+        Route::group(['prefix' => 'journal', 'as'=>'journal.'], function() {
+            Route::get("/", [
+                'title' => "Journal: Index [Backend]",
+                'uses' => 'Journal\Backend\JournalController@index'
+            ])->name("index");
+        });
 
         /* Company & UMKM Verified/Bersedia Route */
         /* Company */
