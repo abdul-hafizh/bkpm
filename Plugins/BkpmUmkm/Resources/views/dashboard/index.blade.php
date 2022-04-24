@@ -1,3 +1,13 @@
+<style>
+    h3.podcast {
+        background-color: #0b56a4;
+        font-size: 11pt;
+        margin: 0;
+        padding: 14px 14px 14px 20px;
+        color: #fff;
+        font-weight: 700;
+    }
+</style>
 <div class="row">
     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
         <div class="form-group">
@@ -40,7 +50,11 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> {{ trans('label.index_company') }} & {{ trans('label.index_umkm') }}</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="company-umkm-tab" role="tablist">
@@ -79,6 +93,9 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.kemitraan_ub_umkm')</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="kemitraan_ub_umkm-tab" role="tablist">
@@ -117,6 +134,9 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.grafik_ub')</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="grafik_ub-tab" role="tablist">
@@ -157,6 +177,9 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> {{ trans('label.umkm_bersedia_menolak_tutup_pindah') }}</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="umkm_bersedia_menolak_tutup_pindah-tab" role="tablist">
@@ -201,6 +224,9 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="ub_by_wilayah-tab" role="tablist">
@@ -245,6 +271,9 @@
     @endif
     @if(!in_array($user->group_id, [GROUP_SURVEYOR]))
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.umkm_has_or_not_nib')</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="umkm_has_or_not_nib-tab" role="tablist">
@@ -281,9 +310,11 @@
                     </table>
                 </div>
             </div>
-        </div>
-        
+        </div>        
         <div class="col-lg-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Yang Sudah Dihubungi</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="ub_by_responed-tab" role="tablist">
@@ -322,6 +353,9 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Berdasarkan Respon</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="ub_by_respon-tab" role="tablist">
@@ -363,6 +397,9 @@
         </div>
         <div class="col-md-2"></div>        
         <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Berdasarkan Kelanjutan Komunikasi</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="ub_by_meeting-tab" role="tablist">
@@ -405,6 +442,9 @@
         <div class="col-md-2"></div>
     @endif
     {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.grafik_survey_ub')</h3>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div id="grafik_survey_ub_bar"></div>
@@ -434,6 +474,9 @@
             </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="mb-2">
+            <h3 class="podcast"><i class="fas fa-tags mr-2"></i> {{ trans('label.survey_umkm') }}</h3>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div id="survey_umkm_bar"></div>

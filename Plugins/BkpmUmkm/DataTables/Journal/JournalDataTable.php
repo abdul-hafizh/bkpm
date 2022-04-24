@@ -34,14 +34,13 @@ class JournalDataTable extends DataTable
     {
         return datatables()
             ->of($query)
-            ->rawColumns(['jurnal'])            
-            ->rawColumns(['journal_task'])    
             ->editColumn('created_at', function($q){
-                $formatDate = formatDate($q->created_at, 1,1,1,1);
-                $html = $formatDate;                
-                $html .= ' (' . $q->created_at->diffForHumans() . ')';
+                $formatDate = formatDate($q->created_at);
+                $html = $formatDate;
                 return $html;
             })          
+            ->rawColumns(['journal_task'])    
+            ->rawColumns(['jurnal'])            
             ->addIndexColumn();
     }
 
@@ -97,9 +96,9 @@ class JournalDataTable extends DataTable
             Column::make('no_index', 'no_index')->title('No')
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),                        
-            Column::make('jurnal')->title('Activity'),
-            Column::make('journal_task')->title('Journal Task'),
-            Column::make('created_at')->title('Tanggal'),
+                Column::make('created_at')->title('Tanggal Journal')->orderable(false),
+                Column::make('journal_task')->title('Journal Task')->orderable(false),
+                Column::make('jurnal')->title('Journal')->orderable(false)
         ];
     }
 
