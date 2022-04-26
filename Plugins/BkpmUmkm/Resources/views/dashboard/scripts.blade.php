@@ -88,6 +88,10 @@
             let self = $(this);
             window.location.href = self.val();
         });
+        $(document).on('change', 'select#filter_wilayah_data', function () {
+            let self = $(this);
+            window.location.href = self.val();
+        });       
         $(document).scroll(function () {
             let dataTableOnDashboard = $('table.dataTable', document);
             if (dataTableOnDashboard.length) {
@@ -168,9 +172,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    /*headerFormat: '<span style="font-size:11px">{series.name}</span><br>',*/
-                    /*headerFormat: '<span style="font-size:11px">{point.name}</span><br>',*/
+                tooltip: {                    
                     pointFormat: 'Total: <b>{point.y}</b>'
                 },
 
@@ -356,9 +358,7 @@
                         }
                     }
                 },
-                tooltip: {
-                    /*headerFormat: '<span style="font-size:11px">{series.name}</span><br>',*/
-                    /*headerFormat: '<span style="font-size:11px">{point.name}</span><br>',*/
+                tooltip: {                    
                     pointFormat: 'Total: <b>{point.y}</b>'
                 },
 

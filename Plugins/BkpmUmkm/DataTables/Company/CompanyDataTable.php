@@ -215,18 +215,76 @@ class CompanyDataTable extends DataTable
             case GROUP_QC_KORPROV:
             case GROUP_SURVEYOR:
                 $model->where('companies.id_provinsi', $this->user->id_provinsi);
+                if (!empty($this->flag_respon)){
+                    switch ($this->flag_respon){
+                        case 'respon':
+                            $model->whereIn('companies.flag_respon', [1,2,3]);
+                            break;
+                        case 'respon1':
+                            $model->where('companies.flag_respon', 1);
+                            break;
+                        case 'respon2':
+                            $model->where('companies.flag_respon', 2);
+                            break;
+                        case 'respon3':
+                            $model->where('companies.flag_respon', 3);
+                            break;
+                    }
+                }
+        
+                if (!empty($this->flag_zoom)){
+                    switch ($this->flag_zoom){
+                        case 'blmJadwal':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
+                            break;
+                        case 'online':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+                            break;
+                        case 'offline':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+                            break;
+                    }
+                }
                 break;
             case GROUP_QC_KORWIL:
             case GROUP_ASS_KORWIL:
-            case GROUP_TA:
-                /*$provinces = bkpmumkm_wilayah($this->user->id_provinsi);
-                $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);*/
+            case GROUP_TA:                
                 $provinces = bkpmumkm_wilayah($this->user->id_provinsi);
                 $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
                 if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
                     $provinces = [$this->provinsi_id];
                 }
                 $model->whereIn('companies.id_provinsi', $provinces);
+                if (!empty($this->flag_respon)){
+                    switch ($this->flag_respon){
+                        case 'respon':
+                            $model->whereIn('companies.flag_respon', [1,2,3]);
+                            break;
+                        case 'respon1':
+                            $model->where('companies.flag_respon', 1);
+                            break;
+                        case 'respon2':
+                            $model->where('companies.flag_respon', 2);
+                            break;
+                        case 'respon3':
+                            $model->where('companies.flag_respon', 3);
+                            break;
+                    }
+                }
+        
+                if (!empty($this->flag_zoom)){
+                    switch ($this->flag_zoom){
+                        case 'blmJadwal':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
+                            break;
+                        case 'online':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+                            break;
+                        case 'offline':
+                            $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+                            break;
+                    }
+                }
                 break;
             default:
                 if ($this->wilayah_id!='') {
@@ -247,40 +305,39 @@ class CompanyDataTable extends DataTable
                         }
                     }
                     $model->whereIn('companies.id_provinsi', $provinces);
+                    if (!empty($this->flag_respon)){
+                        switch ($this->flag_respon){
+                            case 'respon':
+                                $model->whereIn('companies.flag_respon', [1,2,3]);
+                                break;
+                            case 'respon1':
+                                $model->where('companies.flag_respon', 1);
+                                break;
+                            case 'respon2':
+                                $model->where('companies.flag_respon', 2);
+                                break;
+                            case 'respon3':
+                                $model->where('companies.flag_respon', 3);
+                                break;
+                        }
+                    }
+            
+                    if (!empty($this->flag_zoom)){
+                        switch ($this->flag_zoom){
+                            case 'blmJadwal':
+                                $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
+                                break;
+                            case 'online':
+                                $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+                                break;
+                            case 'offline':
+                                $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+                                break;
+                        }
+                    }
                 }
                 break;
-        }
-
-        if (!empty($this->flag_respon)){
-            switch ($this->flag_respon){
-                case 'respon':
-                    $model->whereIn('companies.flag_respon', [1,2,3]);
-                    break;
-                case 'respon1':
-                    $model->where('companies.flag_respon', 1);
-                    break;
-                case 'respon2':
-                    $model->where('companies.flag_respon', 2);
-                    break;
-                case 'respon3':
-                    $model->where('companies.flag_respon', 3);
-                    break;
-            }
-        }
-
-        if (!empty($this->flag_zoom)){
-            switch ($this->flag_zoom){
-                case 'blmJadwal':
-                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
-                    break;
-                case 'online':
-                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
-                    break;
-                case 'offline':
-                    $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
-                    break;
-            }
-        }
+        }        
 
         switch ($this->trash){
             case 'not-trash':

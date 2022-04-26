@@ -9,14 +9,24 @@
     }
 </style>
 <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-        <div class="form-group">
-            <label for="filter_periode_data">@lang('label.filter_periode')</label>
-            <select id="filter_periode_data" class="form-control form-control-sm">
-                @foreach(list_years() as $th)
-                    <option value="{{ request()->fullUrlWithQuery(['periode' => $th]) }}" {{ ($th==$year?'selected':'') }}>{{ $th }}</option>
-                @endforeach
-            </select>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-12 form-group">
+                <label for="filter_periode_data">@lang('label.filter_periode')</label>
+                <select id="filter_periode_data" class="form-control form-control-sm">
+                    @foreach(list_years() as $th)
+                        <option value="{{ request()->fullUrlWithQuery(['periode' => $th]) }}" {{ ($th==$year?'selected':'') }}>{{ $th }}</option>
+                    @endforeach
+                </select>
+            </div>               
+            <div class="col-sm-2 col-md-2 col-12 form-group">
+                <label>@lang('label.wilayah')</label>
+                <select id="filter_wilayah_data" class="form-control form-control-sm">
+                    @foreach(list_bkpmumkm_wilayah_by_user() as $wilayah_filter)
+                        <option value="{{ request()->fullUrlWithQuery(['wilayah_id' => $wilayah_filter['id']]) }}" data-provinces=\'@json($wilayah_filter['provinces'])\' {{ ($wilayah_filter['id']==$wilayah_id?'selected':'') }}>{{ $wilayah_filter['name'] }}</option>
+                    @endforeach
+                </select>
+            </div>               
         </div>
     </div>
 </div>
