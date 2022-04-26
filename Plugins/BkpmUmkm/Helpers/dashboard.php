@@ -13,6 +13,8 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
     {
         $request = request();
         $year = $request->get('periode', \Carbon\Carbon::now()->format('Y'));
+        $wilayah_id = $request->get('wilayah_id');        
+        $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
         $config = app('config')->get('simple_cms.plugins.bkpmumkm');
         $identifier = $config['identifier'];
         $user = auth()->user();
@@ -68,6 +70,23 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             'countZoom'                 => 0,
             'countOffline'              => 0
         ];
+
+        if ($wilayah_id!='') {
+            $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+            $provinces_filter = [];
+            if($wilayah_id!='all') {
+                $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+            } elseif ($wilayah_id=='all'){
+                foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                    if (count($wilayah1['provinces'])){
+                        foreach ($wilayah1['provinces'] as $province) {
+                            $provinces_filter[] = $province['kode_provinsi'];
+                        }
+                    }
+                }
+            }
+        }
+
         $params['user'] = $user;
         $params['identifier'] = $identifier;
 
@@ -178,7 +197,9 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 
             case GROUP_QC_KORPROV:
                 $ub->where('id_provinsi', $user->id_provinsi);
-
+                if ($wilayah_id!='') {                    
+                    $ub->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUB'] = $ub->count();
 
                 $params['countUMKMPotensial'] = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
@@ -220,18 +241,40 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                         ->where('companies.id_provinsi', $user->id_provinsi);
                 })->count();
 
+                if ($wilayah_id!='') {                    
+                    $umkm_has_nib->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUMKMHasNIB'] = $umkm_has_nib->where('companies.id_provinsi', $user->id_provinsi)->count();
+
+                if ($wilayah_id!='') {                    
+                    $umkm_not_nib->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUMKMNotNIB'] = $umkm_not_nib->where('companies.id_provinsi', $user->id_provinsi)->count();
                 break;
             case GROUP_QC_KORWIL:
             case GROUP_ASS_KORWIL:
             case GROUP_TA:
                 $ub->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces']);
+                if ($wilayah_id!='') {                    
+                    $ub->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUB'] = $ub->count();
 
                 $params['count_ub_not_set'] = $ub_not_set->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_bersedia->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_bersedia'] = $ub_bersedia->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_tidak_bersedia->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_tidak_bersedia'] = $ub_tidak_bersedia->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_tidak_respon->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_tidak_respon'] = $ub_tidak_respon->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
                 $params['count_ub_konsultasi_bkpm'] = $ub_konsultasi_bkpm->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
                 $params['count_ub_menunggu_konfirmasi'] = $ub_menunggu_konfirmasi->whereIn('id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
@@ -252,7 +295,6 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     $q->where('companies.category', CATEGORY_COMPANY)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
                 })->count();
 
-                // selectRaw('SUM(jsonget_int(REPLACE(REPLACE(JSON_EXTRACT(survey_results.data, "$.kebutuhan_kemitraan.*.total_potensi_nilai"), \',\', \'\'), \'" "\',\'","\'), \'[+]\')) AS total_potensi_nilai_all')->
                 $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah){
                     $q->whereHas('company', function ($q) use($bkpmumkm_wilayah){
                         $q->where('companies.category', CATEGORY_COMPANY)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
@@ -269,15 +311,15 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     }
                 }
 
-                /*$params['countUMKMPotensial'] = $umkm_potensial->whereHas('umkm', function ($q) use($bkpmumkm_wilayah){
-                    $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
-                        ->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
-                })->count();*/
-                $params['countUMKMPotensial'] = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
-                    ->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])
-                    ->whereHas('survey', function ($q) use($year){
-                        $q->whereYear('surveys.created_at', $year);
-                    })->count();
+                $countUMKMPotensial = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
+                ->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])
+                ->whereHas('survey', function ($q) use($year){
+                    $q->whereYear('surveys.created_at', $year);
+                });
+                if ($wilayah_id!='') {                    
+                    $countUMKMPotensial->whereIn('id_provinsi', $provinces_filter);
+                }
+                $params['countUMKMPotensial'] = $countUMKMPotensial->count();                    
 
                 $params['countUMKMPotensialBelumDisurvey']  = $survey_umkm_belum_disurvey->whereHas('umkm', function ($q) use($bkpmumkm_wilayah){
                     $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)
@@ -312,18 +354,40 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                         ->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
                 })->count();
 
+                if ($wilayah_id!='') {                    
+                    $umkm_has_nib->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUMKMHasNIB'] = $umkm_has_nib->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
-                $params['countUMKMNotNIB'] = $umkm_not_nib->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])->count();
+
+                if ($wilayah_id!='') {                    
+                    $umkm_not_nib->whereIn('id_provinsi', $provinces_filter);
+                }
+                $params['countUMKMNotNIB'] = $umkm_not_nib->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])->count();                
 
                 break;
             case GROUP_QC_KOROP:
             case GROUP_ADMIN:
             case GROUP_SUPER_ADMIN:
+                if ($wilayah_id!='') {                    
+                    $ub->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUB'] = $ub->count();
 
                 $params['count_ub_not_set'] = $ub_not_set->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_bersedia->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_bersedia'] = $ub_bersedia->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_tidak_bersedia->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_tidak_bersedia'] = $ub_tidak_bersedia->count();
+
+                if ($wilayah_id!='') {                    
+                    $ub_tidak_respon->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['count_ub_tidak_respon'] = $ub_tidak_respon->count();
                 $params['count_ub_konsultasi_bkpm'] = $ub_konsultasi_bkpm->count();
                 $params['count_ub_menunggu_konfirmasi'] = $ub_menunggu_konfirmasi->count();                
@@ -360,11 +424,17 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     }
                 }
 
-                $params['countUMKMPotensial'] = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)
-                    ->where('companies.status', UMKM_POTENSIAL)
-                    ->whereHas('survey', function ($q) use($year){
-                        $q->whereYear('surveys.created_at', $year);
-                    })->count();
+                $countUMKMPotensial = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)
+                ->where('companies.status', UMKM_POTENSIAL)
+                ->whereHas('survey', function ($q) use($year){
+                    $q->whereYear('surveys.created_at', $year);
+                });
+
+                if ($wilayah_id!='') {                    
+                    $countUMKMPotensial->whereIn('id_provinsi', $provinces_filter);
+                }
+
+                $params['countUMKMPotensial'] = $countUMKMPotensial->count();
 
                 $params['countUMKMPotensialBelumDisurvey']  = $survey_umkm_belum_disurvey->whereHas('umkm', function ($q){
                     $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
@@ -391,7 +461,14 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     $q->where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL);
                 })->count();
 
+                if ($wilayah_id!='') {                    
+                    $umkm_has_nib->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUMKMHasNIB'] = $umkm_has_nib->count();
+
+                if ($wilayah_id!='') {                    
+                    $umkm_not_nib->whereIn('id_provinsi', $provinces_filter);
+                }
                 $params['countUMKMNotNIB'] = $umkm_not_nib->count();
 
                 $provinces = [];
@@ -413,20 +490,48 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['countKemitraanUB_PMA'] = $kemitraan_ub->whereHas('company', function ($q){
             $q->where('companies.pmdn_pma','PMA');
         })->count();
-        $kemitraan_ub1          = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
+
+        $kemitraan_ub1          = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');        
         $params['countKemitraanUB_PMDN'] = $kemitraan_ub1->whereHas('company', function ($q){
             $q->where('companies.pmdn_pma','PMDN');
         })->count();
+        
         $params['countUMKMBermitra'] = count($umkm_bermitra);
         $params['countUMKMBelumBermitra'] = $umkm_belum_bermitra;
 
+        if ($wilayah_id!='') {                    
+            $ub_responed->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countResponed'] = $ub_responed->count();
+        
+        if ($wilayah_id!='') {                    
+            $ub_respon->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countRespon'] = $ub_respon->count();
+
+        if ($wilayah_id!='') {                    
+            $ub_tdk_respon->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countTdkRespon'] = $ub_tdk_respon->count();
+
+        if ($wilayah_id!='') {                    
+            $ub_tdk_aktif->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countTdkAktif'] = $ub_tdk_aktif->count();
 
+        if ($wilayah_id!='') {                    
+            $ub_blm_jadwal->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countBlmJadwal'] = $ub_blm_jadwal->count();
+
+        if ($wilayah_id!='') {                    
+            $ub_zoom->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countZoom'] = $ub_zoom->count();
+
+        if ($wilayah_id!='') {                    
+            $ub_offline->whereIn('id_provinsi', $provinces_filter);
+        }
         $params['countOffline'] = $ub_offline->count();
 
         $kemitraan = \Plugins\BkpmUmkm\Models\KemitraanModel::selectRaw('SUM(kemitraan.nominal_investasi) AS total_nominal_investasi')->whereIn("kemitraan.status", ['bersedia'])
@@ -458,6 +563,8 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         }
 
         $params['year'] = $year;
+
+        $params['wilayah_id'] = $wilayah_id;
 
         \Core::asset()->write('dashboard-bkpmumkm-js', 'script', view("{$identifier}::dashboard.scripts")->with($params)->render());
         echo view("{$identifier}::dashboard.index")->with($params)->render();
