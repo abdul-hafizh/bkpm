@@ -23,6 +23,7 @@ class CompanyDataTable extends DataTable
     protected $status;
     protected $flag_respon='';
     protected $flag_zoom='';
+    protected $status_filter='';
     protected $company_category = CATEGORY_COMPANY;
     protected $viewed = false;
     protected $periode, $wilayah_id, $provinsi_id;
@@ -43,6 +44,7 @@ class CompanyDataTable extends DataTable
         $this->provinsi_id = (request()->has('provinsi_id') && filter(request()->input('provinsi_id')) != '' ? filter(request()->input('provinsi_id')) : 'all');
         $this->flag_respon = (request()->has('flag_respon') && filter(request()->input('flag_respon')) != '' ? filter(request()->input('flag_respon')) : '');
         $this->flag_zoom = (request()->has('flag_zoom') && filter(request()->input('flag_zoom')) != '' ? filter(request()->input('flag_zoom')) : '');
+        $this->status_filter = (request()->has('status_filter') && filter(request()->input('status_filter')) != '' ? filter(request()->input('status_filter')) : '');
     }
 
     /**
@@ -328,16 +330,41 @@ class CompanyDataTable extends DataTable
                                 $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
                                 break;
                             case 'online':
-                                $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
+                                $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);                                
                                 break;
                             case 'offline':
                                 $model->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
                                 break;
                         }
-                    }
+                    }                    
                 }
                 break;
-        }        
+        }                
+
+        if (!empty($this->status_filter)){
+            $model->whereHas('companies_status', function ($q){                
+                switch ($this->status_filter){
+                    case 'bersedia':
+                        $q->where('companies_status.status', 'bersedia');
+                        break;
+                    case 'tidak_bersedia':
+                        $q->where('companies_status.status', 'tidak_bersedia');
+                        break;
+                    case 'tidak_respon':
+                        $q->where('companies_status.status', 'tidak_respon');
+                        break;
+                    case 'konsultasi_bkpm':
+                        $q->where('companies_status.status', 'konsultasi_bkpm');
+                        break;
+                    case 'menunggu_konfirmasi':
+                        $q->where('companies_status.status', 'menunggu_konfirmasi');
+                        break;
+                    case 'belum_terisi':
+                        $q->where('companies_status.status', NULL);
+                        break;
+                }
+            });            
+        }
 
         switch ($this->trash){
             case 'not-trash':

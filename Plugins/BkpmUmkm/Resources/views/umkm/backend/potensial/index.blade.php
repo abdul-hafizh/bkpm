@@ -22,6 +22,12 @@
 @endsection
 @push('js_stack')
     <script>
+         $(document).ready(function () {
+            let dataTables_wrapper= $('div.dataTables_wrapper').find('div.row');
+            dataTables_wrapper.find('div.toolbar-button-datatable').removeClass('col-md-6').addClass('col-md-8');
+            dataTables_wrapper.find('div.text-right').removeClass('col-md-6').addClass('col-md-4');
+        });
+        
         @php
             $periodes = [];
             foreach (list_years() as $y) {
