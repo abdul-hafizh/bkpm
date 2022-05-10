@@ -34,8 +34,8 @@ class JournalDataTable extends DataTable
     {
         return datatables()
             ->of($query)
-            ->editColumn('created_at', function($q){
-                $formatDate = formatDate($q->created_at);
+            ->editColumn('activity_date', function($q){
+                $formatDate = formatDate($q->activity_date);
                 $html = $formatDate;
                 return $html;
             })          
