@@ -96,7 +96,7 @@ class JournalDataTable extends DataTable
             Column::make('no_index', 'no_index')->title('No')
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),                        
-                Column::make('created_at')->title('Tanggal Journal')->orderable(false),
+                Column::make('activity_date')->title('Tanggal Journal')->orderable(false),
                 Column::make('journal_task')->title('Journal Task')->orderable(false),
                 Column::make('jurnal')->title('Journal')->orderable(false)
         ];
