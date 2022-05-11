@@ -47,67 +47,6 @@ $(document).ready(function () {
         }
     });
 
-    function template_kebutuhan_kemitraan() {
-        let html = '',
-            indexName = $('table > tbody.itemsKebutuhanKemitraan > tr.itemKebutuhanKemitraan', document).length + 1;
-        html += '<tr class="itemKebutuhanKemitraan row">\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <label class="d-md-none d-lg-none d-xl-none">Jenis Pekerjaan</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_pekerjaan]" value="" placeholder="Jenis Pekerjaan" class="form-control form-control-sm">\n' +
-            '       </td>\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <label class="d-md-none d-lg-none d-xl-none">Produk</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][produk]" value="" placeholder="Produk" class="form-control form-control-sm">\n' +
-            '       </td>\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <label class="d-md-none d-lg-none d-xl-none">Kapasitas</label>\n' +
-            '           <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][kapasitas]" value="" placeholder="Kapasitas" class="form-control form-control-sm">\n' +
-            '       </td>\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <label class="d-md-none d-lg-none d-xl-none">Spesifikasi/Persyaratan</label>\n' +
-            '           <textarea name="data[kebutuhan_kemitraan]['+ indexName +'][persyaratan]" rows="2" placeholder="Spesifikasi/Persyaratan" class="form-control form-control-sm"></textarea>\n' +
-            '       </td>\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <div class="form-group">\n' +
-            '               <label class="d-md-none d-lg-none d-xl-none">'+ kebutuhan_kemitraan_nilai_kontrak +'</label>\n' +
-            '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][nilai]" value="0" placeholder="'+ kebutuhan_kemitraan_nilai_kontrak +'" class="form-control form-control-sm nominal nilai_kontrak">\n' +
-            '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '                <label class="">Jenis Supply</label>\n' +
-            '                <select name="data[kebutuhan_kemitraan]['+ indexName +'][jenis_supply]" class="form-control form-control-sm" required>\n' +
-            '                    <option value="">Pilih Jenis Supply</option>\n' +
-            '                    <option value="Rantai Pasok">Rantai Pasok</option>\n' +
-            '                    <option value="Bahan Baku Penolong">Bahan Baku Penolong</option>\n' +
-            '                    <option value="Jasa-jasa Lainnya">Jasa-jasa Lainnya</option>\n' +
-            '                </select>\n' +
-            '           </div>\n' +
-            '       </td>\n' +
-            '       <td class="col-md-2 col-sm-12 col-xs-12">\n' +
-            '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_terms_of_payment +'</label>\n' +
-            '               <textarea name="data[kebutuhan_kemitraan]['+ indexName +'][terms_of_payment]" rows="2" placeholder="'+ kebutuhan_kemitraan_terms_of_payment +'" class="form-control form-control-sm"></textarea>\n' +
-            '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_satuan +'</label>\n' +
-            '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][satuan]" value="" placeholder="e.g: Hari/Bulan/Tahun/Ton" class="form-control form-control-sm">\n' +
-            '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_pengali +'</label>\n' +
-            '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][pengali]" value="0" placeholder="'+ kebutuhan_kemitraan_pengali +'" class="form-control form-control-sm nominal pengali_nilai_kontrak">\n' +
-            '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '               <label class="">'+ kebutuhan_kemitraan_total_potensi_nilai +'</label>\n' +
-            '               <input type="text" name="data[kebutuhan_kemitraan]['+ indexName +'][total_potensi_nilai]" value="0" placeholder="'+ kebutuhan_kemitraan_total_potensi_nilai +'" class="form-control form-control-sm nominal total_potensi_nilai" readonly>\n' +
-            '           </div>\n' +
-            '           <div class="form-group">\n' +
-            '               <button type="button" class="btn btn-xs btn-danger eventRemoveKebutuhanKemitraan mt-3" title="'+ labelDelete +'"><i class="fas fa-trash"></i> '+ labelDelete +'</button>\n' +
-            '           </div>\n' +
-            '       </td>\n' +
-            '    </tr>\n';
-        $('.itemsKebutuhanKemitraan').append(html);
-        $('.total_data_kebutuhan_kemitraan', document).html('Total Data: ' + indexName);
-    }
-
     $(document).on('paste keydown keyup blur outblur focusout',
         "table > tbody.itemsKebutuhanKemitraan > tr.itemKebutuhanKemitraan > td > input.nilai_kontrak, table > tbody.itemsKebutuhanKemitraan > tr.itemKebutuhanKemitraan > td input.pengali_nilai_kontrak",
         function(){
