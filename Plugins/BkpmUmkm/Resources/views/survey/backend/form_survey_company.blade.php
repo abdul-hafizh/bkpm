@@ -97,5 +97,5 @@
     {!! module_script('wilayah', 'js/event-wilayah.js') !!}
     {!! plugins_script('bkpmumkm', 'survey/backend/js/dropzone.js') !!}
     {!! plugins_script('bkpmumkm', 'survey/backend/js/input-survey.js') !!}
-    {!! plugins_script('bkpmumkm', "survey/backend/js/input-survey-{$category_company}.js") !!}
+    {!! plugins_script('bkpmumkm', "survey/backend/js/input-survey-umkm.js") !!}
 @endpush
