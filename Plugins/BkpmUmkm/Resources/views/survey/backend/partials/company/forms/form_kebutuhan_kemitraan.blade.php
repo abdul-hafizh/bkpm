@@ -44,7 +44,7 @@
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label class="d-md-none d-lg-none d-xl-none">@lang('label.kebutuhan_kemitraan_nilai_kontrak')</label>
-                            <input type="text" name="data[kebutuhan_kemitraan][{{ $index_kk }}][nilai]" value="{{ (isset($kk['nilai'])?$kk['nilai']:'0') }}" placeholder="@lang('label.kebutuhan_kemitraan_nilai_kontrak')" class="form-control form-control-sm nominal nilai_kontrak">                        
+                            <input type="text" name="data[kebutuhan_kemitraan][{{ $index_kk }}][nilai]" value="{{ (isset($kk['nilai'])?$kk['nilai']:'0') }}" placeholder="@lang('label.kebutuhan_kemitraan_nilai_kontrak')" class="form-control form-control-sm nilai_kontrak">                        
                         </div>
                         <div class="form-group">
                             <label class="">Jenis Supply</label>                            
