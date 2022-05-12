@@ -18,6 +18,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $config = app('config')->get('simple_cms.plugins.bkpmumkm');
         $identifier = $config['identifier'];
         $user = auth()->user();
+        $filter_wilayah_total_potensi = [''];
         $bkpmumkm_wilayah = bkpmumkm_wilayah($user->id_provinsi);
         $params = [
             'countUB'                   => 0,
@@ -295,9 +296,15 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     $q->where('companies.category', CATEGORY_COMPANY)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
                 })->count();
 
-                $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah){
-                    $q->whereHas('company', function ($q) use($bkpmumkm_wilayah){
-                        $q->where('companies.category', CATEGORY_COMPANY)->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces']);
+                if ($wilayah_id!='') {                    
+                    $filter_wilayah_total_potensi = $provinces_filter;
+                }
+
+                $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah, $filter_wilayah_total_potensi){
+                    $q->whereHas('company', function ($q) use($bkpmumkm_wilayah, $filter_wilayah_total_potensi){
+                        $q->where('companies.category', CATEGORY_COMPANY)
+                        ->whereIn('companies.id_provinsi', $bkpmumkm_wilayah['provinces'])
+                        ->whereIn('companies.id_provinsi', $filter_wilayah_total_potensi);
                     })->where(function($q) use($year){
                         $q->whereYear('surveys.created_at', $year)->where('surveys.status', 'verified');
                     });
@@ -407,10 +414,15 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $params['countSurveyUB_revision']       = $survey_ub_revision->whereHas(CATEGORY_COMPANY.'.company_status', function($q){
                     $q->whereIn('companies_status.status', ['bersedia']);
                 })->count();
+
+                if ($wilayah_id!='') {                    
+                    $filter_wilayah_total_potensi = $provinces_filter;
+                }
                 
-                $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah){
-                    $q->whereHas('company', function ($q) use($bkpmumkm_wilayah){
+                $ub_total_potensi_nilai_all = \Plugins\BkpmUmkm\Models\SurveyResultModel::whereHas('survey', function($q) use($year, $bkpmumkm_wilayah, $filter_wilayah_total_potensi){
+                    $q->whereHas('company', function ($q) use($bkpmumkm_wilayah, $filter_wilayah_total_potensi){
                         $q->where('companies.category', CATEGORY_COMPANY);
+                        $q->whereIn('companies.id_provinsi', $filter_wilayah_total_potensi);
                     })->where(function($q) use($year){
                         $q->whereYear('surveys.created_at', $year)->where('surveys.status', 'verified');
                     });
