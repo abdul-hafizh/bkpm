@@ -63,7 +63,7 @@
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <label class="d-md-none d-lg-none d-xl-none">@lang('label.kemitraan_berjalan_nilai_kontrak')</label>
-                        <input type="text" name="data[kemitraan_sedang_berjalan][{{ $index_ksb }}][nilai]" value="{{ (isset($ksb['nilai'])?$ksb['nilai']:'0') }}" placeholder="@lang('label.kemitraan_berjalan_nilai_kontrak')" class="form-control form-control-sm nominal kemitraan_berjalan_nilai_kontrak">
+                        <input type="number" name="data[kemitraan_sedang_berjalan][{{ $index_ksb }}][nilai]" value="{{ (isset($ksb['nilai'])?$ksb['nilai']:'0') }}" placeholder="@lang('label.kemitraan_berjalan_nilai_kontrak')" class="form-control form-control-sm kemitraan_berjalan_nilai_kontrak">
                     </td>
                     <td class="col-md-2 col-sm-12 col-xs-12">
                         <div class="form-group">
