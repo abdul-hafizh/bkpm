@@ -347,7 +347,7 @@ class CompanyDataTable extends DataTable
         }       
         
         $model->whereHas('journal_activity', function ($q){      
-            $q->orderBy('journal_activity.id', 'asc');
+            $q->orderBy('journal_activity.id', 'desc');
         });            
         
         if (!empty($this->status_filter)){
