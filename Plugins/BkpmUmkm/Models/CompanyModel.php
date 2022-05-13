@@ -28,10 +28,12 @@ class CompanyModel extends Model
     {
         return $this->belongsTo(\SimpleCMS\ACL\Models\User::class, 'user_id', 'id');
     }
+
     public function surveyor_observasi()
     {
         return $this->belongsTo(\SimpleCMS\ACL\Models\User::class, 'surveyor_observasi_id', 'id');
     }
+
     public function sector()
     {
         return $this->belongsTo(BusinessSectorModel::class, 'business_sector_id');
@@ -60,6 +62,7 @@ class CompanyModel extends Model
     {
         return $this->belongsTo(KbliModel::class, 'code_kbli', 'code');
     }
+
     public function kbli_multiple()
     {
         return $this->belongsToMany(KbliModel::class, 'company_kbli', 'company_id', 'code_kbli', 'id', 'code')->withPivot(['company_id', 'code_kbli']);
@@ -69,6 +72,7 @@ class CompanyModel extends Model
     {
         return $this->hasOne(SurveyModel::class, 'company_id', 'id');
     }
+
     public function surveys()
     {
         return $this->hasMany(SurveyModel::class, 'company_id', 'id');
@@ -78,6 +82,12 @@ class CompanyModel extends Model
     {
         return $this->hasOne(CompanyStatusModel::class, 'company_id', 'id');
     }
+
+    public function journal_activity()
+    {
+        return $this->hasOne(JournalModel::class, 'company_id', 'id')->latest();
+    }
+
     public function companies_status()
     {
         return $this->hasMany(CompanyStatusModel::class, 'company_id', 'id');
