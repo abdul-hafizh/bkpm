@@ -113,6 +113,11 @@ class CompanyDataTable extends DataTable
                 }
                 return '-';
             })
+            ->addColumn('journal_activity.jurnalRaw', function ($q) {
+                $formatDate = formatDate($q->journal_activity->activity_date);
+                $html = $formatDate . ' (' . $q->journal_activity->jurnal . ')';
+                return $html;
+            })
             ->addColumn('company_status.statusRaw', function ($q) {
                 /* Bersedia, Tidak Bersedia, Tidak Respon, Konsultasi BKPM, Menunggu Konfirmasi */
                 $status = ($q->company_status && $q->company_status->status  ? trans("label.company_status_{$q->company_status->status}") : '--------');
@@ -339,8 +344,12 @@ class CompanyDataTable extends DataTable
                     }                    
                 }
                 break;
-        }                
-
+        }       
+        
+        $model->whereHas('journal_activity', function ($q){      
+            $q->orderBy('journal_activity.id', 'asc');
+        });            
+        
         if (!empty($this->status_filter)){
             $model->whereHas('companies_status', function ($q){                
                 switch ($this->status_filter){
@@ -439,6 +448,7 @@ CDATA;
             Column::make('name_pic')->title(trans('label.name_pic_of_company')),
             Column::make('email_pic')->visible(false),
             Column::make('phone_pic')->visible(false),
+            Column::make('journal_activity.jurnalRaw')->title('Update Terkini'),
             Column::make('company_status.statusRaw')->title(trans('label.status')),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
