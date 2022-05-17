@@ -7,6 +7,21 @@
         color: #fff;
         font-weight: 700;
     }
+
+    .highcharts-color-1 {
+        fill: #0b56a4 !important;
+        stroke: #0b56a4 !important;
+    }
+
+    .highcharts-color-2 {
+        fill: #28a745 !important;
+        stroke: #28a745 !important;
+    }
+
+    .highcharts-color-3 {
+        fill: #5d097c !important;
+        stroke: #5d097c !important;
+    }
 </style>
 <div class="row">
     <div class="col-md-12">
