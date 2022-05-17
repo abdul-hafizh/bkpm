@@ -61,6 +61,41 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             'countUBWilayah2'           => 0,
             'countUBWilayah3'           => 0,
             'countUBWilayah4'           => 0,
+            
+            'countUB11'                 => 0,
+            'countUB12'                 => 0,
+            'countUB13'                 => 0,
+            'countUB14'                 => 0,
+            'countUB15'                 => 0,
+            'countUB16'                 => 0,
+            'countUB17'                 => 0,
+            'countUB18'                 => 0,
+            'countUB19'                 => 0,
+            'countUB21'                 => 0,
+            'countUB31'                 => 0,
+            'countUB32'                 => 0,
+            'countUB33'                 => 0,
+            'countUB34'                 => 0,
+            'countUB35'                 => 0,
+            'countUB36'                 => 0,
+            'countUB51'                 => 0,
+            'countUB52'                 => 0,
+            'countUB53'                 => 0,
+            'countUB61'                 => 0,
+            'countUB62'                 => 0,
+            'countUB63'                 => 0,
+            'countUB64'                 => 0,
+            'countUB65'                 => 0,
+            'countUB71'                 => 0,
+            'countUB72'                 => 0,
+            'countUB73'                 => 0,
+            'countUB74'                 => 0,
+            'countUB75'                 => 0,
+            'countUB76'                 => 0,
+            'countUB81'                 => 0,
+            'countUB82'                 => 0,
+            'countUB91'                 => 0,
+            'countUB92'                 => 0,
 
             'countResponed'             => 0,
             'countRespon'               => 0,
@@ -87,11 +122,16 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 }
             }
         }
-
+        
         $params['user'] = $user;
         $params['identifier'] = $identifier;
 
         $ub = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
+            ->whereHas('company_status', function($q) use($year){
+                $q->whereYear('companies_status.created_at', $year);
+            });
+
+        $ub_wil = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
             ->whereHas('company_status', function($q) use($year){
                 $q->whereYear('companies_status.created_at', $year);
             });
@@ -378,7 +418,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 if ($wilayah_id!='') {                    
                     $ub->whereIn('id_provinsi', $provinces_filter);
                 }
-                $params['countUB'] = $ub->count();
+                $params['countUB'] = $ub->count();                
 
                 $params['count_ub_not_set'] = $ub_not_set->count();
 
@@ -495,6 +535,13 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 }
                 
                 break;
+        }
+
+        if ($wilayah_id!='') {
+            for ($i = 0; $i < count($provinces_filter); $i++) {
+                $ub_wil->where('id_provinsi', (int)$provinces_filter[$i]);                
+                $params['countUB'. (int)$provinces_filter[$i]] = $ub_wil->count();
+            }
         }
 
         $params['countKemitraanUB'] = $kemitraan_ub->count();
