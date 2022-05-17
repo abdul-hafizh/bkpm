@@ -204,7 +204,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(CompanyModel $model)
     {
-        $model = $model->where('category', $this->company_category)->with(['sector', 'kbli', 'pic', 'negara', 'provinsi', 'company_status'=>function($q){
+        $model = $model->where('category', $this->company_category)->with(['sector', 'kbli', 'pic', 'negara', 'provinsi', 'journal_activity', 'company_status'=>function($q){
             $q->whereYear('created_at', $this->periode);
         }])->whereHas('company_status', function($q){
             $q->whereYear('companies_status.created_at', $this->periode);
@@ -217,7 +217,9 @@ class CompanyDataTable extends DataTable
                     $q->where('companies_status.status', $this->status);
                 }
             }
-        });
+        })->whereHas('journal_activity', function ($q){      
+            $q->orderBy('journal_activity.activity_date', 'desc');
+        });            ;
         switch ($this->user->group_id){
             case GROUP_QC_KORPROV:
             case GROUP_SURVEYOR:
@@ -344,11 +346,7 @@ class CompanyDataTable extends DataTable
                     }                    
                 }
                 break;
-        }       
-        
-        $model->whereHas('journal_activity', function ($q){      
-            $q->orderBy('journal_activity.id', 'desc');
-        });            
+        }               
         
         if (!empty($this->status_filter)){
             $model->whereHas('companies_status', function ($q){                
@@ -397,6 +395,9 @@ class CompanyDataTable extends DataTable
     public function html()
     {
         $buttons = [
+            Button::make('create')->action('window.location.href = "' .'#'. '"')
+            ->text("<i class='fas fa-plus'></i> " . trans("Tambah Journal"))
+            ->addClass('bg-info'),
             Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.company.confirm_add").'"')
                 ->text("<i class='fas fa-plus'></i> " . trans("label.add_new_{$this->company_category}"))
                 ->addClass('bg-primary'),
@@ -434,28 +435,29 @@ CDATA;
     {
         $columns = [
             Column::make('no_index', 'no_index')->title('No')
-                ->width('1%')->addClass('text-center')
+                ->width('1%')->addClass('text-center')->addClass('align-middle')
                 ->orderable(false)->searchable(false),
-            Column::make('name')->title(trans('label.name_company')),
-            Column::make('nib')->title(trans('label.nib_company')),
-            Column::make('sector.name')->title(trans('label.sector_company')),
-            Column::make('kbli_name_raw')->name('kbli.name')->title(trans('label.kbli'))->orderable(false)->searchable(false),
-            Column::make('negara.nama_negara')->title(trans('wilayah::label.country'))->visible(false),
-            Column::make('provinsi.nama_provinsi')->title(trans('wilayah::label.province')),
-            Column::make('name_director')->title(trans('label.name_director_of_company')),
-            Column::make('email_director')->visible(false),
-            Column::make('phone_director')->visible(false),
-            Column::make('name_pic')->title(trans('label.name_pic_of_company')),
-            Column::make('email_pic')->visible(false),
-            Column::make('phone_pic')->visible(false),
-            Column::make('journal_activity.jurnalRaw')->title('Update Terkini'),
-            Column::make('company_status.statusRaw')->title(trans('label.status')),
+            Column::make('name')->title(trans('label.name_company'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('nib')->title(trans('label.nib_company'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('sector.name')->title(trans('label.sector_company'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('kbli_name_raw')->name('kbli.name')->title(trans('label.kbli'))->orderable(false)->searchable(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('negara.nama_negara')->title(trans('wilayah::label.country'))->visible(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('provinsi.nama_provinsi')->title(trans('wilayah::label.province'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('name_director')->title(trans('label.name_director_of_company'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('email_director')->visible(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('phone_director')->visible(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('name_pic')->title(trans('label.name_pic_of_company'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('email_pic')->visible(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('phone_pic')->visible(false)->addClass('text-center')->addClass('align-middle'),
+            Column::make('journal_activity.jurnalRaw')->title('Update Terkini')->addClass('text-center')->addClass('align-middle'),
+            Column::make('company_status.statusRaw')->title(trans('label.status'))->addClass('text-center')->addClass('align-middle'),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
                 ->exportable(false)
                 ->printable(false)
                 ->width('5%')
-                ->addClass('text-center'),
+                ->addClass('text-center')
+                ->addClass('align-middle'),
         ];
         if ($this->viewed){
             unset($columns[14]);
