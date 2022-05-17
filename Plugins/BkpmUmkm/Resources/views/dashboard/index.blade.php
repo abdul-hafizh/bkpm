@@ -23,6 +23,7 @@
         stroke: #5d097c !important;
     }
 </style>
+
 <div class="row">
     <div class="col-md-12">
         <div class="row">
@@ -117,51 +118,170 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="mb-2">
-                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="ub_by_wilayah-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="ub_by_wilayah-bar-tab" data-toggle="pill" href="#ub_by_wilayah-bar-content" role="tab" aria-controls="ub_by_wilayah-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="ub_by_wilayah-pie-tab" data-toggle="pill" href="#ub_by_wilayah-pie-content" role="tab" aria-controls="ub_by_wilayah-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="ub_by_wilayah-tabContent">
-                        <div class="tab-pane fade show active" id="ub_by_wilayah-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah-bar-tab">
-                            <div id="ub_by_wilayah_bar"></div>
-                        </div>
-                        <div class="tab-pane fade" id="ub_by_wilayah-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah-pie-tab">
-                            <div id="ub_by_wilayah_pie"></div>
+        @if($wilayah_id == 'all')
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah-bar-tab" data-toggle="pill" href="#ub_by_wilayah-bar-content" role="tab" aria-controls="ub_by_wilayah-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah-pie-tab" data-toggle="pill" href="#ub_by_wilayah-pie-content" role="tab" aria-controls="ub_by_wilayah-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah-bar-tab">
+                                <div id="ub_by_wilayah_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah-pie-tab">
+                                <div id="ub_by_wilayah_pie"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-footer p-0">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="text-center">
-                            <th>{{ trans('label.wilayah_1') }}</th>
-                            <th>{{ trans('label.wilayah_2') }}</th>
-                            <th>{{ trans('label.wilayah_3') }}</th>
-                            <th>{{ trans('label.wilayah_4') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="text-center">
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '0', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_1') .'"' : '') !!}>{{ number_format($countUBWilayah1,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '1', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_2') .'"' : '') !!}>{{ number_format($countUBWilayah2,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '2', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_3') .'"' : '') !!}>{{ number_format($countUBWilayah3,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '3', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="card-footer p-0">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr class="text-center">
+                                <th>{{ trans('label.wilayah_1') }}</th>
+                                <th>{{ trans('label.wilayah_2') }}</th>
+                                <th>{{ trans('label.wilayah_3') }}</th>
+                                <th>{{ trans('label.wilayah_4') }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center">
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '0', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_1') .'"' : '') !!}>{{ number_format($countUBWilayah1,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '1', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_2') .'"' : '') !!}>{{ number_format($countUBWilayah2,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '2', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_3') .'"' : '') !!}>{{ number_format($countUBWilayah3,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '3', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        @elseif($wilayah_id == 0)
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah1-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah1-bar-tab" data-toggle="pill" href="#ub_by_wilayah1-bar-content" role="tab" aria-controls="ub_by_wilayah1-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah1-pie-tab" data-toggle="pill" href="#ub_by_wilayah1-pie-content" role="tab" aria-controls="ub_by_wilayah1-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah1-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah1-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah1-bar-tab">
+                                <div id="ub_by_wilayah1_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah1-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah1-pie-tab">
+                                <div id="ub_by_wilayah1_pie"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        
+                    </div>
+                </div>
+            </div>
+        @elseif($wilayah_id == 1)
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah2-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah2-bar-tab" data-toggle="pill" href="#ub_by_wilayah2-bar-content" role="tab" aria-controls="ub_by_wilayah2-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah2-pie-tab" data-toggle="pill" href="#ub_by_wilayah2-pie-content" role="tab" aria-controls="ub_by_wilayah2-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah2-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah2-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah2-bar-tab">
+                                <div id="ub_by_wilayah2_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah2-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah2-pie-tab">
+                                <div id="ub_by_wilayah2_pie"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        
+                    </div>
+                </div>
+            </div>
+        @elseif($wilayah_id == 2)
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah3-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah3-bar-tab" data-toggle="pill" href="#ub_by_wilayah3-bar-content" role="tab" aria-controls="ub_by_wilayah3-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah3-pie-tab" data-toggle="pill" href="#ub_by_wilayah3-pie-content" role="tab" aria-controls="ub_by_wilayah3-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah3-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah3-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah3-bar-tab">
+                                <div id="ub_by_wilayah3_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah3-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah3-pie-tab">
+                                <div id="ub_by_wilayah3_pie"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        
+                    </div>
+                </div>
+            </div>
+        @elseif($wilayah_id == 3)
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah4-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah4-bar-tab" data-toggle="pill" href="#ub_by_wilayah4-bar-content" role="tab" aria-controls="ub_by_wilayah4-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah4-pie-tab" data-toggle="pill" href="#ub_by_wilayah4-pie-content" role="tab" aria-controls="ub_by_wilayah4-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah4-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah4-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah4-bar-tab">
+                                <div id="ub_by_wilayah4_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah4-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah-pie-tab">
+                                <div id="ub_by_wilayah4_pie"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="col-lg-6 col-sm-12 col-xs-12">
             <div class="mb-2">
                 <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Yang Sudah Dihubungi</h3>

@@ -51,6 +51,53 @@
             {name: "{{ trans('label.wilayah_3') }}", y: {{ (int)$countUBWilayah3 }} },
             {name: "{{ trans('label.wilayah_4') }}", y: {{ (int)$countUBWilayah4 }} }
         ],
+        ub_by_wilayah1_title = "PMA/PMDN Yang Potensi Kontrak",
+        ub_by_wilayah1_data = [
+            {name: "Aceh", y: {{ (int)$countUB11 }} },
+            {name: "Sumatera Utara", y: {{ (int)$countUB12 }} },
+            {name: "Sumatera Barat", y: {{ (int)$countUB13 }} },
+            {name: "Riau", y: {{ (int)$countUB14 }} },
+            {name: "Jambi", y: {{ (int)$countUB15 }} },
+            {name: "Sumatera Selatan", y: {{ (int)$countUB16 }} },
+            {name: "Bengkulu", y: {{ (int)$countUB17 }} },
+            {name: "Lampung", y: {{ (int)$countUB18 }} },
+            {name: "Kepulauan Bangka Belitung", y: {{ (int)$countUB19 }} },
+            {name: "Kepulauan Riau", y: {{ (int)$countUB21 }} }
+        ],
+
+        ub_by_wilayah2_title = "PMA/PMDN Yang Potensi Kontrak",
+        ub_by_wilayah2_data = [
+            {name: "DKI Jakarta", y: {{ (int)$countUB31 }} },
+            {name: "Yogyakarta", y: {{ (int)$countUB34 }} },
+            {name: "Kalimantan Barat", y: {{ (int)$countUB61 }} },
+            {name: "Kalimantan Tengah", y: {{ (int)$countUB62 }} },
+            {name: "Kalimantan Selatan", y: {{ (int)$countUB63 }} },
+            {name: "Kalimantan Timur", y: {{ (int)$countUB64 }} },
+            {name: "Kalimantan Utara", y: {{ (int)$countUB65 }} }
+        ],
+        ub_by_wilayah3_title = "PMA/PMDN Yang Potensi Kontrak",
+        ub_by_wilayah3_data = [
+            {name: "Jawa Barat", y: {{ (int)$countUB32 }} },
+            {name: "Jawa Tengah", y: {{ (int)$countUB33 }} },
+            {name: "Banten", y: {{ (int)$countUB36 }} },
+            {name: "Sulawesi Utara", y: {{ (int)$countUB71 }} },
+            {name: "Sulawesi Tengah", y: {{ (int)$countUB72 }} },
+            {name: "Sulawesi Selatan", y: {{ (int)$countUB73 }} },
+            {name: "Sulawesi Tenggara", y: {{ (int)$countUB74 }} },
+            {name: "Gorontalo", y: {{ (int)$countUB75 }} },
+            {name: "Sulawesi Barat", y: {{ (int)$countUB76 }} }
+        ],
+        ub_by_wilayah4_title = "PMA/PMDN Yang Potensi Kontrak",
+        ub_by_wilayah4_data = [
+            {name: "Jawa Timur", y: {{ (int)$countUB35 }} },
+            {name: "Bali", y: {{ (int)$countUB51 }} },
+            {name: "Nusa Tenggara Barat", y: {{ (int)$countUB52 }} },
+            {name: "Nusa Tenggara Timur", y: {{ (int)$countUB53 }} },
+            {name: "Maluku", y: {{ (int)$countUB81 }} },
+            {name: "Maluku Utara", y: {{ (int)$countUB82 }} },
+            {name: "Papua", y: {{ (int)$countUB91 }} },
+            {name: "Papua Barat", y: {{ (int)$countUB92 }} }
+        ],
         ub_by_responed_title = "Perusahaan Yang Sudah Dihubungi",
         ub_by_responed_data = [
             {name: "Total Perusahaan", y: {{ (int)$countUB }} },
@@ -757,6 +804,355 @@
                     name: 'Total',
                     colorByPoint: true,
                     data: ub_by_wilayah_data
+                }]
+            });
+        }
+
+        /* PMDN / PMA Berdasarkan Per Wilayah */
+        if ($('#ub_by_wilayah1_bar').length) {
+            Highcharts.chart('ub_by_wilayah1_bar', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: ub_by_wilayah1_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total'
+                    }
+
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+
+                series: [
+                    {
+                        name: "Total",
+                        colorByPoint: true,
+                        data: ub_by_wilayah1_data
+                    }
+                ]
+            });
+        }
+        if ($('#ub_by_wilayah1_pie').length) {
+            Highcharts.chart('ub_by_wilayah1_pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                },
+                title: {
+                    text: ub_by_wilayah1_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    colorByPoint: true,
+                    data: ub_by_wilayah1_data
+                }]
+            });
+        }
+
+        if ($('#ub_by_wilayah2_bar').length) {
+            Highcharts.chart('ub_by_wilayah2_bar', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: ub_by_wilayah2_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total'
+                    }
+
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+
+                series: [
+                    {
+                        name: "Total",
+                        colorByPoint: true,
+                        data: ub_by_wilayah2_data
+                    }
+                ]
+            });
+        }
+        if ($('#ub_by_wilayah2_pie').length) {
+            Highcharts.chart('ub_by_wilayah2_pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                },
+                title: {
+                    text: ub_by_wilayah2_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    colorByPoint: true,
+                    data: ub_by_wilayah2_data
+                }]
+            });
+        }
+        
+        if ($('#ub_by_wilayah3_bar').length) {
+            Highcharts.chart('ub_by_wilayah3_bar', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: ub_by_wilayah3_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total'
+                    }
+
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+
+                series: [
+                    {
+                        name: "Total",
+                        colorByPoint: true,
+                        data: ub_by_wilayah3_data
+                    }
+                ]
+            });
+        }
+        if ($('#ub_by_wilayah3_pie').length) {
+            Highcharts.chart('ub_by_wilayah3_pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                },
+                title: {
+                    text: ub_by_wilayah3_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    colorByPoint: true,
+                    data: ub_by_wilayah3_data
+                }]
+            });
+        }
+
+        if ($('#ub_by_wilayah4_bar').length) {
+            Highcharts.chart('ub_by_wilayah4_bar', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: ub_by_wilayah4_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total'
+                    }
+
+                },
+                credits: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+
+                series: [
+                    {
+                        name: "Total",
+                        colorByPoint: true,
+                        data: ub_by_wilayah4_data
+                    }
+                ]
+            });
+        }
+        if ($('#ub_by_wilayah4_pie').length) {
+            Highcharts.chart('ub_by_wilayah4_pie', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                },
+                title: {
+                    text: ub_by_wilayah4_title
+                },
+                subtitle: {
+                    text: subtitle_periode_chart
+                },
+                credits: {
+                    enabled: false
+                },
+                tooltip: {
+                    pointFormat: 'Total: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y}'
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    colorByPoint: true,
+                    data: ub_by_wilayah4_data
                 }]
             });
         }
