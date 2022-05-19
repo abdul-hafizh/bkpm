@@ -527,22 +527,21 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                         $q->whereYear('companies_status.created_at', $year)->whereStatus('bersedia');
                     });;
                    $params['countUBWilayah'.($i+1)] = $a->whereIn('companies.id_provinsi', $provinces)->count();
-                }
-
-                if ($wilayah_id!='') {
-                    for ($i = 0; $i < count($provinces_filter); $i++) {
-                        $a = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
-                        ->whereHas('company_status', function($q) use($year){
-                            $q->whereYear('companies_status.created_at', $year)->whereStatus('bersedia');
-                        });;
-                        $a->where('id_provinsi', (int)$provinces_filter[$i]);
-                        $params['countUB'. (int)$provinces_filter[$i]] = $a->count();
-                    }
-                }
+                }                
                 
                 break;
         }
 
+        if ($wilayah_id!='') {
+            for ($i = 0; $i < count($provinces_filter); $i++) {
+                $a = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
+                ->whereHas('company_status', function($q) use($year){
+                    $q->whereYear('companies_status.created_at', $year)->whereStatus('bersedia');
+                });;
+                $a->where('id_provinsi', (int)$provinces_filter[$i]);
+                $params['countUB'. (int)$provinces_filter[$i]] = $a->count();
+            }
+        }
 
         $params['countKemitraanUB'] = $kemitraan_ub->count();
         $params['countKemitraanUMKM'] = $kemitraan_umkm->count();
