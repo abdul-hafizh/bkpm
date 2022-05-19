@@ -180,10 +180,8 @@ class CompanyDataTable extends DataTable
                 if ( hasRoute("{$this->identifier}.backend.company.activity_log") && hasRoutePermission("{$this->identifier}.backend.company.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.company.activity_log", ['log_name'=>encrypt_decrypt("LOG_COMPANY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: '.$q->name.'"><i class="fas fa-history"></i></a>';
                 }                
-
-                //if ( hasRoute("{$this->identifier}.backend.journal.index") && hasRoutePermission("{$this->identifier}.backend.journal.index") ){                    
-                    $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->id]).'" data-method="GET" title="Journal: '.$q->name.'"><i class="fas fa-book-open"></i></a>';
-                //}
+                
+                $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->id]).'" data-method="GET" title="Journal: '.$q->name.'"><i class="fas fa-book-open"></i></a>';                
 
                 $html .= '</div>';
 

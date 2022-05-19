@@ -173,10 +173,8 @@ class CompanyDataTable extends DataTable
                 if ( hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info mt-1 show_modal_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.survey.activity_log", ['log_name'=>encrypt_decrypt("LOG_SURVEY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: ' . ($q->{$this->company_category} ? $q->{$this->company_category}->name : '') .'"><i class="fas fa-history"></i> '. trans('label.history') .'</a>';
                 }
-
-                //if ( hasRoute("{$this->identifier}.backend.journal.index") && hasRoutePermission("{$this->identifier}.backend.journal.index") ){                    
-                    $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->company->id]).'" data-method="GET" title="Journal: '. $q->company->name .'"><i class="fas fa-book-open"></i> Journal</a>';
-                //}
+                
+                $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->company->id]).'" data-method="GET" title="Journal: '. $q->company->name .'"><i class="fas fa-book-open"></i> Journal</a>';                
 
                 $html .= '</div>';
 
@@ -211,12 +209,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(SurveyModel $model)
     {
-        $model = $model->select('surveys.*')->with(['company', 'company.provinsi', 'surveyor', 'survey_result' => function($q){
-            /*if($this->show_count){
-                $q->selectRaw('survey_results.*, jsonget_int(REPLACE(REPLACE(JSON_EXTRACT(survey_results.data, "$.kebutuhan_kemitraan.*.total_potensi_nilai"), \',\', \'\'), \'" "\',\'","\'), \'[+]\') AS total_potensi_nilai');
-            }else{
-                $q->select('survey_results.*');
-            }*/
+        $model = $model->select('surveys.*')->with(['company', 'company.provinsi', 'surveyor', 'survey_result' => function($q){            
             $q->select('survey_results.*');
         }]);
         switch ($this->user->group_id){
@@ -224,9 +217,6 @@ class CompanyDataTable extends DataTable
                 $model->whereHas('company')->where('surveys.surveyor_id', $this->user->id);
                 break;
             case GROUP_QC_KORPROV:
-                /*$model->whereHas('surveyor', function ($q){
-                    $q->where('users.id_provinsi', $this->user->id_provinsi);
-                });*/
                 $model->whereHas('company', function ($q){
                     $q->where('companies.id_provinsi', $this->user->id_provinsi);
                 });
@@ -234,14 +224,7 @@ class CompanyDataTable extends DataTable
             case GROUP_QC_KORWIL:
             case GROUP_ASS_KORWIL:
             case GROUP_TA:
-                $provinces = bkpmumkm_wilayah($this->user->id_provinsi);
-                /*$model->whereHas('surveyor', function ($q) use($provinces){
-                    $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
-                    if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                        $provinces = [$this->provinsi_id];
-                    }
-                    $q->whereIn('users.id_provinsi', $provinces);
-                });*/
+                $provinces = bkpmumkm_wilayah($this->user->id_provinsi);               
                 $model->whereHas('company', function ($q) use($provinces){
                     $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
                     if ($this->inModal) {
@@ -262,13 +245,7 @@ class CompanyDataTable extends DataTable
                     $provinces = [];
                     if($this->wilayah_id!='all'){
                         $provinces = $wilayah[$this->wilayah_id]['provinces'];
-                    }
-                    /*$model->whereHas('surveyor', function ($q) use($provinces){
-                        if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                            $provinces = [$this->provinsi_id];
-                        }
-                        $q->whereIn('users.id_provinsi', $provinces);
-                    });*/
+                    }                    
                     if ($this->inModal) {
                         if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
                             $provinces = [$this->provinsi_id];
@@ -291,29 +268,12 @@ class CompanyDataTable extends DataTable
                                 $q->whereIn('companies.id_provinsi', $provinces);
                             });
                         }
-                    }
-                    /*$model->whereHas('company', function ($q) use($provinces){
-                        if ($this->inModal) {
-                            if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                                $provinces = [$this->provinsi_id];
-                            }
-                        }else {
-                            if (count($this->provinsi_id)) {
-                                $provinces = $this->provinsi_id;
-                            }
-                        }
-                        $q->whereIn('companies.id_provinsi', $provinces);
-                    });*/
+                    }                    
                 }else{
                     $model->whereHas('company');
                 }
                 break;
-        }
-        // $model->with([CATEGORY_COMPANY.'.company_status' => function($q){
-        //     $q->whereYear('created_at', $this->periode);
-        // }])->whereHas(CATEGORY_COMPANY.'.company_status', function($q){
-        //     $q->whereIn('companies_status.status', ['bersedia'])->whereYear('companies_status.created_at', $this->periode);
-        // });
+        }       
         $model->whereHas(CATEGORY_COMPANY.'.company_status', function($q){
             $q->whereIn('companies_status.status', ['bersedia']);
         });
@@ -405,9 +365,8 @@ CDATA;
             Column::make('company.address')->title(trans('label.address_company')),
             Column::make('estimated_date')->title(trans('label.survey_estimated_date')),
             Column::make('surveyor.name')->title(trans('label.penginput_survey')),
-            Column::make('periode')->name('created_at')->title(trans('label.year'))->orderable(false),
+            Column::make('periode')->name('created_at')->title(trans('label.year'))->orderable(false),     
             Column::make('statusRaw')->name('status')->title(trans('label.status_entry_data'))->printable(false),
-//            Column::make('status')->visible(false),
             Column::make('survey_result.documents')->title(trans('label.documents')),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
