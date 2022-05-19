@@ -237,7 +237,7 @@
                             </thead>
                             <tbody>
                             <tr class="text-center">
-                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '0', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_2') .'"' : '') !!}>{{ number_format($countUBWilayah2,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '1', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_2') .'"' : '') !!}>{{ number_format($countUBWilayah2,0,",",".") }}</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -277,7 +277,7 @@
                             </thead>
                             <tbody>
                             <tr class="text-center">
-                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '0', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_3') .'"' : '') !!}>{{ number_format($countUBWilayah3,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '2', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_3') .'"' : '') !!}>{{ number_format($countUBWilayah3,0,",",".") }}</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -317,7 +317,7 @@
                             </thead>
                             <tbody>
                             <tr class="text-center">
-                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '0', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '3', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
                             </tr>
                             </tbody>
                         </table>
