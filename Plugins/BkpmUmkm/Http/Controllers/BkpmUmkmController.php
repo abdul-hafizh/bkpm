@@ -214,9 +214,9 @@ class BkpmUmkmController extends Controller
                 break;
         }
         $params['provinces'] = ProvinsiModel::whereIn('kode_provinsi', $provinsi_in)->orderBy('nama_provinsi', 'ASC')->cursor();
-        $params['user_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_QC_KORWIL)->with(['provinsi'])->cursor();
-        $params['user_ass_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_ASS_KORWIL)->with(['provinsi'])->cursor();
-        $params['user_tenaga_ahli']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_TA)->with(['provinsi'])->cursor();
+        $params['user_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_QC_KORWIL)->with(['provinsi'])->cursor();
+        $params['user_ass_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_ASS_KORWIL)->with(['provinsi'])->cursor();
+        $params['user_tenaga_ahli']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_TA)->with(['provinsi'])->cursor();
 
         return $tenagaSurveyorDataTable->render("{$this->identifier}::rekap_laporan.tenaga_surveyor", $params);
     }
@@ -263,9 +263,9 @@ class BkpmUmkmController extends Controller
                 break;
         }
         $params['provinces'] = ProvinsiModel::whereIn('kode_provinsi', $provinsi_in)->orderBy('nama_provinsi', 'ASC')->cursor();
-        $params['user_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_QC_KORWIL)->with(['provinsi'])->cursor();
-        $params['user_ass_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_ASS_KORWIL)->with(['provinsi'])->cursor();
-        $params['user_tenaga_ahli']  = User::whereIn('users.id_provinsi', $provinsi_in)->where('users.group_id', GROUP_TA)->with(['provinsi'])->cursor();
+        $params['user_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_QC_KORWIL)->with(['provinsi'])->cursor();
+        $params['user_ass_korwil']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_ASS_KORWIL)->with(['provinsi'])->cursor();
+        $params['user_tenaga_ahli']  = User::whereIn('users.id_provinsi', $provinsi_in)->whereYear('users.created_at', $periode)->where('users.group_id', GROUP_TA)->with(['provinsi'])->cursor();
 
         return $tenagaAhliDataTable->render("{$this->identifier}::rekap_laporan.tenaga_ahli", $params);
     }
