@@ -206,11 +206,12 @@ class CompanyDataTable extends DataTable
                     $q->where(function ($q) {
                         $q->whereNull('companies_status.status')->orWhere('companies_status.status', '');
                     });
-                }else {
+                } else {
                     $q->where('companies_status.status', $this->status);
                 }
             }
         });
+
         switch ($this->user->group_id){
             case GROUP_QC_KORPROV:
             case GROUP_SURVEYOR:
@@ -375,6 +376,7 @@ class CompanyDataTable extends DataTable
                 $model->withTrashed();
                 break;
         }
+        
         return $model->newQuery();
     }
 
@@ -386,7 +388,7 @@ class CompanyDataTable extends DataTable
     public function html()
     {
         $buttons = [
-            Button::make('create')->action('window.location.href = "' .'#'. '"')
+            Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.company.add_journal").'"')
             ->text("<i class='fas fa-plus'></i> " . trans("Tambah Journal"))
             ->addClass('bg-info'),
             Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.company.confirm_add").'"')

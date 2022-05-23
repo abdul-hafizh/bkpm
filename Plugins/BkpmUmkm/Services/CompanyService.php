@@ -5,6 +5,7 @@ namespace Plugins\BkpmUmkm\Services;
 
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Models\CompanyKbliModel;
 use Plugins\BkpmUmkm\Models\CompanyModel;
 use Plugins\BkpmUmkm\Models\CompanyStatusModel;
@@ -150,6 +151,47 @@ class CompanyService
             return responseMessage($message . ' success', $returnData);
         }catch (\Exception $e)
         {
+            \DB::rollback();
+            if($path_upload && is_dir($path_upload)){
+                deleteTreeFolder($path_upload);
+            }
+            \Log::error($e);
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function save_journal($request)
+    {
+        $path_upload ='';
+        \DB::beginTransaction();
+
+        try {
+            $id = filter($request->input('company_id'));
+            $logProperties = [
+                'attributes' => [],
+                'old' => ($id ? CompanyModel::where(['id' => $id, 'category' => $this->company_category])->first()->toArray() : [])
+            ];
+
+            DB::table('journal_activity')->insert([
+                'company_id' => $id,
+                'user_id' => filter($request->input('user_id')),
+                'journal_task_id' => filter($request->input('task_id')),
+                'activity_date' => filter($request->input('activity_date')),
+                'jurnal' => filter($request->input('jurnal')),
+                'created_at' => now() 
+            ]);
+
+            $company = '';
+
+            $message = 'Input Journal';
+            $logProperties['attributes'] = $company;
+            $activity_group = 'add';
+
+            $returnData = ['redirect' => route('simple_cms.plugins.bkpmumkm.backend.company.index')];
+            \DB::commit();
+            return responseMessage($message . ' Success.', $returnData);
+
+        } catch (\Exception $e) {
             \DB::rollback();
             if($path_upload && is_dir($path_upload)){
                 deleteTreeFolder($path_upload);

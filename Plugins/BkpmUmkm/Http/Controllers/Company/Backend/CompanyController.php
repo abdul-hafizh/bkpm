@@ -5,10 +5,12 @@ namespace Plugins\BkpmUmkm\Http\Controllers\Company\Backend;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\DataTables\Company\CompanyDataTable;
 use Plugins\BkpmUmkm\Http\Requests\CompanyChangeStatusRequest;
 use Plugins\BkpmUmkm\Http\Requests\CompanyImportRequest;
 use Plugins\BkpmUmkm\Http\Requests\CompanySaveUpdateRequest;
+use Plugins\BkpmUmkm\Http\Requests\CompanySaveJournalRequest;
 use Plugins\BkpmUmkm\Models\BusinessSectorModel;
 use Plugins\BkpmUmkm\Models\CompanyModel;
 use Plugins\BkpmUmkm\Models\KbliModel;
@@ -62,10 +64,18 @@ class CompanyController extends Controller
     {
         $params['company']      = new CompanyModel();
         $params['title']        = trans('label.add_new_company');
-        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
-        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         $params['pmdn_pma']     = $this->config['pmdn_pma'];
         return view( $this->identifier . '::company.backend.add_edit')->with($params);
+    }
+
+    public function add_journal(Request $request)
+    {
+        $params['user']         = auth()->user();
+        $params['company']      = new CompanyModel();
+        $params['title']        = 'Tambah Data Journal Perusahaan';
+        $params['journal_task'] = DB::table('journal_task')->get();
+        $params['companies']    = DB::table('companies')->select('id', 'name')->where('category', 'company')->orderBy('id', 'desc')->get();
+        return view( $this->identifier . '::company.backend.add_edit_journal')->with($params);
     }
 
     public function edit(Request $request, $id)
@@ -76,8 +86,6 @@ class CompanyController extends Controller
             return abort(404);
         }
         $params['title']        = trans('label.edit_company') . ": {$params['company']->name}";;
-        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
-        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         $params['pmdn_pma']     = $this->config['pmdn_pma'];
         return view( $this->identifier . '::company.backend.add_edit')->with($params);
     }
@@ -102,6 +110,14 @@ class CompanyController extends Controller
     {
         if($request->ajax()){
             return responseSuccess($this->companyService->save_update($request));
+        }
+        throw new NotFoundHttpException(trans('core::message.error.not_found'));
+    }
+
+    public function save_journal(CompanySaveJournalRequest $request)
+    {
+        if($request->ajax()){
+            return responseSuccess($this->companyService->save_journal($request));
         }
         throw new NotFoundHttpException(trans('core::message.error.not_found'));
     }

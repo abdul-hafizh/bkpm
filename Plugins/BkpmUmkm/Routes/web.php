@@ -95,6 +95,10 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
                 'title' => "Company: Add [Backend]",
                 'uses' => 'Company\Backend\CompanyController@add'
             ])->name("add");
+            Route::get("/add-jounal", [
+                'title' => "Company: Add Journal [Backend]",
+                'uses' => 'Company\Backend\CompanyController@add_journal'
+            ])->name("add_journal");
             Route::get("/edit/{id}", [
                 'title' => "Company: Edit [Backend]",
                 'uses' => 'Company\Backend\CompanyController@edit'
@@ -107,6 +111,10 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
                 'title' => "Company: Save Update [Backend]",
                 'uses' => 'Company\Backend\CompanyController@save_update'
             ])->name("save_update");
+            Route::post("/save-journal", [
+                'title' => "Company: Save Journal [Backend]",
+                'uses' => 'Company\Backend\CompanyController@save_journal'
+            ])->name("save_journal");
             Route::delete("/soft-delete", [
                 'title' => "Company: Soft Delete [Backend]",
                 'uses' => 'Company\Backend\CompanyController@soft_delete'
