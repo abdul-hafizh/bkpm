@@ -26,7 +26,7 @@
                         <input name="user_id" type="hidden" value="{{ $user->id }}">
                         <div class="form-group">
                             <label for="company_id">{{ trans('label.name_company') }} <i class="text-danger">*</i></label>
-                            <select id="company_id" name="company_id" class="form-control" required>
+                            <select id="company_id" name="company_id" class="form-control select2InitB4" required>
                                 <option value="">{{ trans('label.select_choice') }}</option>            
                                 @foreach($companies as $ub)
                                     <option value="{{ $ub->id }}">{{ $ub->name }}</option>

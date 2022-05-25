@@ -74,8 +74,8 @@ class CompanyController extends Controller
         $params['company']      = new CompanyModel();
         $params['title']        = 'Tambah Data Journal Perusahaan';
         $params['journal_task'] = DB::table('journal_task')->get();
-        $params['companies']    = DB::table('companies')->select('id', 'name')->where('category', 'company')->orderBy('id', 'desc')->get();
-        return view( $this->identifier . '::company.backend.add_edit_journal')->with($params);
+        $params['companies']    = DB::table('companies')->select('id', 'name')->where('category', 'company')->whereYear('created_at', date("Y"))->orderBy('id', 'desc')->get();
+        return view( $this->identifier . '::company.backend.add_journal')->with($params);
     }
 
     public function edit(Request $request, $id)
