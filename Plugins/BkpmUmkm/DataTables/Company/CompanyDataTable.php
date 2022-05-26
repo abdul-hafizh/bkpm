@@ -113,6 +113,11 @@ class CompanyDataTable extends DataTable
                 }
                 return '-';
             })
+            ->addColumn('journal_activity.jurnalRaw', function ($q) {
+                $formatDate = formatDate($q->journal_activity->activity_date);
+                $html = $formatDate . ' (' . $q->journal_activity->jurnal . ')';
+                return $html;
+            })
             ->addColumn('company_status.statusRaw', function ($q) {
                 /* Bersedia, Tidak Bersedia, Tidak Respon, Konsultasi BKPM, Menunggu Konfirmasi */
                 $status = ($q->company_status && $q->company_status->status  ? trans("label.company_status_{$q->company_status->status}") : '--------');
@@ -197,7 +202,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(CompanyModel $model)
     {
-        $model = $model->where('category', $this->company_category)->with(['sector', 'kbli', 'pic', 'negara', 'provinsi', 'company_status'=>function($q){
+        $model = $model->where('category', $this->company_category)->with(['sector', 'kbli', 'pic', 'journal_activity', 'negara', 'provinsi', 'company_status'=>function($q){
             $q->whereYear('created_at', $this->periode);
         }])->whereHas('company_status', function($q){
             $q->whereYear('companies_status.created_at', $this->periode);
@@ -210,7 +215,7 @@ class CompanyDataTable extends DataTable
                     $q->where('companies_status.status', $this->status);
                 }
             }
-        });
+        })->whereHas('journal_activity', function ($q){});
 
         switch ($this->user->group_id){
             case GROUP_QC_KORPROV:
@@ -442,6 +447,7 @@ CDATA;
             Column::make('name_pic')->title(trans('label.name_pic_of_company'))->addClass('align-middle'),
             Column::make('email_pic')->visible(false)->addClass('align-middle'),
             Column::make('phone_pic')->visible(false)->addClass('align-middle'),
+            Column::make('journal_activity.jurnalRaw')->title('Update Terakhir')->addClass('align-middle'),
             Column::make('company_status.statusRaw')->title(trans('label.status'))->addClass('text-center')->addClass('align-middle'),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
