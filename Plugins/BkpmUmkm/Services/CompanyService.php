@@ -126,7 +126,7 @@ class CompanyService
                     'user_id' => filter($request->input('user_id')),
                     'journal_task_id' => 7,
                     'activity_date' => now(),
-                    'jurnal' => 'Registrasi Perusahaan',
+                    'jurnal' => 'Registrasi UB',
                     'created_at' => now()
                 ]);
             }
