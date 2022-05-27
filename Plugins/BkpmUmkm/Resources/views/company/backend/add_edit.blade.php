@@ -26,6 +26,7 @@
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
+                        <input name="user_id" type="hidden" value="{{ $user->id }}">
                         <div class="form-group">
                             <label for="name">{{ trans('label.name_company') }} <i class="text-danger">*</i></label>
                             <input id="name" name="name" type="text" value="{{ $company->name }}" class="form-control" placeholder="{{ trans('label.name_company') }}" required>
