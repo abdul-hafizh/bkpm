@@ -39,7 +39,7 @@
                 <label>@lang('label.wilayah')</label>
                 <select id="filter_wilayah_data" class="form-control form-control-sm">
                     @foreach(list_bkpmumkm_wilayah_by_user() as $wilayah_filter)
-                        <option value="{{ request()->fullUrlWithQuery(['wilayah_id' => $wilayah_filter['id']]) }}" data-provinces=\'@json($wilayah_filter['provinces'])\' {{ ($wilayah_filter['id']==$wilayah_id?'selected':'') }}>{{ $wilayah_filter['name'] }}</option>
+                        <option value="{{ request()->fullUrlWithQuery(['wilayah_id' => $wilayah_filter['id']]) }}" data-provinces=\'@json($wilayah_filter['provinces'])\' {{ ('wil'.$wilayah_filter['id']=='wil'.$wilayah_id?'selected':'') }}>{{ $wilayah_filter['name'] }}</option>
                     @endforeach
                 </select>
             </div>               
