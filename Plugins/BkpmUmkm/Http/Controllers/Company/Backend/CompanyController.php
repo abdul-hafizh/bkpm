@@ -62,6 +62,7 @@ class CompanyController extends Controller
 
     public function add(Request $request)
     {
+        $params['user']         = auth()->user();
         $params['company']      = new CompanyModel();
         $params['title']        = trans('label.add_new_company');
         $params['pmdn_pma']     = $this->config['pmdn_pma'];

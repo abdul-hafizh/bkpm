@@ -120,6 +120,17 @@ class CompanyService
 
             $company = CompanyModel::query()->updateOrCreate(['id' => $id], $data);
 
+            if(empty($id)){
+                DB::table('journal_activity')->insert([
+                    'company_id' => $company->id,
+                    'user_id' => filter($request->input('user_id')),
+                    'journal_task_id' => 7,
+                    'activity_date' => now(),
+                    'jurnal' => 'Registrasi Perusahaan',
+                    'created_at' => now()
+                ]);
+            }
+
             /* KBLI */
             CompanyKbliModel::where('company_id', $company->id)->forceDelete();
             if ($request->has('code_kbli') && $request->input('code_kbli')) {
@@ -178,7 +189,7 @@ class CompanyService
                 'journal_task_id' => filter($request->input('task_id')),
                 'activity_date' => filter($request->input('activity_date')),
                 'jurnal' => filter($request->input('jurnal')),
-                'created_at' => now() 
+                'created_at' => filter($request->input('activity_date'))
             ]);
 
             $company = '';
