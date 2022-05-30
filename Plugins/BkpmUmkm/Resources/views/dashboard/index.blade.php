@@ -412,39 +412,41 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="mb-2">
-                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.kemitraan_ub_umkm')</h3>
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Berdasarkan Kelanjutan Komunikasi</h3>
             </div>
             <div class="card">
                 <div class="card-body">
-                    <ul class="nav nav-tabs" id="kemitraan_ub_umkm-tab" role="tablist">
+                    <ul class="nav nav-tabs" id="ub_by_meeting-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="kemitraan_ub_umkm-bar-tab" data-toggle="pill" href="#kemitraan_ub_umkm-bar-content" role="tab" aria-controls="kemitraan_ub_umkm-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            <a class="nav-link active" id="ub_by_meeting-bar-tab" data-toggle="pill" href="#ub_by_meeting-bar-content" role="tab" aria-controls="ub_by_meeting-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="kemitraan_ub_umkm-pie-tab" data-toggle="pill" href="#kemitraan_ub_umkm-pie-content" role="tab" aria-controls="kemitraan_ub_umkm-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            <a class="nav-link" id="ub_by_meeting-pie-tab" data-toggle="pill" href="#ub_by_meeting-pie-content" role="tab" aria-controls="ub_by_meeting-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
                         </li>
                     </ul>
-                    <div class="tab-content" id="kemitraan_ub_umkm-tabContent">
-                        <div class="tab-pane fade show active" id="kemitraan_ub_umkm-bar-content" role="tabpanel" aria-labelledby="kemitraan_ub_umkm-bar-tab">
-                            <div id="kemitraan_ub_umkm_bar"></div>
+                    <div class="tab-content" id="ub_by_meeting-tabContent">
+                        <div class="tab-pane fade show active" id="ub_by_meeting-bar-content" role="tabpanel" aria-labelledby="ub_by_meeting-bar-tab">
+                            <div id="ub_by_meeting_bar"></div>
                         </div>
-                        <div class="tab-pane fade" id="kemitraan_ub_umkm-pie-content" role="tabpanel" aria-labelledby="kemitraan_ub_umkm-pie-tab">
-                            <div id="kemitraan_ub_umkm_pie"></div>
+                        <div class="tab-pane fade" id="ub_by_meeting-pie-content" role="tabpanel" aria-labelledby="ub_by_meeting-pie-tab">
+                            <div id="ub_by_meeting_pie"></div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer p-0">
                     <table class="table table-sm">
                         <thead>
-                        <tr class="text-center">
-                            <th>{{ trans('label.kemitraan_ub') }}</th>
-                            <th>{{ trans('label.kemitraan_umkm') }}</th>
+                        <tr class="text-center">                        
+                            <th>Belum Terjadwal</th>                            
+                            <th>Online Meeting</th>                            
+                            <th>Offline Meeting</th>                            
                         </tr>
                         </thead>
                         <tbody>
                         <tr class="text-center">
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.kemitraan_ub') .'"' : '') !!}>{{ number_format($countKemitraanUB,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.kemitraan_umkm') .'"' : '') !!}>{{ number_format($countKemitraanUMKM,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'blmJadwal', 'periode' => $year]) .'" data-method="GET" data-title="Belum Terjadwal"' : '') !!}>{{ number_format($countBlmJadwal,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'online', 'periode' => $year]) .'" data-method="GET" data-title="Online Meeting"' : '') !!}>{{ number_format($countZoom,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'offline', 'periode' => $year]) .'" data-method="GET" data-title="Offline Meeting"' : '') !!}>{{ number_format($countOffline,0,",",".") }}</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -494,7 +496,92 @@
                 </div>
             </div>
         </div>
+    @endif
+    @if(!in_array($user->group_id, [GROUP_SURVEYOR]))
         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.umkm_has_or_not_nib')</h3>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="umkm_has_or_not_nib-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="umkm_has_or_not_nib-bar-tab" data-toggle="pill" href="#umkm_has_or_not_nib-bar-content" role="tab" aria-controls="umkm_has_or_not_nib-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="umkm_has_or_not_nib-pie-tab" data-toggle="pill" href="#umkm_has_or_not_nib-pie-content" role="tab" aria-controls="umkm_has_or_not_nib-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="umkm_has_or_not_nib-tabContent">
+                        <div class="tab-pane fade show active" id="umkm_has_or_not_nib-bar-content" role="tabpanel" aria-labelledby="umkm_has_or_not_nib-bar-tab">
+                            <div id="umkm_has_or_not_nib_bar"></div>
+                        </div>
+                        <div class="tab-pane fade" id="umkm_has_or_not_nib-pie-content" role="tabpanel" aria-labelledby="umkm_has_or_not_nib-pie-tab">
+                            <div id="umkm_has_or_not_nib_pie"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-0">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="text-center">
+                            <th>{{ trans('label.umkm_has_nib') }}</th>
+                            <th>{{ trans('label.umkm_not_nib') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'nib' => 'has', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.umkm_has_nib') .'"' : '') !!}>{{ number_format($countUMKMHasNIB,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'nib' => 'not', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.umkm_not_nib') .'"' : '') !!}>{{ number_format($countUMKMNotNIB,0,",",".") }}</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>     
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="mb-2">
+                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.kemitraan_ub_umkm')</h3>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="kemitraan_ub_umkm-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="kemitraan_ub_umkm-bar-tab" data-toggle="pill" href="#kemitraan_ub_umkm-bar-content" role="tab" aria-controls="kemitraan_ub_umkm-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="kemitraan_ub_umkm-pie-tab" data-toggle="pill" href="#kemitraan_ub_umkm-pie-content" role="tab" aria-controls="kemitraan_ub_umkm-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="kemitraan_ub_umkm-tabContent">
+                        <div class="tab-pane fade show active" id="kemitraan_ub_umkm-bar-content" role="tabpanel" aria-labelledby="kemitraan_ub_umkm-bar-tab">
+                            <div id="kemitraan_ub_umkm_bar"></div>
+                        </div>
+                        <div class="tab-pane fade" id="kemitraan_ub_umkm-pie-content" role="tabpanel" aria-labelledby="kemitraan_ub_umkm-pie-tab">
+                            <div id="kemitraan_ub_umkm_pie"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer p-0">
+                    <table class="table table-sm">
+                        <thead>
+                        <tr class="text-center">
+                            <th>{{ trans('label.kemitraan_ub') }}</th>
+                            <th>{{ trans('label.kemitraan_umkm') }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center">
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.kemitraan_ub') .'"' : '') !!}>{{ number_format($countKemitraanUB,0,",",".") }}</a></td>
+                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.kemitraan_umkm') .'"' : '') !!}>{{ number_format($countKemitraanUMKM,0,",",".") }}</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
+        <div class="col-md-2"></div>        
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
             <div class="mb-2">
                 <h3 class="podcast"><i class="fas fa-tags mr-2"></i> {{ trans('label.umkm_bersedia_menolak_tutup_pindah') }}</h3>
             </div>
@@ -540,94 +627,7 @@
                     </table>
                 </div>
             </div>
-        </div>
-    @endif
-    @if(!in_array($user->group_id, [GROUP_SURVEYOR]))
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="mb-2">
-                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> @lang('label.umkm_has_or_not_nib')</h3>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="umkm_has_or_not_nib-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="umkm_has_or_not_nib-bar-tab" data-toggle="pill" href="#umkm_has_or_not_nib-bar-content" role="tab" aria-controls="umkm_has_or_not_nib-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="umkm_has_or_not_nib-pie-tab" data-toggle="pill" href="#umkm_has_or_not_nib-pie-content" role="tab" aria-controls="umkm_has_or_not_nib-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="umkm_has_or_not_nib-tabContent">
-                        <div class="tab-pane fade show active" id="umkm_has_or_not_nib-bar-content" role="tabpanel" aria-labelledby="umkm_has_or_not_nib-bar-tab">
-                            <div id="umkm_has_or_not_nib_bar"></div>
-                        </div>
-                        <div class="tab-pane fade" id="umkm_has_or_not_nib-pie-content" role="tabpanel" aria-labelledby="umkm_has_or_not_nib-pie-tab">
-                            <div id="umkm_has_or_not_nib_pie"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer p-0">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="text-center">
-                            <th>{{ trans('label.umkm_has_nib') }}</th>
-                            <th>{{ trans('label.umkm_not_nib') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="text-center">
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'nib' => 'has', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.umkm_has_nib') .'"' : '') !!}>{{ number_format($countUMKMHasNIB,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'nib' => 'not', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.umkm_not_nib') .'"' : '') !!}>{{ number_format($countUMKMNotNIB,0,",",".") }}</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>        
-        <div class="col-md-2"></div>        
-        <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="mb-2">
-                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Perusahaan Berdasarkan Kelanjutan Komunikasi</h3>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="ub_by_meeting-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="ub_by_meeting-bar-tab" data-toggle="pill" href="#ub_by_meeting-bar-content" role="tab" aria-controls="ub_by_meeting-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="ub_by_meeting-pie-tab" data-toggle="pill" href="#ub_by_meeting-pie-content" role="tab" aria-controls="ub_by_meeting-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="ub_by_meeting-tabContent">
-                        <div class="tab-pane fade show active" id="ub_by_meeting-bar-content" role="tabpanel" aria-labelledby="ub_by_meeting-bar-tab">
-                            <div id="ub_by_meeting_bar"></div>
-                        </div>
-                        <div class="tab-pane fade" id="ub_by_meeting-pie-content" role="tabpanel" aria-labelledby="ub_by_meeting-pie-tab">
-                            <div id="ub_by_meeting_pie"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer p-0">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="text-center">                        
-                            <th>Belum Terjadwal</th>                            
-                            <th>Online Meeting</th>                            
-                            <th>Offline Meeting</th>                            
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="text-center">
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'blmJadwal', 'periode' => $year]) .'" data-method="GET" data-title="Belum Terjadwal"' : '') !!}>{{ number_format($countBlmJadwal,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'online', 'periode' => $year]) .'" data-method="GET" data-title="Online Meeting"' : '') !!}>{{ number_format($countZoom,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'flag_zoom' => 'offline', 'periode' => $year]) .'" data-method="GET" data-title="Offline Meeting"' : '') !!}>{{ number_format($countOffline,0,",",".") }}</a></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        </div>  
         <div class="col-md-2"></div>
     @endif
     {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
