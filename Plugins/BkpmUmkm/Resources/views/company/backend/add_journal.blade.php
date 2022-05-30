@@ -37,8 +37,8 @@
                             <label for="task_id">Journal Task <i class="text-danger">*</i></label>
                             <select id="task_id" name="task_id" class="form-control select2InitB4" required>
                                 <option value="">{{ trans('label.select_choice') }}</option>            
-                                @foreach($journal_task as $jt)
-                                    <option value="{{ $jt->id }}">{{ $jt->journal_task }}</option>
+                                @foreach($journal_task as $key=>$jt)
+                                    <option value="{{ $jt->id }}">{{ $key+1 }}. {{ $jt->journal_task }}</option>
                                 @endforeach
                             </select>
                         </div>

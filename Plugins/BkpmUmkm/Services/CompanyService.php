@@ -53,6 +53,7 @@ class CompanyService
                 'latitude' => filter($request->input('latitude')),
                 'total_employees' => 0,
                 'investment_plan' => 0,
+                'update_journal' => now(),
                 'category'  => $this->company_category
             ];
 
@@ -191,6 +192,10 @@ class CompanyService
                 'jurnal' => filter($request->input('jurnal')),
                 'created_at' => filter($request->input('activity_date'))
             ]);
+
+            DB::table('companies')->where('id', $id)->update(array(
+                'update_journal' => filter($request->input('activity_date'))
+            ));
 
             $company = '';
 
