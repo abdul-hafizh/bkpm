@@ -202,7 +202,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(CompanyModel $model)
     {
-        $model = $model->where('category', $this->company_category)->with(['sector', 'kbli', 'pic', 'journal_activity', 'negara', 'provinsi', 'company_status'=>function($q){
+        $model = $model->where('category', $this->company_category)->orderBy('created_at', 'desc')->with(['sector', 'kbli', 'pic', 'journal_activity', 'negara', 'provinsi', 'company_status'=>function($q){
             $q->whereYear('created_at', $this->periode);
         }])->whereHas('company_status', function($q){
             $q->whereYear('companies_status.created_at', $this->periode);
@@ -215,7 +215,7 @@ class CompanyDataTable extends DataTable
                     $q->where('companies_status.status', $this->status);
                 }
             }
-        })->whereHas('journal_activity', function ($q){});
+        })->whereHas('journal_activity', function ($q){ $q->orderBy('created_at', 'desc'); });
 
         switch ($this->user->group_id){
             case GROUP_QC_KORPROV:
@@ -447,8 +447,8 @@ CDATA;
             Column::make('name_pic')->title(trans('label.name_pic_of_company'))->addClass('align-middle'),
             Column::make('email_pic')->visible(false)->addClass('align-middle'),
             Column::make('phone_pic')->visible(false)->addClass('align-middle'),
-            Column::make('journal_activity.jurnalRaw')->title('Update Terakhir')->addClass('align-middle'),
-            Column::make('company_status.statusRaw')->title(trans('label.status'))->addClass('text-center')->addClass('align-middle'),
+            Column::make('journal_activity.jurnalRaw')->title('Update Terakhir')->addClass('align-middle')->orderable(false),
+            Column::make('company_status.statusRaw')->title(trans('label.status'))->addClass('text-center')->addClass('align-middle')->orderable(false),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
                 ->exportable(false)
