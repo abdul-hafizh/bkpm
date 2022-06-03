@@ -81,6 +81,7 @@ class CompanyController extends Controller
 
     public function edit(Request $request, $id)
     {
+        $params['user']         = auth()->user();
         $id = encrypt_decrypt(filter($id), 2);
         $params['company']      = CompanyModel::where(['id' => $id, 'category' => $this->company_category])->with(['sector', 'kbli'])->first();
         if (!$params['company']){
