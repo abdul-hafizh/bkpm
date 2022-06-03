@@ -74,7 +74,7 @@ class CompanyController extends Controller
         $params['user']         = auth()->user();
         $params['company']      = new CompanyModel();
         $params['title']        = 'Tambah Data Journal Perusahaan';
-        $params['journal_task'] = DB::table('journal_task')->where('id', '!=', '7')->get();
+        $params['journal_task'] = DB::table('journal_task')->where('journal_task', '!=', 'Registrasi UB')->get();
         $params['companies']    = DB::table('companies')->select('id', 'name')->where('category', 'company')->whereYear('created_at', date("Y"))->orderBy('id', 'desc')->get();
         return view( $this->identifier . '::company.backend.add_journal')->with($params);
     }
