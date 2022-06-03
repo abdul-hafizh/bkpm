@@ -237,6 +237,7 @@ class CompanyDataTable extends DataTable
                         }
                     }
                     $q->whereIn('companies.id_provinsi', $provinces);
+                    $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
                 });
                 break;
             default:
@@ -253,24 +254,32 @@ class CompanyDataTable extends DataTable
                         if ($this->wilayah_id!='all') {
                             $model->whereHas('company', function ($q) use ($provinces) {
                                 $q->whereIn('companies.id_provinsi', $provinces);
+                                $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
                             });
                         }else{
-                            $model->whereHas('company');
+                            $model->whereHas('company', function($q){
+                                $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
+                            });
                         }
                     }else{
                         if (count($this->provinsi_id)) {
                             $provinces = $this->provinsi_id;
                         }
                         if ($this->wilayah_id=='all'&&count($this->provinsi_id)<=0){
-                            $model->whereHas('company');
+                            $model->whereHas('company', function($q){
+                                $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
+                            });
                         }else{
                             $model->whereHas('company', function ($q) use($provinces){
                                 $q->whereIn('companies.id_provinsi', $provinces);
+                                $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
                             });
                         }
                     }                    
                 }else{
-                    $model->whereHas('company');
+                    $model->whereHas('company', function($q){
+                        $q->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc');
+                    });
                 }
                 break;
         }       

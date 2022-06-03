@@ -200,7 +200,7 @@ class CompanyDataTable extends DataTable
      */
     public function query(CompanyModel $model)
     {
-        $model = $model->where('category', $this->company_category)->orderBy('update_journal', 'desc')->with(['sector', 'kbli', 'pic', 'journal_activity', 'negara', 'provinsi', 'company_status'=>function($q){
+        $model = $model->where('category', $this->company_category)->orderBy('journal_task', 'desc')->orderBy('update_journal', 'desc')->with(['sector', 'kbli', 'pic', 'journal_activity', 'negara', 'provinsi', 'company_status'=>function($q){
             $q->whereYear('created_at', $this->periode);
         }])->whereHas('company_status', function($q){
             $q->whereYear('companies_status.created_at', $this->periode);

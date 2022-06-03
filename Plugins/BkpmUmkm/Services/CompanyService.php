@@ -54,6 +54,7 @@ class CompanyService
                 'total_employees' => 0,
                 'investment_plan' => 0,
                 'update_journal' => now(),
+                'journal_task' => 1,
                 'category'  => $this->company_category
             ];
 
@@ -194,7 +195,8 @@ class CompanyService
             ]);
 
             DB::table('companies')->where('id', $id)->update(array(
-                'update_journal' => filter($request->input('activity_date'))
+                'update_journal' => filter($request->input('activity_date')),
+                'journal_task' => filter($request->input('task_id'))
             ));
 
             $company = '';
