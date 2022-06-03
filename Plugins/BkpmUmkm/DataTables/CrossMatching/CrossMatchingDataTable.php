@@ -109,7 +109,7 @@ class CrossMatchingDataTable extends DataTable
                 $html = '<div class="btn-group-vertical btn-group-xs">';
                 // if ( hasRoute("{$this->identifier}.backend.cross_matching.edit") && hasRoutePermission("{$this->identifier}.backend.cross_matching.edit")&& enable_periode( ($this->company_category==CATEGORY_COMPANY ? $q->{$this->company_category}->company_status->created_at : $q->created_at) ) && !$q->trashed()){
 		        if ( hasRoute("{$this->identifier}.backend.cross_matching.edit") && hasRoutePermission("{$this->identifier}.backend.cross_matching.edit")&& !$q->trashed()){
-                    $html .= '<a class="btn btn-xs btn-warning mt-1" href="'.route("{$this->identifier}.backend.cross_matching.edit", ['company'=>$this->company_category, 'company_id'=>encrypt_decrypt($q->{$this->company_category}->id)]).'" title="' . trans('label.cross_matching_edit') . '"><i class="fas fa-edit"></i> '. trans('label.cross_matching_edit') .'</a>';
+                    $html .= '<a class="btn btn-xs btn-warning mt-1" href="'.route("{$this->identifier}.backend.cross_matching.edit", ['periode'=>$this->periode, 'company'=>$this->company_category, 'company_id'=>encrypt_decrypt($q->{$this->company_category}->id)]).'" title="' . trans('label.cross_matching_edit') . '"><i class="fas fa-edit"></i> '. trans('label.cross_matching_edit') .'</a>';
                 }
                 $html .= '</div>';
 
