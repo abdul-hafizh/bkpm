@@ -50,9 +50,9 @@ class CrossMatchingController extends Controller
     {
         $company_id = encrypt_decrypt($company_id, 2);
         $params['category_company'] = $company;
-        $params['periode'] = '2022';//Carbon::now()->format('Y');
-        $params['company']          = CompanyModel::where('id', $company_id);
-        $year = '2022';//Carbon::now()->format('Y');
+        $params['periode'] = $request->periode;
+        $params['company'] = CompanyModel::where('id', $company_id);
+        $year = $request->periode;
         switch ($params['category_company']){
             case CATEGORY_COMPANY:
                 $params['category_reverse'] = CATEGORY_UMKM;

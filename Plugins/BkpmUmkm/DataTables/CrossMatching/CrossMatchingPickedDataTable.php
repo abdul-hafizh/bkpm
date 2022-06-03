@@ -47,7 +47,7 @@ class CrossMatchingPickedDataTable extends DataTable
                 break;
         }
         $this->company = CompanyModel::where('id', $this->company_id)->first();
-        $this->periode = '2022';//Carbon::now()->format('Y');
+        $this->periode = '2022';
     }
 
     /**
