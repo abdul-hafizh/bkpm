@@ -102,7 +102,6 @@ class CrossMatchingAvailableDataTable extends DataTable
      */
     public function query(SurveyModel $model)
     {
-
         $model = $model->whereHas("{$this->category_reverse}", function($q){
             return $q->whereDoesnthave("kemitraan_{$this->category_reverse}_{$this->company_category}", function($q){
                 return $q->where('kemitraan.company_id', $this->company_id)->whereYear('kemitraan.created_at', $this->periode);

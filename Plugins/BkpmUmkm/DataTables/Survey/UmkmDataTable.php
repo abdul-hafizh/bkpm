@@ -218,41 +218,42 @@ class UmkmDataTable extends DataTable
                 $model->whereHas('umkm')->where('surveys.surveyor_id', $this->user->id);
                 break;
             case GROUP_QC_KORPROV:
-                /*$model->whereHas('surveyor', function ($q){
-                    $q->where('users.id_provinsi', $this->user->id_provinsi);
-                });*/
                 $model->whereHas('umkm', function ($q){
                     $q->where('companies.id_provinsi', $this->user->id_provinsi);
                 });
                 break;
             case GROUP_QC_KORWIL:
-            case GROUP_ASS_KORWIL:
-            case GROUP_TA:
-                // $provinces = bkpmumkm_wilayah($this->user->id_provinsi);
-                /*$model->whereHas('surveyor', function ($q) use($provinces){
-                    $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
-                    if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
+                $provinces = bkpmumkm_wilayah($this->user->id_provinsi);        
+                $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
+                if ($this->inModal) {
+                    if ($this->provinsi_id && $this->provinsi_id !== 'all' && in_array($this->provinsi_id, $provinces)) {
                         $provinces = [$this->provinsi_id];
                     }
-                    $q->whereIn('users.id_provinsi', $provinces);
-                });*/
-                // $model->whereHas('umkm', function ($q) use($provinces){
-                //     $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
-                //     if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                //         $provinces = [$this->provinsi_id];
-                //     }
-                //     $q->whereIn('companies.id_provinsi', $provinces);
-                // });
-                $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
-                    if ($this->inModal) {
-                        if ($this->provinsi_id && $this->provinsi_id !== 'all' && in_array($this->provinsi_id, $provinces)) {
-                            $provinces = [$this->provinsi_id];
-                        }
-                    }else {
-                        if (count($this->provinsi_id)) {
-                            $provinces = $this->provinsi_id;
-                        }
+                }else {
+                    if (count($this->provinsi_id)) {
+                        $provinces = $this->provinsi_id;
+                    }
                 }
+                $model->whereHas('umkm', function ($q) use ($provinces) {
+                    $q->whereIn('companies.id_provinsi', $provinces);
+                });
+                break;
+            case GROUP_ASS_KORWIL:
+            case GROUP_TA:         
+                $provinces = bkpmumkm_wilayah($this->user->id_provinsi);        
+                $provinces = ($provinces && isset($provinces['provinces']) ? $provinces['provinces'] : []);
+                if ($this->inModal) {
+                    if ($this->provinsi_id && $this->provinsi_id !== 'all' && in_array($this->provinsi_id, $provinces)) {
+                        $provinces = [$this->provinsi_id];
+                    }
+                }else {
+                    if (count($this->provinsi_id)) {
+                        $provinces = $this->provinsi_id;
+                    }
+                }
+                $model->whereHas('umkm', function ($q) use ($provinces) {
+                    $q->whereIn('companies.id_provinsi', $provinces);
+                });
                 break;
             default:
                 if ($this->wilayah_id!=''){
@@ -261,12 +262,6 @@ class UmkmDataTable extends DataTable
                     if($this->wilayah_id!='all'){
                         $provinces = $wilayah[$this->wilayah_id]['provinces'];
                     }
-                    /*$model->whereHas('surveyor', function ($q) use($provinces){
-                        if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                            $provinces = [$this->provinsi_id];
-                        }
-                        $q->whereIn('users.id_provinsi', $provinces);
-                    });*/
                     if ($this->inModal) {
                         if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
                             $provinces = [$this->provinsi_id];
@@ -290,12 +285,6 @@ class UmkmDataTable extends DataTable
                             });
                         }
                     }
-                    // $model->whereHas('umkm', function ($q) use($provinces){
-                    //     if ($this->provinsi_id&&$this->provinsi_id!=='all'&&in_array($this->provinsi_id, $provinces)){
-                    //         $provinces = [$this->provinsi_id];
-                    //     }
-                    //     $q->whereIn('companies.id_provinsi', $provinces);
-                    // });
                 }else{
                     $model->whereHas('umkm');
                 }
