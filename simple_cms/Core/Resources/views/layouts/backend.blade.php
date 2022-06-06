@@ -14,7 +14,7 @@
     <meta name="description" content="@lang('core::app.name')">
     <meta name="author" content="@lang('core::app.name')">
     <meta name="keyword" content="@lang('core::app.name')">
-    <style> th { text-align: center !important; } </style>
+    <style> th { text-align: center !important; vertical-align: middle !important; } </style>
     @include('core::partials.backend.asset_css')
     @hasSection('css')
         @yield('css')
