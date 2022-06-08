@@ -123,7 +123,7 @@ class CompanyDataTable extends DataTable
                 if ($q->journal_task == 6) { $task = 'Fasilitasi Pertemuan Usaha Besar dengan Kandidat UMKM'; }
                 if ($q->journal_task == 7) { $task = 'Komitmen/Prakontrak/Kontrak'; }
                 $formatDate = formatDate($q->journal_activity->activity_date);
-                $html = $formatDate . ' ' . $task . ' (' . $q->journal_activity->jurnal . ')';
+                $html = $formatDate . ' <b>' . $task . '</b> (' . $q->journal_activity->jurnal . ')';
                 return $html;
             })
             ->addColumn('company_status.statusRaw', function ($q) {
