@@ -114,8 +114,16 @@ class CompanyDataTable extends DataTable
                 return '-';
             })
             ->addColumn('journal_activity.jurnalRaw', function ($q) {
+                $task = '';
+                if ($q->journal_task == 1) { $task = 'Registrasi UB'; }
+                if ($q->journal_task == 2) { $task = 'Korespondensi dengan Usaha Besar'; }
+                if ($q->journal_task == 3) { $task = 'Kesediaan Usaha Besar'; }
+                if ($q->journal_task == 4) { $task = 'Identifikasi Kebutuhan Usaha Besar'; }
+                if ($q->journal_task == 5) { $task = 'Verifikasi UMKM Berdasarkan Kebutuhan Usaha Besar'; }
+                if ($q->journal_task == 6) { $task = 'Fasilitasi Pertemuan Usaha Besar dengan Kandidat UMKM'; }
+                if ($q->journal_task == 7) { $task = 'Komitmen/Prakontrak/Kontrak'; }
                 $formatDate = formatDate($q->journal_activity->activity_date);
-                $html = $formatDate . ' (' . $q->journal_activity->jurnal . ')';
+                $html = $formatDate . ' ' . $task . ' (' . $q->journal_activity->jurnal . ')';
                 return $html;
             })
             ->addColumn('company_status.statusRaw', function ($q) {
@@ -185,7 +193,7 @@ class CompanyDataTable extends DataTable
 
                 return $html;
             })
-            ->rawColumns(['name', 'name_director', 'name_pic', 'company_status.statusRaw', 'kbli_name_raw', 'action'])
+            ->rawColumns(['name', 'name_director', 'name_pic', 'journal_activity.jurnalRaw', 'company_status.statusRaw', 'kbli_name_raw', 'action'])
             ->setRowClass(function($q){
                 return ($q->trashed() ? 'bg-trashed':'');
             })
