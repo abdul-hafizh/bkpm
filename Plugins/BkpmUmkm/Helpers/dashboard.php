@@ -615,8 +615,29 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                         $q->whereIn('companies.id_provinsi', $provinces);
                         break;
                 }
+                $request = request();
+                $wilayah_id = $request->get('wilayah_id');        
+                $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
+                if ($wilayah_id!='') {
+                    $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+                    $provinces_filter = [];
+                    if($wilayah_id!='all') {
+                        $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+                    } elseif ($wilayah_id=='all'){
+                        foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                            if (count($wilayah1['provinces'])){
+                                foreach ($wilayah1['provinces'] as $province) {
+                                    $provinces_filter[] = $province['kode_provinsi'];
+                                }
+                            }
+                        }
+                    }
+                }
+                if ($wilayah_id!='') {                    
+                    $q->whereIn('companies.id_provinsi', $provinces_filter);
+                }
             })->whereYear('kemitraan.created_at', $year)->first();
-        if ($kemitraan){
+        if ($kemitraan){            
             $params['count_total_realisasi_nilai_kontrak'] = (int) $kemitraan->total_nominal_investasi;
         }
 
