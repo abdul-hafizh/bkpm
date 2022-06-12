@@ -133,20 +133,14 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
 
         $kemitraan_ub = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
         $kemitraan_umkm = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);        
-        $umkm_bermitra = DB::select("SELECT * from kemitraan WHERE year(created_at)=?", [$year]);
-
-        if ($wilayah_id!='') {
-            $umkm_bermitra = DB::select("SELECT kemitraan.* from kemitraan LEFT JOIN companies ON kemitraan.company_id = companies.id WHERE year(kemitraan.created_at)=?", [$year]);
-        }
+        $umkm_bermitra = DB::select("SELECT * from kemitraan WHERE umkm_status='bersedia' AND year(created_at)=?", [$year]);
 
         $idUmkmBermitra = [];
         foreach($umkm_bermitra as $v){
             $idUmkmBermitra[]=$v->umkm_id;
         }        
         $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
-        if ($wilayah_id!='') {
-            $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
-        }
+        
         $umkm_belum_bermitra = count($count_umkm_bersedia) - count($umkm_bermitra);
         
         $ub_not_set            = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
