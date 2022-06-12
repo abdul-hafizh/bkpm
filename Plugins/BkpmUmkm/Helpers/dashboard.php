@@ -131,14 +131,22 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $q->whereYear('companies_status.created_at', $year);
             });
 
-        $kemitraan_ub          = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
-        $kemitraan_umkm        = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);        
-        $umkm_bermitra         = DB::select("SELECT * from kemitraan WHERE year(created_at)=?", [$year]);
+        $kemitraan_ub = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
+        $kemitraan_umkm = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);        
+        $umkm_bermitra = DB::select("SELECT * from kemitraan WHERE year(created_at)=?", [$year]);
+
+        if ($wilayah_id!='') {
+            $umkm_bermitra = DB::select("SELECT kemitraan.* from kemitraan LEFT JOIN companies ON kemitraan.company_id = companies.id WHERE year(kemitraan.created_at)=?", [$year]);
+        }
+
         $idUmkmBermitra = [];
         foreach($umkm_bermitra as $v){
             $idUmkmBermitra[]=$v->umkm_id;
         }        
         $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
+        if ($wilayah_id!='') {
+            $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
+        }
         $umkm_belum_bermitra = count($count_umkm_bersedia) - count($umkm_bermitra);
         
         $ub_not_set            = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
@@ -543,15 +551,102 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             }
         }
 
-        $params['countKemitraanUB'] = $kemitraan_ub->count();
-        $params['countKemitraanUMKM'] = $kemitraan_umkm->count();
+        $params['countKemitraanUB'] = $kemitraan_ub->whereHas('company', function ($q){
+            $request = request();
+            $wilayah_id = $request->get('wilayah_id');        
+            $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
+            if ($wilayah_id!='') {
+                $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+                $provinces_filter = [];
+                if($wilayah_id!='all') {
+                    $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+                } elseif ($wilayah_id=='all'){
+                    foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                        if (count($wilayah1['provinces'])){
+                            foreach ($wilayah1['provinces'] as $province) {
+                                $provinces_filter[] = $province['kode_provinsi'];
+                            }
+                        }
+                    }
+                }
+            }
+            if ($wilayah_id!='') {                    
+                $q->whereIn('companies.id_provinsi', $provinces_filter);
+            }
+        })->count();
+        $params['countKemitraanUMKM'] = $kemitraan_umkm->whereHas('company', function ($q){
+            $request = request();
+            $wilayah_id = $request->get('wilayah_id');        
+            $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
+            if ($wilayah_id!='') {
+                $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+                $provinces_filter = [];
+                if($wilayah_id!='all') {
+                    $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+                } elseif ($wilayah_id=='all'){
+                    foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                        if (count($wilayah1['provinces'])){
+                            foreach ($wilayah1['provinces'] as $province) {
+                                $provinces_filter[] = $province['kode_provinsi'];
+                            }
+                        }
+                    }
+                }
+            }
+            $q->where('companies.pmdn_pma','PMDN');
+            if ($wilayah_id!='') {                    
+                $q->whereIn('companies.id_provinsi', $provinces_filter);
+            }
+        })->count();        
         $params['countKemitraanUB_PMA'] = $kemitraan_ub->whereHas('company', function ($q){
+            $request = request();
+            $wilayah_id = $request->get('wilayah_id');        
+            $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
+            if ($wilayah_id!='') {
+                $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+                $provinces_filter = [];
+                if($wilayah_id!='all') {
+                    $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+                } elseif ($wilayah_id=='all'){
+                    foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                        if (count($wilayah1['provinces'])){
+                            foreach ($wilayah1['provinces'] as $province) {
+                                $provinces_filter[] = $province['kode_provinsi'];
+                            }
+                        }
+                    }
+                }
+            }
             $q->where('companies.pmdn_pma','PMA');
+            if ($wilayah_id!='') {                    
+                $q->whereIn('companies.id_provinsi', $provinces_filter);
+            }
         })->count();
 
         $kemitraan_ub1          = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');        
         $params['countKemitraanUB_PMDN'] = $kemitraan_ub1->whereHas('company', function ($q){
+            $request = request();
+            $wilayah_id = $request->get('wilayah_id');        
+            $wilayah_id = isset($wilayah_id) ? $wilayah_id : 'all';
+            if ($wilayah_id!='') {
+                $wilayah = simple_cms_setting('bkpmumkm_wilayah');
+                $provinces_filter = [];
+                if($wilayah_id!='all') {
+                    $provinces_filter = $wilayah[$wilayah_id]['provinces'];
+                } elseif ($wilayah_id=='all'){
+                    foreach (list_bkpmumkm_wilayah_by_user() as $wilayah1) {
+                        if (count($wilayah1['provinces'])){
+                            foreach ($wilayah1['provinces'] as $province) {
+                                $provinces_filter[] = $province['kode_provinsi'];
+                            }
+                        }
+                    }
+                }
+            }
             $q->where('companies.pmdn_pma','PMDN');
+            if ($wilayah_id!='') {                    
+                $q->whereIn('companies.id_provinsi', $provinces_filter);
+            }
         })->count();
         
         $params['countUMKMBermitra'] = count($umkm_bermitra);
