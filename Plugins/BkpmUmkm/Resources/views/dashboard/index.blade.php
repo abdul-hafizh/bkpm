@@ -580,55 +580,6 @@
                 </div>
             </div>
         </div> 
-        <div class="col-md-2"></div>        
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <div class="mb-2">
-                <h3 class="podcast"><i class="fas fa-tags mr-2"></i> {{ trans('label.umkm_bersedia_menolak_tutup_pindah') }}</h3>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="umkm_bersedia_menolak_tutup_pindah-tab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="umkm_bersedia_menolak_tutup_pindah-bar-tab" data-toggle="pill" href="#umkm_bersedia_menolak_tutup_pindah-bar-content" role="tab" aria-controls="umkm_bersedia_menolak_tutup_pindah-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="umkm_bersedia_menolak_tutup_pindah-pie-tab" data-toggle="pill" href="#umkm_bersedia_menolak_tutup_pindah-pie-content" role="tab" aria-controls="umkm_bersedia_menolak_tutup_pindah-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="umkm_bersedia_menolak_tutup_pindah-tabContent">
-                        <div class="tab-pane fade show active" id="umkm_bersedia_menolak_tutup_pindah-bar-content" role="tabpanel" aria-labelledby="umkm_bersedia_menolak_tutup_pindah-bar-tab">
-                            <div id="umkm_bersedia_menolak_tutup_pindah_bar"></div>
-                        </div>
-                        <div class="tab-pane fade" id="umkm_bersedia_menolak_tutup_pindah-pie-content" role="tabpanel" aria-labelledby="umkm_bersedia_menolak_tutup_pindah-pie-tab">
-                            <div id="umkm_bersedia_menolak_tutup_pindah_pie"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer p-0">
-                    <table class="table table-sm">
-                        <thead>
-                        <tr class="text-center">
-                            <th>{{ trans('label.survey_umkm_status_bersedia') }}</th>
-                            <th>{{ trans('label.survey_umkm_status_menolak') }}</th>
-                            {{-- <th>{{ trans('label.survey_status_tutup') }}</th>
-                            <th>{{ trans('label.survey_status_pindah') }}</th> --}}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr class="text-center">
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_umkm_status_bersedia') .'"' : '') !!}>{{ number_format($countUMKMBermitra,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.potensial.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.potensial.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_umkm_status_menolak') .'"' : '') !!}>{{ number_format($countUMKMBelumBermitra,0,",",".") }}</a></td>
-                            {{-- <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.umkm.survey.bersedia.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.umkm.survey.bersedia.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_umkm_status_bersedia') .'"' : '') !!}>{{ number_format($countSurveyUMKMBersedia,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.survey.umkm.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.survey.umkm.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('menolak'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_umkm_status_menolak') .'"' : '') !!}>{{ number_format($countSurveyUMKMMenolak,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.survey.umkm.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.survey.umkm.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('tutup'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_status_tutup') .'"' : '') !!}>{{ number_format($countSurveyUMKMTutup,0,",",".") }}</a></td>
-                            <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.survey.umkm.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.survey.umkm.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('pindah'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.survey_status_pindah') .'"' : '') !!}>{{ number_format($countSurveyUMKMPindah,0,",",".") }}</a></td> --}}
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>  
-        <div class="col-md-2"></div>
     @endif
     {{-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="mb-2">
