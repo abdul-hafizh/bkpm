@@ -20,11 +20,19 @@ class CompanyService
         \DB::beginTransaction();
         try {
             $id = encrypt_decrypt(filter($request->input('id')), 2);
+            $task_id = filter($request->input('task_id'));
+            $task_date = filter($request->input('task_date'));
+            
             $pic_id = encrypt_decrypt(filter($request->input('pic_id')), 2);
             $logProperties = [
                 'attributes' => [],
                 'old' => ($id ? CompanyModel::where(['id' => $id, 'category' => $this->company_category])->first()->toArray() : [])
             ];
+
+            if (empty($id)) {
+                $task_id = 1;
+                $task_date = now();
+            }
 
             $data = [
                 'code' => filter($request->input('code')),
@@ -53,8 +61,8 @@ class CompanyService
                 'latitude' => filter($request->input('latitude')),
                 'total_employees' => 0,
                 'investment_plan' => 0,
-                'update_journal' => now(),
-                'journal_task' => 1,
+                'update_journal' => $task_date,
+                'journal_task' => $task_id,
                 'category'  => $this->company_category
             ];
 
@@ -126,7 +134,7 @@ class CompanyService
                 DB::table('journal_activity')->insert([
                     'company_id' => $company->id,
                     'user_id' => filter($request->input('user_id')),
-                    'journal_task_id' => 7,
+                    'journal_task_id' => 1,
                     'activity_date' => now(),
                     'jurnal' => 'Registrasi UB',
                     'created_at' => now()
