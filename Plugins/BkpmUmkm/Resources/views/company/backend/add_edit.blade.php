@@ -23,6 +23,8 @@
 
         <form id="formAddEditCompany" class="row" data-action="{{ route("{$bkpmumkm_identifier}.backend.company.save_update") }}">
             <input type="hidden" name="id" value="{{ encrypt_decrypt($company->id) }}">
+            <input type="hidden" name="task_id" value="{{ $company->journal_task }}">
+            <input type="hidden" name="task_date" value="{{ $company->update_journal }}">
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
