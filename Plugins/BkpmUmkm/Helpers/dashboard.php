@@ -587,7 +587,6 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                     }
                 }
             }
-            $q->where('companies.pmdn_pma','PMDN');
             if ($wilayah_id!='') {                    
                 $q->whereIn('companies.id_provinsi', $provinces_filter);
             }
