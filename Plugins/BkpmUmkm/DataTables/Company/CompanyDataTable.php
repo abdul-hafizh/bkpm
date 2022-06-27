@@ -80,7 +80,7 @@ class CompanyDataTable extends DataTable
             ->editColumn('name_pic', function($q){
                 $html = '<div class="user-block">
                           <span class="username ml-1"><a>'. $q->name_pic .'</a></span>';
-                $html .= '<span class="description ml-1">';
+                $html .= '<span class="description ml-1" style="width:120px">';
                 if (!empty($q->email_pic)){
                     $html .= '<i class="fas fa-envelope"></i> ' . $q->email_pic;
                 }
