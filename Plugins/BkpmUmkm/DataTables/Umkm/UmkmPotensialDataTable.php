@@ -205,9 +205,9 @@ class UmkmPotensialDataTable extends DataTable
             $model->whereRaw("companies.id NOT IN (select surveys.company_id FROM surveys where surveys.status in ('done','progress','revision','verified', 'bersedia', 'menolak', 'tutup', 'pindah'))");
         }        
         
-        $model->whereHas('survey', function ($q){
-            $q->whereYear('surveys.created_at', $this->periode);
-        });
+        // $model->whereHas('survey', function ($q){
+        //     $q->whereYear('surveys.created_at', $this->periode);
+        // });
         
         if (!empty($this->has_not_nib)){
             switch ($this->has_not_nib){
