@@ -8,6 +8,7 @@
 
 namespace Plugins\BkpmUmkm\DataTables\Journal;
 
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Models\JournalModel;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -52,12 +53,18 @@ class JournalDataTable extends DataTable
      */
     public function query(JournalModel $model)
     {               
-        $model = $model->select('*'); 
-        $model->leftJoin('journal_task', 'journal_task_id', '=', 'journal_task.id');       
+        $model = DB::table('journal_activity')
+            ->leftJoin('journal_task', 'journal_activity.journal_task_id', '=', 'journal_task.id')            
+            ->get();
+
         if (!empty($this->company_id)){
-            $model->where('company_id', $this->company_id);
+            $model = DB::table('journal_activity')
+            ->leftJoin('journal_task', 'journal_activity.journal_task_id', '=', 'journal_task.id')            
+            ->where('company_id', $this->company_id)->orderBy('activity_date', 'asc')
+            ->get();
         }
-        return $model->newQuery();
+
+        return $model;
     }
 
     /**
