@@ -27,7 +27,7 @@ class KemitraanRequest extends FormRequest
             $this->role['file_kerjasama'] = [
                 'required',
                 'max:15000',
-                'mimes:pdf'
+                'mimes:jpg,jpeg,bmp,png,gif,svg,pdf'
             ];
         }
 
@@ -35,7 +35,7 @@ class KemitraanRequest extends FormRequest
             $this->role['file_kontrak'] = [
                 'required',
                 'max:15000',
-                'mimes:pdf'
+                'mimes:jpg,jpeg,bmp,png,gif,svg,pdf'
             ];
         }
         return $this->role;

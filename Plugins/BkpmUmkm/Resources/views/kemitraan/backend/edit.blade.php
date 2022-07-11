@@ -105,8 +105,8 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="file_kerjasama">@lang('label.file_kerjasama')</label>
-                                    <input id="file_kerjasama" type="file" name="file_kerjasama" class="form-control" accept=".pdf">
-                                    <span class="text-info">Note: file extension: .pdf</span>
+                                    <input id="file_kerjasama" type="file" name="file_kerjasama" class="form-control" accept="image/*,.pdf">
+                                    <span class="text-info">Note: file extension: image/pdf</span>
                                 </div>
                                 @if(!empty($kemitraan->file_kerjasama))
                                     <div class="form-group">
@@ -120,8 +120,8 @@
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label for="file_kontrak">@lang('label.file_kontrak')</label>
-                                    <input id="file_kontrak" type="file" name="file_kontrak" class="form-control" accept=".pdf">
-                                    <span class="text-info">Note: file extension: .pdf</span>
+                                    <input id="file_kontrak" type="file" name="file_kontrak" class="form-control" accept="image/*,.pdf">
+                                    <span class="text-info">Note: file extension: image/pdf</span>
                                 </div>
                                 @if(!empty($kemitraan->file_kontrak))
                                     <div class="form-group">
