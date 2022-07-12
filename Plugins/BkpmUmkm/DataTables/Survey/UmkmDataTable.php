@@ -156,7 +156,7 @@ class UmkmDataTable extends DataTable
                     $html .= '<a href="' . asset($q->survey_result->documents['file']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['file']) .'" title="'. trans('label.photo_scan_berita_acara') .'"><i class="fas fa-file"></i> ' . trans('label.survey_lihat_berita_acara') . '</a><br/>';
                 }
                 if ($q->survey_result && !empty($q->survey_result->documents) && isset($q->survey_result->documents['photo'])) {
-                    $html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . trans('label.photo_bersama_responden_berita_acara') . '</a>';
+                    $html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
                 }
                 return $html;
             })
