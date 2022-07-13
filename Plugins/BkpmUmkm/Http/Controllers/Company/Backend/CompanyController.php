@@ -79,7 +79,6 @@ class CompanyController extends Controller
                                 ->select('companies.id', 'companies.name')
                                 ->leftJoin('companies_status', 'companies.id', '=', 'companies_status.company_id')
                                 ->where('companies.category', 'company')
-                                ->whereYear('companies.created_at', date("Y"))
                                 ->whereYear('companies_status.created_at', date("Y"))
                                 ->orderBy('companies.id', 'desc')
                                 ->get();
