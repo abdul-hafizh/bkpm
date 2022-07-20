@@ -148,7 +148,7 @@ class UmkmDataTable extends DataTable
                         }
                         if ($q->status == 'done' && hasRoutePermission("{$this->identifier}.backend.survey.berita_acara"))
                         {
-                            $html .= '<a href="' . route("{$this->identifier}.backend.survey.berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id)]) . '" class="btn btn-warning btn-xs mb-1" title="'. trans('label.survey_upload_berita_acara') .'"><i class="fas fa-cloud-upload-alt"></i> ' . trans('label.survey_upload_berita_acara') . '</a><br/>';
+                            $html .= '<a href="' . route("{$this->identifier}.backend.survey.berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id)]) . '" class="btn btn-warning btn-xs mb-1" title="Upload Berita Acara dan Evidance Survey"><i class="fas fa-cloud-upload-alt"></i> Upload Berita Acara dan Evidance Survey</a><br/>';
                         }
                         break;
                 }
