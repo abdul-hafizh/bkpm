@@ -25,7 +25,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="form-group">
-                    <label>{{ trans('label.photo_bersama_responden_berita_acara') }}</label>
+                    <label>Foto Evidance Survey</label>
                 </div>
                 <div class="input-group">
                     <div class="custom-file">
