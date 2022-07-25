@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\DB;
 use SimpleCMS\ACL\Events\NewRegisterAccountEvent;
 use SimpleCMS\ACL\Http\Requests\LoginRequest;
 use SimpleCMS\ACL\Models\User;
@@ -83,6 +84,11 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
 
+        $users = DB::table('users')
+                ->where('username', '=', $request->input('username'))
+                ->orWhere('email', '=', $request->input('username'))
+                ->get();
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -93,8 +99,16 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
+        if($users->count() > 0){
+            if($users[0]->status == 1) {
+                if ($this->attemptLogin($request)) {
+                    return $this->sendLoginResponse($request);
+                }
+            } else {
+                $this->sendFailedLoginStatusResponse($request);
+            }
+        } else {
+            $this->sendFailedLoginResponse($request);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -153,7 +167,7 @@ class LoginController extends Controller
         {
             $redirect_intended = session('url.intended');
         }
-        if ($request->ajax()){
+        if($request->ajax()){
             return responseSuccess(responseMessage('Login success.',['redirect'=>$redirect_intended]));
         }
         return $this->authenticated($request, $this->guard()->user())
@@ -184,6 +198,13 @@ class LoginController extends Controller
     {
         throw ValidationException::withMessages([
             $this->username() => ["Invalid username or password."],
+        ]);
+    }
+
+    protected function sendFailedLoginStatusResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => ["User not active."],
         ]);
     }
 
@@ -303,7 +324,7 @@ class LoginController extends Controller
                 'username' => $username,
                 'name' => $name,
                 'email' => $email,
-                'avatar'    => $userSocial->getAvatar()
+                'avatar' => $userSocial->getAvatar()
             ];
             $path_upload_default = create_path_default($data_user['username'], public_path('users'));
             $data_user['path'] = $path_upload_default;
