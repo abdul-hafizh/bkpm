@@ -126,6 +126,26 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['user'] = $user;
         $params['identifier'] = $identifier;
 
+        $sebaran_map = DB::select("SELECT * from vw_map_info");
+
+        $hasil = array();
+
+        foreach($sebaran_map as $row){
+            $hasil[]= array(
+                $row->id,
+                $row->nama_perusahaan,
+                $row->alamat,
+                $row->nama_provinsi,
+                $row->nama_kabupaten,
+                $row->nama_kecamatan,
+                $row->wilayah,
+                $row->long,
+                $row->lat
+            );
+        }  
+
+        $params['lokasi'] = $hasil;
+
         $ub = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
             ->whereHas('company_status', function($q) use($year){
                 $q->whereYear('companies_status.created_at', $year);
@@ -133,13 +153,13 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
 
         $kemitraan_ub = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year)->distinct('company_id');
         $kemitraan_umkm = \Plugins\BkpmUmkm\Models\KemitraanModel::whereYear('created_at', $year);        
-        $umkm_bermitra = DB::select("SELECT * from kemitraan WHERE umkm_status='bersedia' AND year(created_at)=?", [$year]);
+        $umkm_bermitra = DB::select("SELECT id, umkm_id from kemitraan WHERE umkm_status='bersedia' AND year(created_at)=?", [$year]);
 
         $idUmkmBermitra = [];
         foreach($umkm_bermitra as $v){
             $idUmkmBermitra[]=$v->umkm_id;
         }        
-        $count_umkm_bersedia = DB::select("SELECT surveys.* FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
+        $count_umkm_bersedia = DB::select("SELECT surveys.id FROM `surveys` join companies on surveys.company_id=companies.id where year(surveys.created_at)=? and surveys.status in ('bersedia','tutup','menolak','pindah') and companies.category='umkm'", [$year]);
         
         $umkm_belum_bermitra = count($count_umkm_bersedia) - count($umkm_bermitra);
         

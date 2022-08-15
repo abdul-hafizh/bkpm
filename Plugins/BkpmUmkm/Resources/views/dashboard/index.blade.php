@@ -648,4 +648,204 @@
         </div>
     </div> --}}
 
+    <div class="col-sm-12 col-xs-12">
+        <div class="mb-2">
+            <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Sebaran Survey</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="box-body">
+                    <div id="map" style="width:auto; height:450px"></div>
+                    <div id="popup" class="ol-popup">
+                        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                        <div id="popup-content"></div>
+                    </div>
+
+                    <div class="btn-group mt-1" style="width:60%">
+                        <button id="TO-ALLL" type="button" class="btn btn-secondary btn-sm col-4">All</button> &nbsp; &nbsp;
+                        <button id="TO-DWI" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-I</button> &nbsp; &nbsp;
+                        <button id="TO-DWII" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-II</button> &nbsp; &nbsp;
+                        <button id="TO-DWIII" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-III</button> &nbsp; &nbsp;
+                        <button id="TO-DWIV" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-IV</button> &nbsp; &nbsp;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+
+<script>
+    // map start
+
+        var data_lokasi = @json($lokasi);
+        var ALLL = ol.proj.fromLonLat([118.0148634,-2.548926 ]);
+        var DWI = ol.proj.fromLonLat([98.678513,3.597031]);
+        var DWII = ol.proj.fromLonLat([111.257832302, -7.50166466]);
+        var DWIII = ol.proj.fromLonLat([114.44753857758242,  1.4197101910832077]);
+        var DWIV = ol.proj.fromLonLat([120.57077305954977, -1.5781610328357976]);
+
+        var view = new ol.View({
+            center: ALLL,
+            zoom: 5.2
+        });
+
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+            ],
+
+            loadTilesWhileAnimating: true,
+            view: view
+        });
+
+        var vectorSource = new ol.source.Vector({});
+        var features = [];
+        for (let i = 0; i < data_lokasi.length; i++) {
+            var pict;
+            var area  = data_lokasi[i][6];
+
+            switch(area) {
+            case 'DW1':
+                pict = "https://eri.progressreport.net/assets/img/map-coklat.png";
+                break;
+            case 'DW2':
+                pict = "https://eri.progressreport.net/assets/img/map-biru.png";
+                break;
+            case 'DW3':
+                pict = "https://eri.progressreport.net/assets/img/map-hijautua.png";
+                break;
+            case 'DW4':
+                pict = "https://eri.progressreport.net/assets/img/map-ungu.png";
+                break;        
+            default:
+                pict = "https://eri.progressreport.net/assets/img/map-biru.png";
+            }
+
+            var iconFeature = new ol.Feature({        
+                geometry: new ol.geom.Point(ol.proj.transform([data_lokasi[i][7],data_lokasi[i][8]],  'EPSG:4326', 'EPSG:3857')),
+                id : data_lokasi[i][0],
+                name : 'peta',
+                description : '<table width="480" border="0"  cellspacing="0" cellpadding="0" ><tr valign="top"><td width="166">Nama UMKM</td><td width="5">:</td><td width="295">'+data_lokasi[i][1]+'</td></tr><tr valign="top"><td>Alamat</td><td>:</td></tr><tr valign="top"><td>Nama Provinsi</td><td>:</td><td>'+data_lokasi[i][3]+'</td></tr><tr valign="top"><td>Nama Kabupaten</td><td>:</td><td>'+data_lokasi[i][4]+'</td></tr></table>',
+            });
+
+            var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 0.5],
+                    anchorXUnits: "fraction",
+                    anchorYUnits: "fraction",
+                    src: pict
+                    })
+                });
+            iconFeature.setStyle(iconStyle);
+            vectorSource.addFeature(iconFeature);
+        }
+
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource,
+            updateWhileAnimating: true,
+            updateWhileInteracting: true
+        });
+
+        map.addLayer(vectorLayer); 
+
+    // map end
+
+    // initialize the popup
+  
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+
+        var overlay = new ol.Overlay({
+            element: container,
+            autoPan: true,
+            autoPanAnimation: {
+                duration: 250
+            }
+        });
+
+        map.addOverlay(overlay);
+
+        closer.onclick = function() {
+            overlay.setPosition(undefined);
+            closer.blur();
+            return false;
+        };
+
+        map.on('click', function (event) {
+            var feature = map.forEachFeatureAtPixel(event.pixel, 
+            function(feature) {
+                return feature;
+            });  
+            if (feature) {
+                var coordinate = feature.getGeometry().getCoordinates();
+                content.innerHTML =feature.get('description')
+                overlay.setPosition(coordinate);
+            } else {
+                overlay.setPosition(undefined);
+                closer.blur();
+            }
+        });
+
+    // initialize the popup end
+
+    function flyTo(location, done) {
+        var duration = 2000;
+        var zoom = view.getZoom();
+        var parts = 2;
+        var called = false;
+        function callback(complete) {
+            --parts;
+            if (called) {
+            return;
+            }
+            if (parts === 0 || !complete) {
+            called = true;
+            done(complete);
+            }
+        }
+        view.animate({
+            center: location,
+            duration: duration
+        }, callback);
+        view.animate({
+            zoom: zoom - 1,
+            duration: duration / 2
+        }, {
+            zoom: zoom,
+            duration: duration / 2
+        }, callback);
+    }
+
+    function onClick(id, callback) {
+        document.getElementById(id).addEventListener('click', callback);
+    }
+
+    onClick('TO-ALLL', function() {
+        flyTo(ALLL, function() {});
+    });
+
+    onClick('TO-DWI', function() {
+        flyTo(DWI, function() {});
+    });
+
+    onClick('TO-DWII', function() {
+        flyTo(DWII, function() {});
+    });
+
+    onClick('TO-DWIII', function() {
+        flyTo(DWIII, function() {});
+    });
+
+    onClick('TO-DWIV', function() {
+        flyTo(DWIV, function() {});
+    });
+
+</script>

@@ -25,7 +25,7 @@
             </div>
             <div class="col-12 mt-4">
                 <div class="form-group">
-                    <label>Foto Evidance Survey</label>
+                    <label>Foto Evidance Survey 1</label>
                 </div>
                 <div class="input-group">
                     <div class="custom-file">
@@ -40,6 +40,50 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <a href="{{ asset($survey->survey_result->documents['photo']) }}" class="d-block mb-4 h-100 {{ bkpmumkm_colorbox(asset($survey->survey_result->documents['photo'])) }}">
                                 <img class="img-fluid img-thumbnail" src="{{ view_asset($survey->survey_result->documents['photo']) }}">
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-12 mt-4">
+                <div class="form-group">
+                    <label>Foto Evidance Survey 2</label>
+                </div>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="photo2" class="custom-file-input" id="exampleInputFilePhoto" accept=".jpg,.jpeg,.png">
+                        <label class="custom-file-label" for="exampleInputFilePhoto">Choose file</label>
+                    </div>
+                </div>
+                <span class="text-info">Extensi: .jpg, .jpeg, .png</span>
+                <div class="row">
+                    @if ($survey->survey_result&&!empty($survey->survey_result->documents)&&isset($survey->survey_result->documents['photo2']))
+                        <input type="hidden" name="photo_old2" value="{{ $survey->survey_result->documents['photo2'] }}">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <a href="{{ asset($survey->survey_result->documents['photo2']) }}" class="d-block mb-4 h-100 {{ bkpmumkm_colorbox(asset($survey->survey_result->documents['photo2'])) }}">
+                                <img class="img-fluid img-thumbnail" src="{{ view_asset($survey->survey_result->documents['photo2']) }}">
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-12 mt-4">
+                <div class="form-group">
+                    <label>Foto Evidance Survey 3</label>
+                </div>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="photo3" class="custom-file-input" id="exampleInputFilePhoto" accept=".jpg,.jpeg,.png">
+                        <label class="custom-file-label" for="exampleInputFilePhoto">Choose file</label>
+                    </div>
+                </div>
+                <span class="text-info">Extensi: .jpg, .jpeg, .png</span>
+                <div class="row">
+                    @if ($survey->survey_result&&!empty($survey->survey_result->documents)&&isset($survey->survey_result->documents['photo3']))
+                        <input type="hidden" name="photo_old3" value="{{ $survey->survey_result->documents['photo3'] }}">
+                        <div class="col-lg-6 col-md-6 col-12">
+                            <a href="{{ asset($survey->survey_result->documents['photo3']) }}" class="d-block mb-4 h-100 {{ bkpmumkm_colorbox(asset($survey->survey_result->documents['photo3'])) }}">
+                                <img class="img-fluid img-thumbnail" src="{{ view_asset($survey->survey_result->documents['photo3']) }}">
                             </a>
                         </div>
                     @endif

@@ -71,6 +71,9 @@ class UmkmDataTable extends DataTable
                 }
                 return $q->umkm->name;
             })
+            ->editColumn('umkm.bidang_usaha', function($q){ 
+                return ($q->umkm->bidang_usaha ? $q->umkm->bidang_usaha : '-');
+            })
             ->editColumn('surveyor.name', function($q){
                 if ($q->surveyor) {
                     $html = '<div class="user-block">
@@ -156,7 +159,8 @@ class UmkmDataTable extends DataTable
                     $html .= '<a href="' . asset($q->survey_result->documents['file']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['file']) .'" title="'. trans('label.photo_scan_berita_acara') .'"><i class="fas fa-file"></i> ' . trans('label.survey_lihat_berita_acara') . '</a><br/>';
                 }
                 if ($q->survey_result && !empty($q->survey_result->documents) && isset($q->survey_result->documents['photo'])) {
-                    $html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
+                    //$html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
+                    $html .= '<a href="javascript:void(0);" class="btn btn-primary show_modal_ex_lg btn-xs mb-1" data-action="'.route("{$this->identifier}.backend.photo.index", ['in-modal' => encrypt_decrypt('modal'), 'survey_id'=>$q->id]).'" data-method="GET" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
                 }
                 return $html;
             })
@@ -365,20 +369,19 @@ CDATA;
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),
             Column::make('umkm.name')->title(trans('label.name_umkm')),
+            Column::make('umkm.bidang_usaha')->title('Bidang Usaha'),
             Column::make('umkm.provinsi.nama_provinsi')->title(trans('wilayah::label.province')),
             Column::make('umkm.address')->title(trans('label.address_umkm')),
             Column::make('estimated_date')->title(trans('label.survey_estimated_date')),
             Column::make('surveyor.name')->title(trans('label.penginput_survey')),
             Column::make('periode')->name('created_at')->title(trans('label.year'))->orderable(false),
             Column::make('statusRaw')->name('statusRaw')->title(trans('label.status'))->printable(false),
-//            Column::make('status')->visible(false),
             Column::make('survey_result.documents')->title(trans('label.survey_berita_acara')),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
                 ->exportable(false)
                 ->printable(false)
                 ->width('auto')
-                //->addClass('text-center')
         ];
         if ($this->viewed){
             unset($columns[9]);
