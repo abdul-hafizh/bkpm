@@ -43,6 +43,28 @@ class UploadBeritaAcaraRequest extends FormRequest
                 $this->role['photo'][3] .= ',application/pdf';
             }
         }
+        if (!$this->has('photo_old2') OR empty($this->input('photo_old2')) OR $this->file('photo2')) {
+            $this->role['photo2'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+            if ($this->route('company') == CATEGORY_COMPANY){
+                $this->role['photo2'][2] .= ',pdf';
+                $this->role['photo2'][3] .= ',application/pdf';
+            }
+        }
+        if (!$this->has('photo_old3') OR empty($this->input('photo_old3')) OR $this->file('photo3')) {
+            $this->role['photo3'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+            if ($this->route('company') == CATEGORY_COMPANY){
+                $this->role['photo3'][2] .= ',pdf';
+                $this->role['photo3'][3] .= ',application/pdf';
+            }
+        }
         return $this->role;
     }
 
@@ -69,6 +91,16 @@ class UploadBeritaAcaraRequest extends FormRequest
         ];
         $this->message["photo"] = [
             'required' => Lang::get($message['required'], ['label' => $label_photo]),
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo2"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo3"] = [
             'max'   => Lang::get($message['max'], ['label' => $label_photo]),
             'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
             'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
