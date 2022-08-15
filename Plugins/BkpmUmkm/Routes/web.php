@@ -510,6 +510,14 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
             ])->name("index");
         });
 
+        /* Photo Route */
+        Route::group(['prefix' => 'photo', 'as'=>'photo.'], function() {
+            Route::get("/", [
+                'title' => "Photo: Index [Backend]",
+                'uses' => 'Photo\Backend\PhotoController@index'
+            ])->name("index");
+        });
+
         /* Company & UMKM Verified/Bersedia Route */
         /* Company */
         Route::group(['prefix' => 'perusahaan', 'as'=>'company.survey.'], function() {

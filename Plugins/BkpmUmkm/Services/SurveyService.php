@@ -338,12 +338,18 @@ class SurveyService
                 $company = CompanyModel::where('id', $survey->company_id)->first();
                 $path_upload = $company->path;
                 $path_upload .= '/surveys/' . Carbon::now()->year . '/berita-acara';
-                $upload_documents = ['file' => trim($request->input('file_old')), 'photo' => trim($request->input('photo_old'))];
+                $upload_documents = ['file' => trim($request->input('file_old')), 'photo' => trim($request->input('photo_old')), 'photo2' => trim($request->input('photo_old2')), 'photo3' => trim($request->input('photo_old3'))];
                 if ($request->file('file')){
                     $upload_documents['file'] = $this->upload_file($request, $path_upload, 'file');
                 }
                 if ($request->file('photo')){
                     $upload_documents['photo'] = $this->upload_file($request, $path_upload, 'photo');
+                }
+                if ($request->file('photo2')){
+                    $upload_documents['photo2'] = $this->upload_file($request, $path_upload, 'photo2');
+                }
+                if ($request->file('photo3')){
+                    $upload_documents['photo3'] = $this->upload_file($request, $path_upload, 'photo3');
                 }
                 $data['documents'] = $upload_documents;
                 $survey = SurveyModel::query()->updateOrCreate(['id' => $id], [
