@@ -318,7 +318,7 @@ class SurveyService
             $returnData = ['redirect' => route("simple_cms.plugins.bkpmumkm.backend.survey.{$category_company}.index")];
             $message = '';
 
-            if ($request->file('file') OR $request->file('photo')) {
+            if ($request->file('file') OR $request->file('photo') OR $request->file('photo2') OR $request->file('photo3') OR $request->file('photo4') OR $request->file('photo5') OR $request->file('photo6') OR $request->file('photo7') OR $request->file('photo8') OR $request->file('photo9') OR $request->file('photo10')) {
                 $survey = SurveyModel::where(['id' => $id, 'surveyor_id' => $user->id])->with(['survey_result'])->first();
                 $surveyArray = $survey;
                 $logProperties = [
@@ -328,7 +328,7 @@ class SurveyService
                 $company = CompanyModel::where('id', $survey->company_id)->first();
                 $path_upload = $company->path;
                 $path_upload .= '/surveys/' . Carbon::now()->year . '/berita-acara';
-                $upload_documents = ['file' => trim($request->input('file_old')), 'photo' => trim($request->input('photo_old')), 'photo2' => trim($request->input('photo_old2')), 'photo3' => trim($request->input('photo_old3'))];
+                $upload_documents = ['file' => trim($request->input('file_old')), 'photo' => trim($request->input('photo_old')), 'photo2' => trim($request->input('photo_old2')), 'photo3' => trim($request->input('photo_old3')), 'photo4' => trim($request->input('photo_old4')), 'photo5' => trim($request->input('photo_old5')), 'photo6' => trim($request->input('photo_old6')), 'photo7' => trim($request->input('photo_old7')), 'photo8' => trim($request->input('photo_old8')), 'photo9' => trim($request->input('photo_old9')), 'photo10' => trim($request->input('photo_old10'))];
                 if ($request->file('file')){
                     $upload_documents['file'] = $this->upload_file($request, $path_upload, 'file');
                 }
@@ -340,6 +340,27 @@ class SurveyService
                 }
                 if ($request->file('photo3')){
                     $upload_documents['photo3'] = $this->upload_file($request, $path_upload, 'photo3');
+                }
+                if ($request->file('photo4')){
+                    $upload_documents['photo4'] = $this->upload_file($request, $path_upload, 'photo4');
+                }
+                if ($request->file('photo5')){
+                    $upload_documents['photo5'] = $this->upload_file($request, $path_upload, 'photo5');
+                }
+                if ($request->file('photo6')){
+                    $upload_documents['photo6'] = $this->upload_file($request, $path_upload, 'photo6');
+                }
+                if ($request->file('photo7')){
+                    $upload_documents['photo7'] = $this->upload_file($request, $path_upload, 'photo7');
+                }
+                if ($request->file('photo8')){
+                    $upload_documents['photo8'] = $this->upload_file($request, $path_upload, 'photo8');
+                }
+                if ($request->file('photo9')){
+                    $upload_documents['photo9'] = $this->upload_file($request, $path_upload, 'photo9');
+                }
+                if ($request->file('photo10')){
+                    $upload_documents['photo10'] = $this->upload_file($request, $path_upload, 'photo10');
                 }
                 $data['documents'] = $upload_documents;
                 $survey = SurveyModel::query()->updateOrCreate(['id' => $id], [

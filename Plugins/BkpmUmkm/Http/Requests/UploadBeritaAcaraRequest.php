@@ -49,10 +49,6 @@ class UploadBeritaAcaraRequest extends FormRequest
                 'mimes:jpg,jpeg,png',
                 'mimetypes:image/jpeg,image/png'
             ];
-            if ($this->route('company') == CATEGORY_COMPANY){
-                $this->role['photo2'][2] .= ',pdf';
-                $this->role['photo2'][3] .= ',application/pdf';
-            }
         }
         if (!$this->has('photo_old3') OR empty($this->input('photo_old3')) OR $this->file('photo3')) {
             $this->role['photo3'] = [
@@ -60,10 +56,55 @@ class UploadBeritaAcaraRequest extends FormRequest
                 'mimes:jpg,jpeg,png',
                 'mimetypes:image/jpeg,image/png'
             ];
-            if ($this->route('company') == CATEGORY_COMPANY){
-                $this->role['photo3'][2] .= ',pdf';
-                $this->role['photo3'][3] .= ',application/pdf';
-            }
+        }
+        if (!$this->has('photo_old4') OR empty($this->input('photo_old4')) OR $this->file('photo4')) {
+            $this->role['photo4'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old5') OR empty($this->input('photo_old5')) OR $this->file('photo5')) {
+            $this->role['photo5'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old6') OR empty($this->input('photo_old6')) OR $this->file('photo6')) {
+            $this->role['photo6'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old7') OR empty($this->input('photo_old7')) OR $this->file('photo7')) {
+            $this->role['photo7'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old8') OR empty($this->input('photo_old8')) OR $this->file('photo8')) {
+            $this->role['photo8'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old9') OR empty($this->input('photo_old9')) OR $this->file('photo9')) {
+            $this->role['photo9'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
+        }
+        if (!$this->has('photo_old10') OR empty($this->input('photo_old10')) OR $this->file('photo10')) {
+            $this->role['photo10'] = [
+                'max:15000',
+                'mimes:jpg,jpeg,png',
+                'mimetypes:image/jpeg,image/png'
+            ];
         }
         return $this->role;
     }
@@ -101,6 +142,41 @@ class UploadBeritaAcaraRequest extends FormRequest
             'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
         ];
         $this->message["photo3"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo4"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo5"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo6"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo7"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo8"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo9"] = [
+            'max'   => Lang::get($message['max'], ['label' => $label_photo]),
+            'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
+            'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])
+        ];
+        $this->message["photo10"] = [
             'max'   => Lang::get($message['max'], ['label' => $label_photo]),
             'mimes' => Lang::get($message['mimes'], ['label' => $label_photo]),
             'mimetypes' => Lang::get($message['mimetypes'], ['label' => $label_file])

@@ -128,6 +128,10 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
 
         $sebaran_map = DB::select("SELECT * from vw_map_info");
 
+        if ($wilayah_id!='') {                    
+            $sebaran_map = DB::table('vw_map_info')->whereIn('id_province', $provinces_filter)->get();
+        }
+
         $hasil = array();
 
         foreach($sebaran_map as $row){
