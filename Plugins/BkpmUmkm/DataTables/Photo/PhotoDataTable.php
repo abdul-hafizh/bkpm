@@ -51,6 +51,41 @@ class PhotoDataTable extends DataTable
                         $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto3) . '">';
                         $html .= '</a>';
                     }
+                    if (!empty($q->foto4)){
+                        $html .= '<a href="' . asset($q->foto4) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto4) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto5)){
+                        $html .= '<a href="' . asset($q->foto5) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto5) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto6)){
+                        $html .= '<a href="' . asset($q->foto6) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto6) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto7)){
+                        $html .= '<a href="' . asset($q->foto7) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto7) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto8)){
+                        $html .= '<a href="' . asset($q->foto8) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto8) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto9)){
+                        $html .= '<a href="' . asset($q->foto9) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto9) . '">';
+                        $html .= '</a>';
+                    }
+                    if (!empty($q->foto10)){
+                        $html .= '<a href="' . asset($q->foto10) . '" target="_blank" class="d-block mb-4 m-3 h-100">';
+                        $html .= '<img class="img-fluid img-thumbnail" width="200px" height="200px" src="' . view_asset($q->foto10) . '">';
+                        $html .= '</a>';
+                    }
                     $html .= '</div>';
                     return $html;
                 }          

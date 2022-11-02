@@ -102,23 +102,23 @@ class CompanyService
                     'mobile_phone' => $data['phone_pic']
                 ];
 
-                if (!$pic_id) {
-                    /* create user */
-                    $username = \Str::slug($data['name_pic'], '_');
-                    $username = \SimpleCMS\ACL\Services\RegisterService::generateSlug($data['email_pic'], $username);
-                    $password = trim($request->input('password'));
-                    $password = (empty($password) ? '1Kileis849Aeik' : $password);
-                    $user['username'] = $username;
-                    $user['password'] = bcrypt($password);
-                    $user['group_id'] = env('GROUP_STAFF', 3);
-                    $user['role_id'] = env('GROUP_STAFF', 3);
-                    $user['email'] = $data['email_pic'];
-                    $user['status'] = 1;
-                    $user = \SimpleCMS\ACL\Models\User::create($user);
-                    $data['user_id'] = $user->id;
-                } else {
-                    \SimpleCMS\ACL\Models\User::where('id', $pic_id)->update($user);
-                }
+                // if (!$pic_id) {
+                //     /* create user */
+                //     $username = \Str::slug($data['name_pic'], '_');
+                //     $username = \SimpleCMS\ACL\Services\RegisterService::generateSlug($data['email_pic'], $username);
+                //     $password = trim($request->input('password'));
+                //     $password = (empty($password) ? '1Kileis849Aeik' : $password);
+                //     $user['username'] = $username;
+                //     $user['password'] = bcrypt($password);
+                //     $user['group_id'] = env('GROUP_STAFF', 3);
+                //     $user['role_id'] = env('GROUP_STAFF', 3);
+                //     $user['email'] = $data['email_pic'];
+                //     $user['status'] = 1;
+                //     $user = \SimpleCMS\ACL\Models\User::create($user);
+                //     $data['user_id'] = $user->id;
+                // } else {
+                //     \SimpleCMS\ACL\Models\User::where('id', $pic_id)->update($user);
+                // }
             }
 
             if (empty($id) OR ($id && empty($logProperties['old']['path']))) {

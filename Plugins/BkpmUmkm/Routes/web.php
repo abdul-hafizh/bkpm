@@ -404,6 +404,42 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
             ])->name("activity_log");
         });
 
+        /* Target Route */
+        Route::group(['prefix' => 'target', 'as'=>'target.'], function() {
+            Route::get("/", [
+                'title' => "Target: Index [Backend]",
+                'uses' => 'Target\Backend\TargetController@index'
+            ])->name("index");
+            Route::get("/add", [
+                'title' => "Target: Add [Backend]",
+                'uses' => 'Target\Backend\TargetController@add'
+            ])->name("add");
+            Route::get("/edit/{id}", [
+                'title' => "Target: Edit [Backend]",
+                'uses' => 'Target\Backend\TargetController@edit'
+            ])->name("edit");
+            Route::post("/save-update", [
+                'title' => "Target: Save Update [Backend]",
+                'uses' => 'Target\Backend\TargetController@save_update'
+            ])->name("save_update");
+            Route::delete("/soft-delete", [
+                'title' => "Target: Soft Delete [Backend]",
+                'uses' => 'Target\Backend\TargetController@soft_delete'
+            ])->name("soft_delete");
+            Route::delete("/force-delete", [
+                'title' => "Target: Force Delete [Backend]",
+                'uses' => 'Target\Backend\TargetController@force_delete'
+            ])->name("force_delete");
+            Route::post("/restore", [
+                'title' => "Target: Restore [Backend]",
+                'uses' => 'Target\Backend\TargetController@restore'
+            ])->name("restore");
+            Route::post("/import", [
+                'title' => "Target: Import [Backend]",
+                'uses' => 'Target\Backend\TargetController@import'
+            ])->name("import");
+        });
+
         /* Surveys Route */
         Route::group(['prefix' => 'survey', 'as'=>'survey.'], function() {
 
@@ -419,7 +455,7 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
                 Route::get("/", [
                     'title' => "Survey UMKM: Index [Backend]",
                     'uses' => 'Survey\Backend\UmkmController@index'
-                ])->name("index");
+                ])->name("index");                
             });
 
             Route::post("/activity-log", [
@@ -465,6 +501,12 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
                 'title' => "Survey: Detail Survey [Backend]",
                 'uses' => 'Survey\Backend\SurveyController@detail_survey'
             ])->name("detail_survey");
+
+            Route::get('/{company}/cetak_pdf/{survey}', [
+                'title' => 'Survey UMKM: cetak_pdf',
+                'uses' => 'Survey\Backend\SurveyController@cetak_pdf'
+            ])->name('cetak_pdf');
+
             Route::post("/{company}/input/{survey}/save", [
                 'title' => "Survey: Save Input Survey [Backend]",
                 'uses' => 'Survey\Backend\SurveyController@input_survey_save'
@@ -614,6 +656,14 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
                 'title' => "Kemitraan: Save [Backend]",
                 'uses' => 'Kemitraan\Backend\KemitraanController@save'
             ])->name("save");
+        });
+
+        /* Dashboard Infografis */
+        Route::group(['prefix' => 'infografis', 'as'=>'infografis.'], function() {
+            Route::get("/", [
+                'title' => "Dashboard Infografis: Index [Backend]",
+                'uses' => 'Infografis\Backend\InfografisController@index'
+            ])->name("index");
         });
 
     });

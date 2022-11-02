@@ -42,8 +42,6 @@ class UmkmPotensialController extends Controller
     {
         $params['umkm']         = new CompanyModel();
         $params['title']        = trans('label.add_new_umkm_potensial');
-        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
-        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         return view( $this->identifier . '::umkm.backend.potensial.add_edit')->with($params);
     }
 
@@ -55,8 +53,6 @@ class UmkmPotensialController extends Controller
             return abort(404);
         }
         $params['title']        = trans('label.edit_umkm_potensial');
-        /*$params['sectors']      = BusinessSectorModel::orderBy('name')->cursor();
-        $params['kbli']         = KbliModel::orderBy('name')->cursor();*/
         return view( $this->identifier . '::umkm.backend.potensial.add_edit')->with($params);
     }
 

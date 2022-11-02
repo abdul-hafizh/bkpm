@@ -63,6 +63,7 @@
                                 @include("{$bkpmumkm_identifier}::survey.backend.partials.{$category_company}.details.detail_pengalaman_kerja_sama_kemitraan")
                                 @include("{$bkpmumkm_identifier}::survey.backend.partials.{$category_company}.details.detail_hal_lain")
                                 @include("{$bkpmumkm_identifier}::survey.backend.partials.{$category_company}.details.detail_responden")
+                                @include("{$bkpmumkm_identifier}::survey.backend.partials.{$category_company}.details.detail_photo")
                                 @include("{$bkpmumkm_identifier}::survey.backend.partials.note_revision")
                                 @break
                             @endswitch

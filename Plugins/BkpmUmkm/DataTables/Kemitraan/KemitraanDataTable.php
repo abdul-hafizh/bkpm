@@ -255,7 +255,6 @@ CDATA;
                 ->exportable(false)
                 ->printable(false)
                 ->width('auto')
-            //->addClass('text-center')
         ];
         if ($this->viewed){
             unset($columns[12]);

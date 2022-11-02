@@ -18,6 +18,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $config = app('config')->get('simple_cms.plugins.bkpmumkm');
         $identifier = $config['identifier'];
         $user = auth()->user();
+        $company_category = CATEGORY_UMKM;
         $filter_wilayah_total_potensi = [''];
         $bkpmumkm_wilayah = bkpmumkm_wilayah($user->id_provinsi);
         $params = [
@@ -125,7 +126,8 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         
         $params['user'] = $user;
         $params['identifier'] = $identifier;
-
+        $params['company_category'] = $company_category;
+        
         $sebaran_map = DB::select("SELECT * from vw_map_info");
 
         if ($wilayah_id!='') {                    
@@ -144,7 +146,9 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $row->nama_kecamatan,
                 $row->wilayah,
                 $row->long,
-                $row->lat
+                $row->lat,
+                $row->category,
+                $row->survey_id
             );
         }  
 
@@ -374,7 +378,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 foreach ($ub_total_potensi_nilai_all as $ub_total_nilai) {
                     if($ub_total_nilai->data&&isset($ub_total_nilai->data['kebutuhan_kemitraan'])){
                         foreach ($ub_total_nilai->data['kebutuhan_kemitraan'] as $datum) {
-                            $params['count_total_potensi_nilai_all'] += (int)str_replace(',', '', $datum['total_potensi_nilai']);
+							if(isset($datum['total_potensi_nilai'])){							
+                            	$params['count_total_potensi_nilai_all'] += (int)str_replace(',', '', $datum['total_potensi_nilai']);
+							} else {
+								$params['count_total_potensi_nilai_all'] = 0;
+							}
                         }
                     }
                 }
@@ -492,7 +500,11 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 foreach ($ub_total_potensi_nilai_all as $ub_total_nilai) {
                     if($ub_total_nilai->data&&isset($ub_total_nilai->data['kebutuhan_kemitraan'])){
                         foreach ($ub_total_nilai->data['kebutuhan_kemitraan'] as $datum) {
-                            $params['count_total_potensi_nilai_all'] += (int)str_replace(',', '', $datum['total_potensi_nilai']);
+							if(isset($datum['total_potensi_nilai'])){							
+                            	$params['count_total_potensi_nilai_all'] += (int)str_replace(',', '', $datum['total_potensi_nilai']);
+							} else {
+								$params['count_total_potensi_nilai_all'] = 0;
+							}
                         }
                     }
                 }

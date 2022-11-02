@@ -134,7 +134,6 @@ class UmkmDataTable extends DataTable
                     $status .= ' <div class="dropdown-menu  dropdown-menu-right">
                                     '. ($q->status != 'progress' ? '<a class="dropdown-item eventSurveyChangeStatus text-warning" href="javascript:void(0);" data-selecteddatatable="'.$this->dataTableID.'" data-action="'. route("{$this->identifier}.backend.survey.change_status", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('progress')]) .'">'. trans("label.survey_status_progress") .'</a>' : '') .'
                                 </div>';
-                        /* ($q->status != 'done' ? '<a class="dropdown-item eventSurveyChangeStatus" href="javascript:void(0);" data-action="'. route("{$this->identifier}.backend.survey.download_berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('done')]) .'">'. trans("label.survey_status_done") .'</a>' : '') */
                 }
                 $status .= '</div>';
                 if ( $q->status == 'revision' && hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
@@ -159,7 +158,6 @@ class UmkmDataTable extends DataTable
                     $html .= '<a href="' . asset($q->survey_result->documents['file']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['file']) .'" title="'. trans('label.photo_scan_berita_acara') .'"><i class="fas fa-file"></i> ' . trans('label.survey_lihat_berita_acara') . '</a><br/>';
                 }
                 if ($q->survey_result && !empty($q->survey_result->documents) && isset($q->survey_result->documents['photo'])) {
-                    //$html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
                     $html .= '<a href="javascript:void(0);" class="btn btn-primary show_modal_ex_lg btn-xs mb-1" data-action="'.route("{$this->identifier}.backend.photo.index", ['in-modal' => encrypt_decrypt('modal'), 'survey_id'=>$q->id]).'" data-method="GET" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
                 }
                 return $html;
@@ -193,6 +191,10 @@ class UmkmDataTable extends DataTable
 
                 if ( hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info mt-1 show_modal_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.survey.activity_log", ['log_name'=>encrypt_decrypt("LOG_SURVEY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: ' . $q->{$this->company_category}->name.'"><i class="fas fa-history"></i> '. trans('label.history') .'</a>';
+                }
+
+                if ( hasRoute("{$this->identifier}.backend.survey.cetak_pdf") && hasRoutePermission("{$this->identifier}.backend.survey.cetak_pdf") && enable_periode($q->created_at) && !$q->trashed() ){
+                    $html .= '<a class="btn btn-xs btn-secondary mt-1" href="'. route("{$this->identifier}.backend.survey.cetak_pdf", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id)]) .'" title="Cetak Profil"><i class="fas fa-print"></i> Cetak Profil</a>';
                 }
 
                 $html .= '</div>';
