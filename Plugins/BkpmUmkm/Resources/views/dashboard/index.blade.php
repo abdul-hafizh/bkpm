@@ -769,7 +769,7 @@
                 geometry: new ol.geom.Point(ol.proj.transform([data_lokasi[i][7],data_lokasi[i][8]],  'EPSG:4326', 'EPSG:3857')),
                 id : data_lokasi[i][0],
                 name : 'peta',
-                description : '<table width="480" border="0"  cellspacing="0" cellpadding="0" ><tr valign="top"><td width="166">Nama UMKM</td><td width="5">:</td><td width="295">'+data_lokasi[i][1]+'</td></tr><tr valign="top"><td>Alamat</td><td>:</td></tr><tr valign="top"><td>Nama Provinsi</td><td>:</td><td>'+data_lokasi[i][3]+'</td></tr><tr valign="top"><td>Nama Kabupaten</td><td>:</td><td>'+data_lokasi[i][4]+'</td></tr></table>',
+                description : '<table width="480" border="0" cellspacing="0" cellpadding="0"><tr valign="top"><td width="166">Nama UMKM</td><td width="5">:</td><td width="295"><a href="https://kemitraan.fasilitasi.id/id/backend/bkpm-umkm/survey/umkm/detail?company='+data_lokasi[i][9]+'&survey='+data_lokasi[i][10]+'">'+data_lokasi[i][1]+'</a></td></tr><tr valign="top"><td>Alamat</td><td>:</td><td>'+data_lokasi[i][2]+'</td></tr><tr valign="top"><td>Nama Provinsi</td><td>:</td><td>'+data_lokasi[i][3]+'</td></tr><tr valign="top"><td>Nama Kabupaten</td><td>:</td><td>'+data_lokasi[i][4]+'</td></tr></table>',
             });
 
             var iconStyle = new ol.style.Style({

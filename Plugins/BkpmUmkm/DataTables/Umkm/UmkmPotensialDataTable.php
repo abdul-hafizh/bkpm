@@ -119,7 +119,7 @@ class UmkmPotensialDataTable extends DataTable
             ->addColumn('action', function ($q){
                 $html = '<div class="btn-group btn-group-xs">';
                 if ( hasRoute("{$this->identifier}.backend.umkm.potensial.edit") && hasRoutePermission("{$this->identifier}.backend.umkm.potensial.edit") && !$q->trashed() ){
-                    $html .= '<a class="btn btn-xs btn-warning" href="'. route("{$this->identifier}.backend.umkm.potensial.edit", ['id'=>encrypt_decrypt($q->id)]) .'" title="'.trans('label.edit_umkm').'"><i class="fas fa-edit"></i></a>';
+                    $html .= '<a class="btn btn-xs btn-warning" href="'. route("{$this->identifier}.backend.umkm.potensial.edit", ['id'=>encrypt_decrypt($q->id)]) .'" title="'.trans('label.edit_umkm').'"><i class="fas fa-edit"></i></a>';                    
                 }
                 if ( hasRoute("{$this->identifier}.backend.umkm.potensial.restore") && hasRoutePermission("{$this->identifier}.backend.umkm.potensial.restore") && $q->trashed() ){
                     $html .= '<a class="btn btn-xs btn-info eventDataTableRestore" data-selecteddatatable="'.$this->dataTableID.'" href="javascript:void(0);" title="Restore.!?" data-action="'.route("{$this->identifier}.backend.umkm.potensial.restore").'" data-value=\''.json_encode(['id'=>encrypt_decrypt($q->id)]).'\'><i class="fa fa-refresh"></i></a>';
@@ -208,6 +208,8 @@ class UmkmPotensialDataTable extends DataTable
         // $model->whereHas('survey', function ($q){
         //     $q->whereYear('surveys.created_at', $this->periode);
         // });
+
+        $model->whereYear('companies.created_at', $this->periode);
         
         if (!empty($this->has_not_nib)){
             switch ($this->has_not_nib){

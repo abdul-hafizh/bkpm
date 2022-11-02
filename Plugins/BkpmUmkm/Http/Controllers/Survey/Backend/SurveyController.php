@@ -5,6 +5,7 @@ namespace Plugins\BkpmUmkm\Http\Controllers\Survey\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Exports\SurveyCompanyExport;
 use Plugins\BkpmUmkm\Exports\SurveyUmkmExport;
 use Plugins\BkpmUmkm\Http\Requests\InputSurveySaveUpdateRequest;
@@ -14,6 +15,7 @@ use Plugins\BkpmUmkm\Models\SurveyModel;
 use Plugins\BkpmUmkm\Models\SurveyResultModel;
 use SimpleCMS\Core\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use PDF;
 
 class SurveyController extends Controller
 {
@@ -94,11 +96,9 @@ class SurveyController extends Controller
         $params['survey']           = SurveyModel::where(['id' => $survey_id])->with([$company, 'survey_result'])->whereHas($company);
         switch ($this->user->group_id) {
             case GROUP_SURVEYOR:
-                /*$params['survey']->whereNotIn('status', ['verified', 'done'])->where('surveys.surveyor_id', $this->user->id);*/
                 $params['survey']->whereNotIn('status', ['verified', 'done', 'bersedia', 'menolak', 'tutup', 'pindah'])->where('surveys.surveyor_id', $this->user->id);
                 break;
             default:
-                /*$params['survey']->where('status', 'done');*/
                 $params['survey']->whereNotIn('status', ['verified', 'done', 'bersedia', 'menolak', 'tutup', 'pindah']);
                 break;
         }
@@ -109,10 +109,6 @@ class SurveyController extends Controller
         if (!$params['survey']->survey_result){
             $params['survey']->survey_result = new SurveyResultModel();
         }
-        /*if (empty($params['survey']->signature)){
-            $params['title']            = trans("label.survey_signature");
-            return view("{$this->identifier}::survey.backend.form_signature")->with($params);
-        }*/
         $params['title'] .= ': '. $params['survey']->{$company}->name;
         $params['status_survey']    = $this->config['status_survey'];
         $params['negara']           = all_negara();
@@ -135,6 +131,7 @@ class SurveyController extends Controller
         $params['title']            = trans("label.survey_detail_survey_{$company}");
         $params['category_company'] = $company;
         $params['survey']           = SurveyModel::where(['id' => $survey_id])->whereHas($company)->with([$company, 'surveyor', 'survey_result']);
+
         switch ($this->user->group_id){
             case GROUP_SURVEYOR:
                 $params['survey']->where('surveys.surveyor_id', $this->user->id);
@@ -157,24 +154,38 @@ class SurveyController extends Controller
 
                 break;
         }
-        $params['survey']           = $params['survey']->first();
+
+        $params['survey']      = $params['survey']->first();
+        $params['list_photo']  = DB::table('vw_photo_survey')->where('survey_id', $survey_id)->first();
+
         if (!$params['survey']){
             return abort(404);
         }
+
         $params['title'] .= ': '. $params['survey']->{$company}->name;
+
         switch ($company)
         {
             case CATEGORY_COMPANY:
                 $params['business_sectors'] = \Plugins\BkpmUmkm\Models\BusinessSectorModel::select('id', 'name', 'deleted_at')->orderBy('name')->cursor();
                 break;
             case CATEGORY_UMKM:
-
                 break;
         }
+
         if ($request->ajax()&&$request->get('in_modal')){
             return view("{$this->identifier}::survey.backend.detail_survey_modal")->with($params)->render();
         }
+
         return view("{$this->identifier}::survey.backend.detail_survey_{$company}")->with($params);
+    }
+
+    public function cetak_pdf(Request $request, $company, $id)
+    {
+		$id = encrypt_decrypt(filter($id), 2);
+        $umkm = SurveyModel::where(['id' => $id])->whereHas($company)->with([$company, 'surveyor', 'survey_result'])->first();
+    	$pdf = PDF::loadview($this->identifier . '::survey.backend.umkm_pdf', ['umkm' => $umkm]);
+    	return $pdf->download('PROFILE_' . $umkm->{$company}->name . '_NIB:' . $umkm->{$company}->nib . '.pdf');
     }
 
     public function input_survey_save(InputSurveySaveUpdateRequest $request, $company, $survey)
@@ -333,11 +344,7 @@ class SurveyController extends Controller
         $survey_id = encrypt_decrypt($survey, 2);
         $params['title']            = trans("label.survey_verified_{$company}");
         $params['category_company'] = $company;
-
-        /*if (!in_array($this->user->group_id, [GROUP_QC_KORPROV])){
-            return abort(404);
-        }*/
-
+        
         $params['survey']           = SurveyModel::where(['id' => $survey_id])->where('status', 'done')->whereHas('survey_result', function ($q){
             return $q->where('survey_results.documents', '<>', '');
         })->whereHas($company)->with([$company, 'surveyor', 'survey_result']);

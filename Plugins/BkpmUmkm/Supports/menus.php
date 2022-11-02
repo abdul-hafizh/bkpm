@@ -8,6 +8,23 @@
 
 $identifier = app('config')->get('simple_cms.plugins.bkpmumkm.identifier');
 Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
+    /* Dashboard Infografis */
+    $menu->add([
+        'key'           =>  "{$identifier}.backend.infografis.index",
+        'route'         =>  ["{$identifier}.backend.infografis.index"],
+        'title'         =>  'Dashboard Infografis',
+        'attributes'    =>  [
+            'icon'      =>  'nav-icon fas fa-tachometer-alt'
+        ],
+        'active'        =>  [
+            "{$identifier}.backend.infografis.index"
+        ]
+    ])->hideWhen(function() use ($identifier) {
+        return !hasRoutePermission([
+            "{$identifier}.backend.infografis.index"
+        ]);
+    })->order(1);
+
     /* Menu Rekap Laporan */
     $menu->dropdown('label.rekap_laporan', function ($sub) use($identifier) {
         $sub->add([
@@ -69,7 +86,7 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             "{$identifier}.backend.rekap_laporan.tenaga_surveyor",
             "{$identifier}.backend.rekap_laporan.tenaga_ahli"
         ]);
-    })->order(1);
+    })->order(2);
 
     $menu->dropdown('label.master_references', function ($sub) use($identifier) {
         $sub->add([
@@ -108,6 +125,24 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             ]);
         })->order(1);
 
+        $sub->add([
+            'key'           =>  "{$identifier}.backend.target",
+            'route'         =>  "{$identifier}.backend.target.index",
+            'title'         =>  'Target',
+            'attributes'    =>  [
+                'icon'      =>  'fab fa-staylinked'
+            ],
+            'active'        =>  [
+                "{$identifier}.backend.target.index",
+                "{$identifier}.backend.target.add",
+                "{$identifier}.backend.target.edit"
+            ]
+        ])->hideWhen(function() use($identifier) {
+            return !hasRoutePermission([
+                "{$identifier}.backend.target.index"
+            ]);
+        })->order(2);
+
     },[
         'key'       => "{$identifier}.backend.references",
         'icon'      => 'nav-icon fas fa-coins',
@@ -124,7 +159,7 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             "{$identifier}.backend.business_sector.index",
             "{$identifier}.backend.kbli.index"
         ]);
-    })->order(2);
+    })->order(3);
 
     /* Menu Usaha Besar */
     $menu->dropdown('label.master_data_usaha_besar', function ($sub) use($identifier) {
@@ -382,75 +417,7 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             "{$identifier}.backend.umkm.survey.bersedia.index"
         ]);
     })->order(5);
-
-    /* Menu UMKM Observasi Massive */
-    /*$menu->dropdown('label.index_umkm_observasi_massive', function ($sub) use($identifier) {
-        
-    },[
-        'key'       => "{$identifier}.backend.umkm.massive",
-        'icon'      => 'nav-icon fas fa-database',
-        'active'    => [
-            
-        ]
-    ])->hideWhen(function() use($identifier) {
-        return !hasRoutePermission([
-            
-        ]);
-    })->order(6);*/
-
-    /*$menu->dropdown('label.survey', function ($sub) use($identifier) {
-        $sub->add([
-            'key'           =>  "{$identifier}.backend.survey.company.index",
-            'route'         =>  "{$identifier}.backend.survey.company.index",
-            'title'         =>  'label.survey_company',
-            'attributes'    =>  [
-                'icon'      =>  'far fa-building'
-            ],
-            'active'        =>  [
-                "{$identifier}.backend.survey.company.index"
-            ]
-        ])->hideWhen(function() use($identifier) {
-            return !hasRoutePermission([
-                "{$identifier}.backend.survey.company.index"
-            ]);
-        })->order(0);
-
-        $sub->add([
-            'key'           =>  "{$identifier}.backend.survey.umkm.index",
-            'route'         =>  "{$identifier}.backend.survey.umkm.index",
-            'title'         =>  'label.survey_umkm',
-            'attributes'    =>  [
-                'icon'      =>  'fas fa-users'
-            ],
-            'active'        =>  [
-                "{$identifier}.backend.survey.umkm.index"
-            ]
-        ])->hideWhen(function() use($identifier) {
-            return !hasRoutePermission([
-                "{$identifier}.backend.survey.umkm.index"
-            ]);
-        })->order(1);
-
-    },[
-        'key'       => "{$identifier}.backend.surveys",
-        'icon'      => 'nav-icon fas fa-poll',
-        'active'    => [
-            "{$identifier}.backend.survey.company.index",
-            "{$identifier}.backend.survey.umkm.index",
-            "{$identifier}.backend.survey.add",
-            "{$identifier}.backend.survey.edit",
-            "{$identifier}.backend.survey.input_survey",
-            "{$identifier}.backend.survey.detail_survey",
-            "{$identifier}.backend.survey.berita_acara",
-            "{$identifier}.backend.survey.verified"
-        ]
-    ])->hideWhen(function() use($identifier) {
-        return !hasRoutePermission([
-            "{$identifier}.backend.survey.company.index",
-            "{$identifier}.backend.survey.umkm.index"
-        ]);
-    })->order(7);*/
-
+    
     /* Cross Matching */
     $menu->add([
         'key'           =>  "{$identifier}.backend.cross_matching.index",
