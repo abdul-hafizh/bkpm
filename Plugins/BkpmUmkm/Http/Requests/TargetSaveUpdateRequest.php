@@ -24,7 +24,7 @@ class TargetSaveUpdateRequest extends FormRequest
     {
         $id = encrypt_decrypt(filter($this->input('id')), 2);
         $this->role = [
-            'tahun' => 'required|unique:target,code,' . $id
+            'tahun' => 'required|unique:target,tahun,' . $id
         ];
         return $this->role;
     }

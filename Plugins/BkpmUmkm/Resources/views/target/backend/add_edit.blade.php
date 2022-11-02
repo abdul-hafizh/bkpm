@@ -14,7 +14,7 @@
             <div class="col-5">
                 <a class="btn btn-warning btn-sm" href="{{ route("{$bkpmumkm_identifier}.backend.target.index") }}" title="{{ trans('label.back') }}"><i class="fa fa-arrow-left"></i> {{ trans('label.back') }}</a>
                 @if($target->id)
-                    <a class="btn btn-primary btn-sm" href="{{ route("{$bkpmumkm_identifier}.backend.target.add") }}" title="{{ trans('label.add_new_target') }}"><i class="fa fa-plus"></i> {{ trans('label.add_new_target') }}</a>
+                    <a class="btn btn-primary btn-sm" href="{{ route("{$bkpmumkm_identifier}.backend.target.add") }}" title="Tambah Target Baru"><i class="fa fa-plus"></i> Tambah Target Baru</a>
                 @endif
             </div>
         </div>

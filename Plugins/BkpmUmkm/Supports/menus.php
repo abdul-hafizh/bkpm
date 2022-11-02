@@ -152,12 +152,16 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             "{$identifier}.backend.business_sector.edit",
             "{$identifier}.backend.kbli.index",
             "{$identifier}.backend.kbli.add",
-            "{$identifier}.backend.kbli.edit"
+            "{$identifier}.backend.kbli.edit",
+            "{$identifier}.backend.target.index",
+            "{$identifier}.backend.target.add",
+            "{$identifier}.backend.target.edit"
         ]
     ])->hideWhen(function() use($identifier) {
         return !hasRoutePermission([
             "{$identifier}.backend.business_sector.index",
-            "{$identifier}.backend.kbli.index"
+            "{$identifier}.backend.kbli.index",
+            "{$identifier}.backend.target.index"
         ]);
     })->order(3);
 
