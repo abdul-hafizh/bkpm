@@ -38,7 +38,7 @@
                         </div>                        
                         <div class="form-group">
                             <label for="tahun">Tahun <i class="text-danger">*</i></label>
-                            <input id="tahun" type="text" maxlength="4" name="tahun" value="{{ $target->tahun }}" class="form-control" required>
+                            <input id="tahun" type="text" maxlength="4" name="tahun" value="{{ $target->tahun }}" class="form-control numberonly" required>
                         </div>                        
                     </div>
                     <div class="card-footer text-right">
