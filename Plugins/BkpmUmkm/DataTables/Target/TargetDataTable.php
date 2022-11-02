@@ -37,9 +37,15 @@ class TargetDataTable extends DataTable
     {
         return datatables()
             ->of($query)
-            ->rawColumns(['target_UB'])
-            ->rawColumns(['target_umkm'])
-            ->rawColumns(['target_value'])
+            ->editColumn('target_UB', function($q){
+                return number_format($q->target_UB,0,",",".");
+            })
+            ->editColumn('target_umkm', function($q){
+                return number_format($q->target_umkm,0,",",".");
+            })
+            ->editColumn('target_value', function($q){
+                return number_format($q->target_value,0,",",".");
+            })
             ->rawColumns(['tahun'])
             ->addColumn('action', function ($q){
                 $html = '<div class="btn-group btn-group-xs">';
@@ -66,6 +72,7 @@ class TargetDataTable extends DataTable
 
                 return $html;
             })
+            ->rawColumns(['target_UB','target_umkm', 'target_value','action'])
             ->setRowClass(function($q){
                 return ($q->trashed() ? 'bg-trashed':'');
             })
@@ -140,10 +147,10 @@ CDATA;
             Column::make('no_index', 'no_index')->title('No')
                 ->width('1%')->addClass('text-center')
                 ->orderable(false)->searchable(false),
-            Column::make('target_UB'),
-            Column::make('target_umkm'),
-            Column::make('target_value'),
-            Column::make('tahun'),
+            Column::make('target_UB')->addClass('text-center'),
+            Column::make('target_umkm')->addClass('text-center'),
+            Column::make('target_value')->addClass('text-center'),
+            Column::make('tahun')->addClass('text-center'),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
                 ->exportable(false)
