@@ -37,7 +37,7 @@
                             <input id="target_value" type="number" name="target_value" value="{{ $target->target_value }}" class="form-control" required>
                         </div>                        
                         <div class="form-group">
-                            <label for="tahun">Target Value <i class="text-danger">*</i></label>
+                            <label for="tahun">Tahun <i class="text-danger">*</i></label>
                             <input id="tahun" type="text" maxlength="4" name="tahun" value="{{ $target->tahun }}" class="form-control" required>
                         </div>                        
                     </div>
@@ -51,6 +51,28 @@
     </div>
 @endsection
 
-@push('js_stack')
-    {!! plugins_script('bkpmumkm', 'target/backend/js/add-edit.js') !!}
-@endpush
+<script>
+    /*
+    * Created By : Ahmad Windi Wijayanto
+    * Email : ahmadwindiwijayanto@gmail.com
+    * website : https://whendy.net
+    * --------- 3/19/20, 3:06 PM ---------
+    */
+
+    $(document).ready(function () {
+
+        $(document).on('submit','#formAddEditTarget',function (e) {
+            e.preventDefault();
+            let url = $(this).attr('data-action'),
+                params = $(this).serialize();
+
+            $.ajax({
+                url: url, type: 'POST', typeData: 'json', cache: false, data: params,
+                success: function (res) {
+                    simple_cms.responseMessageWithSwalConfirmReloadOrRedirect(res);
+                }
+            });
+        });
+    });
+
+</script>
