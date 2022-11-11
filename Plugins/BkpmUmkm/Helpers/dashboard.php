@@ -216,15 +216,29 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $survey_umkm_pindah     = \Plugins\BkpmUmkm\Models\SurveyModel::whereYear('surveys.created_at', $year)->where('surveys.status', 'pindah');
 
         /* RESPON */
-        $ub_responed     = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->whereIn('companies.flag_respon', [1,2,3]);
-        $ub_respon       = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1);
-        $ub_tdk_respon   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 2);
-        $ub_tdk_aktif    = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 3);
+        $ub_responed     = \Plugins\BkpmUmkm\Models\CompanyModel::whereIn('companies.flag_respon', [1,2,3])->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
+        $ub_respon       = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 1)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
+        $ub_tdk_respon   = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 2)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
+        $ub_tdk_aktif    = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 3)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
 
         /* MEETING */
-        $ub_blm_jadwal   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL);
-        $ub_zoom   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', 1);
-        $ub_offline   = \Plugins\BkpmUmkm\Models\CompanyModel::whereYear('companies.created_at', $year)->where('companies.flag_respon', 1)->where('companies.flag_zoom', 2);
+        $ub_blm_jadwal   = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 1)->where('companies.flag_zoom', '=', NULL)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
+        $ub_zoom   = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 1)->where('companies.flag_zoom', 1)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
+        $ub_offline   = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.flag_respon', 1)->where('companies.flag_zoom', 2)->whereHas('company_status', function($q) use($year){
+            $q->whereYear('companies_status.created_at', $year);
+        });
 
         $umkm_has_nib = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_UMKM)->where('companies.status', UMKM_POTENSIAL)->where('companies.nib', '<>', '')->whereHas('survey', function ($q) use($year){
             $q->whereYear('surveys.created_at', $year);

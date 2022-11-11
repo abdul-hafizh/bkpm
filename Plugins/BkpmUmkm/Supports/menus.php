@@ -8,22 +8,22 @@
 
 $identifier = app('config')->get('simple_cms.plugins.bkpmumkm.identifier');
 Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
-    /* Dashboard Infografis */
-    $menu->add([
-        'key'           =>  "{$identifier}.backend.infografis.index",
-        'route'         =>  ["{$identifier}.backend.infografis.index"],
-        'title'         =>  'Dashboard Infografis',
-        'attributes'    =>  [
-            'icon'      =>  'nav-icon fas fa-tachometer-alt'
-        ],
-        'active'        =>  [
-            "{$identifier}.backend.infografis.index"
-        ]
-    ])->hideWhen(function() use ($identifier) {
-        return !hasRoutePermission([
-            "{$identifier}.backend.infografis.index"
-        ]);
-    })->order(1);
+    // /* Dashboard Infografis */
+    // $menu->add([
+    //     'key'           =>  "{$identifier}.backend.infografis.index",
+    //     'route'         =>  ["{$identifier}.backend.infografis.index"],
+    //     'title'         =>  'Dashboard Infografis',
+    //     'attributes'    =>  [
+    //         'icon'      =>  'nav-icon fas fa-tachometer-alt'
+    //     ],
+    //     'active'        =>  [
+    //         "{$identifier}.backend.infografis.index"
+    //     ]
+    // ])->hideWhen(function() use ($identifier) {
+    //     return !hasRoutePermission([
+    //         "{$identifier}.backend.infografis.index"
+    //     ]);
+    // })->order(1);
 
     /* Menu Rekap Laporan */
     $menu->dropdown('label.rekap_laporan', function ($sub) use($identifier) {
@@ -57,6 +57,7 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
                 "{$identifier}.backend.rekap_laporan.tenaga_surveyor"
             ]);
         })->order(2);
+        
         $sub->add([
             'key'           =>  "{$identifier}.backend.rekap_laporan.tenaga_ahli",
             'route'         =>  "{$identifier}.backend.rekap_laporan.tenaga_ahli",
@@ -439,6 +440,7 @@ Menu::modify(MENU_ADMINLTE3, function($menu) use($identifier) {
             "{$identifier}.backend.cross_matching.index"
         ]);
     })->order(12);
+    
     /* Kemitraan */
     $menu->add([
         'key'           =>  "{$identifier}.backend.kemitraan.index",
