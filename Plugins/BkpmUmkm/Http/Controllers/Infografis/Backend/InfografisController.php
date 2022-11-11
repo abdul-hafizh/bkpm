@@ -3,9 +3,7 @@
 namespace Plugins\BkpmUmkm\Http\Controllers\Infografis\Backend;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use SimpleCMS\Core\Http\Controllers\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InfografisController extends Controller
 {

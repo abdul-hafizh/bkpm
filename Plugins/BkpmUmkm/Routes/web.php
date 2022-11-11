@@ -638,7 +638,7 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
             ])->name("edit");
         });
 
-        /* Cross Matching */
+        /* Kemitraan */
         Route::group(['prefix' => 'kemitraan', 'as'=>'kemitraan.'], function() {
             Route::get("/", [
                 'title' => "Kemitraan: Index [Backend]",
