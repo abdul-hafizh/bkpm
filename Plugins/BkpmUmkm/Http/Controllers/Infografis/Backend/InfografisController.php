@@ -21,6 +21,6 @@ class InfografisController extends Controller
     public function index(Request $request)
     {
         $params['title'] = "Infografis";
-        return view("{$this->identifier}::infografis.index")->with($params);
+        return view("{$this->identifier}::infografis.backend.index")->with($params);
     }
 }

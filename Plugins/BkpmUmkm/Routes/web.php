@@ -659,7 +659,7 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
         });
 
         /* Dashboard Infografis */
-        Route::group(['prefix' => 'infografis', 'as'=>'infografis.'], function() {
+        Route::group(['prefix' => 'infografis', 'as'=>'infografis.'], function() {            
             Route::get("/", [
                 'title' => "Dashboard Infografis: Index [Backend]",
                 'uses' => 'Infografis\Backend\InfografisController@index'
