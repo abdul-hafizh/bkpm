@@ -95,7 +95,8 @@
 		<div class="row">
             <div class="col-md-12">
 				<div class="col-lg-12"  >
-					<div class="bg-image" style="background-image:url('https://kemitraan.fasilitasi.id/uploads/img/bck.jpeg');background-repeat:no-repeat;background-size: cover; ">
+					<div class="bg-image" style="background-image:url('https://kemitraan.fasilitasi.id/uploads/img/bck.jpeg');background-repeat:no-repeat;background-size: cover; " >
+
 						<div class="row">
 							<div class="col-sm-2 col-12">
 								<div>
@@ -106,19 +107,20 @@
 							</div>
 
 							<div class="col-xl-7 col-12">
-								<div>
+								<div >
 									<div class="text-center ">
-										<h4><span>SEBARAN REALISASI & POTENSI</span><br></h4>   
-										<h5><span>KEMITRAAN USAHA BESAR (WILAYAH)</span></h5>    
+									<h4><span>SEBARAN REALISASI & POTENSI</span><bR> </h4>   
+									<h5><span>KEMITRAAN USAHA BESAR (WILAYAH)</span>     </h5>    
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-3 col-12">
-								<div>
+								<div >
 									<div class="text-center my-1 img-fluid">
-										<img src="https://kemitraan.fasilitasi.id/uploads/img/pulih_logo1.png"  width="100" >
-										<img src="https://kemitraan.fasilitasi.id/uploads/img/g20.png"  height="60" >
+									<img src="https://kemitraan.fasilitasi.id/uploads/img/pulih_logo1.png"  width="100" >
+									<img src="https://kemitraan.fasilitasi.id/uploads/img/g20.png"  height="60" >
+
 									</div>
 								</div>
 							</div>
@@ -137,7 +139,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="row">
 							<div class="col-sm-3 col-12">
 								<div style="background-color: #1b1e3d">
@@ -149,34 +150,35 @@
 									</div>
 								</div>
 
-								<div style="background-color: #1b1e3d">
+								<div style="background-color: #1b1e3d"  >
 									<div class="text-left">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Komitmen</h7></td>
-												<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 864,2 M </isi1></td>
-												<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-											</tr>
-										</table>    
+											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
+												<tr style="padding:0"  >
+													<td><h7>Nilai Komitmen</h7></td>
+													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 864,2 M </isi1></td>
+													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
+												</tr>
+											</table>    
 									</div>
 								</div>
 
 								<div style="background-color: #1b1e3d">
 									<div class="text-left mt-2">
 										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Potensi</h7></td>
-												<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 646,9 M</isi1></td>
-											</tr>
+												<tr style="padding:0"  >
+													<td><h7>Nilai Potensi</h7></td>
+													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 646,9 M</isi1></td>
+												</tr>
 										</table> 
 									</div>
 								</div>
+
 							</div>
 
 							<div class="col-xl-3 col-12">
@@ -191,29 +193,29 @@
 
 								<div style="background-color: #2b5d2a">
 									<div class="text-left">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Komitmen</h7></td>
-												<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 864,2 M </isi1></td>
-												<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-											</tr>
-										</table>    
+											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
+												<tr style="padding:0"  >
+													<td><h7>Nilai Komitmen</h7></td>
+													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 864,2 M </isi1></td>
+													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
+												</tr>
+											</table>    
 									</div>
 								</div>
 
 								<div style="background-color: #2b5d2a">
 									<div class="text-left mt-2">
 										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Potensi</h7></td>
-												<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 646,9 M</isi1></td>
-											</tr>
+												<tr style="padding:0"  >
+													<td><h7>Nilai Potensi</h7></td>
+													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 646,9 M</isi1></td>
+												</tr>
 										</table> 
 									</div>
 								</div>
@@ -231,45 +233,6 @@
 
 								<div  style="background-color: #1e4495">
 									<div class="text-left">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Komitmen</h7></td>
-												<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 864,2 M </isi1></td>
-												<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-											</tr>
-										</table>    
-									</div>
-								</div>
-
-								<div  style="background-color: #1e4495">
-									<div class="text-left mt-2">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-											<tr style="padding:0"  >
-												<td><h7>Nilai Potensi</h7></td>
-												<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-											</tr>    
-											<tr> 
-												<td><isi1> Rp 646,9 M</isi1></td>
-											</tr>
-										</table> 
-									</div>
-								</div>
-
-								<div class="col-sm-3 col-12">
-									<div  style="background-color: #0f6447">
-										<div class="text-center">
-											<h6>
-											<span>DW 4</span>
-										
-											</h6>    
-										</div>
-									</div>
-
-									<div  style="background-color: #0f6447">
-										<div class="text-left">
 											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
 												<tr style="padding:0"  >
 													<td><h7>Nilai Komitmen</h7></td>
@@ -280,12 +243,13 @@
 													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
 												</tr>
 											</table>    
-										</div>
 									</div>
+								</div>
 
-									<div  style="background-color: #0f6447">
-										<div class="text-left mt-2">
-											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
+
+								<div  style="background-color: #1e4495">
+								<div class="text-left mt-2">
+										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
 												<tr style="padding:0"  >
 													<td><h7>Nilai Potensi</h7></td>
 													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
@@ -293,13 +257,54 @@
 												<tr> 
 													<td><isi1> Rp 646,9 M</isi1></td>
 												</tr>
-											</table> 
-										</div>
+										</table> 
 									</div>
 								</div>
 							</div>
 
+							<div class="col-sm-3 col-12">
+								<div  style="background-color: #0f6447">
+									<div class="text-center">
+										<h6>
+										<span>DW 4</span>
+									
+										</h6>    
+									</div>
+							</div>
+
+							<div  style="background-color: #0f6447">
+									<div class="text-left">
+											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
+												<tr style="padding:0"  >
+													<td><h7>Nilai Komitmen</h7></td>
+													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 864,2 M </isi1></td>
+													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
+												</tr>
+											</table>    
+									</div>
+							</div>
+
+							<div  style="background-color: #0f6447">
+									<div class="text-left mt-2">
+										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
+												<tr style="padding:0"  >
+													<td><h7>Nilai Potensi</h7></td>
+													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
+												</tr>    
+												<tr> 
+													<td><isi1> Rp 646,9 M</isi1></td>
+												</tr>
+										</table> 
+									</div>
+							</div>
+
+
+							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -325,33 +330,39 @@
 	<script>
 
 		Highcharts.chart('container-1', {
-		chart: {
-			type: 'column',
-			styledMode: true,
-			options3d: {
-			enabled: true,
-			alpha: 15,
-			beta: 15,
-			depth: 50
-			}
-		},
-		title: {
-			text: 'Highcharts 3d column in styled mode'
-		},
-		plotOptions: {
-			column: {
-			depth: 25
-			}
-		},
-		xAxis: {
-			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-			'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-		},
-		series: [{
-			data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6,
-			148.5, 216.4, 194.1, 95.6, 54.4],
-			colorByPoint: true
-		}]
+			chart: {
+				type: 'column',
+				styledMode: true,
+				options3d: {
+					enabled: true,
+					alpha: 15,
+					beta: 15,
+					depth: 50
+				}
+			},
+			title: {
+				text: 'Highcharts 3d column in styled mode'
+			},
+			plotOptions: {
+				column: {
+					depth: 25
+				}
+			},
+			xAxis: {
+				categories: [
+					@foreach ($data_komitmen as $v)
+					'{{ $v->sektor }},'
+					@endforeach
+				]
+			},
+			series: [{
+				data: [
+					@foreach ($data_komitmen as $v)
+					'{{ $v->nilai }},'
+					@endforeach
+				],
+				colorByPoint: true
+			}]
 		});
 
 		//-------------- map --------------

@@ -23,6 +23,10 @@ class InfografisController extends Controller
     {
         $sebaran_map = DB::select("SELECT * from vw_map_info");
 
+        $berdasarkan_ub = DB::select("SELECT * from KOMITMEN_KEMITRAAN_BERDASARKAN_UB");
+
+        $berdasarkan_sektor = DB::select("SELECT * from KOMITMEN_KEMITRAAN_BERDASARKAN_SEKTOR_USAHA_YANG_DIMITRAKAN");
+
         $hasil = array();
 
         foreach($sebaran_map as $row){
@@ -42,6 +46,7 @@ class InfografisController extends Controller
         }  
 
         $params['lokasi'] = $hasil;
+        $params['data_komitmen'] = $berdasarkan_ub;
         $params['title'] = "Infografis";
         return view("{$this->identifier}::infografis.backend.index")->with($params);
     }
