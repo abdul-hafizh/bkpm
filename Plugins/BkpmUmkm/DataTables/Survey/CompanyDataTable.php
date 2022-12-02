@@ -131,7 +131,7 @@ class CompanyDataTable extends DataTable
                     case GROUP_QC_KORWIL:
                         if ($q->status == 'done' && hasRoutePermission("{$this->identifier}.backend.survey.berita_acara")  && $q->surveyor_id == $this->user->id && !$this->viewed)
                         {
-                            $html .= '<a href="' . route("{$this->identifier}.backend.survey.berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id)]) . '" class="btn btn-warning btn-xs mb-1" title="'. trans('label.survey_upload_documents') .'"><i class="fas fa-cloud-upload-alt"></i> ' . trans('label.survey_upload_documents') . '</a><br/>';
+                            $html .= '<a href="' . route("{$this->identifier}.backend.survey.berita_acara", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id)]) . '" class="btn btn-warning btn-xs mb-1" title="Upload Dokumen dan Evidance Survey"><i class="fas fa-cloud-upload-alt"></i> Upload Dokumen dan Evidance Survey</a><br/>';
                         }
                         break;
                 }
@@ -139,7 +139,7 @@ class CompanyDataTable extends DataTable
                     $html .= '<a href="' . asset($q->survey_result->documents['file']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['file']) .'" title="'. trans('label.surat_ketersediaan_bermitra_1') .'"><i class="fas fa-file"></i> ' . trans('label.surat_ketersediaan_bermitra_1') . '</a><br/>';
                 }
                 if ($q->survey_result && !empty($q->survey_result->documents) && isset($q->survey_result->documents['photo'])) {
-                    $html .= '<a href="' . asset($q->survey_result->documents['photo']) . '" class="btn btn-primary btn-xs mb-1 '. bkpmumkm_colorbox($q->survey_result->documents['photo']) .'" title="'. trans('label.surat_ketersediaan_bermitra_2') .'"><i class="fas fa-file-image"></i> ' . trans('label.surat_ketersediaan_bermitra_2') . '</a>';
+                    $html .= '<a href="javascript:void(0);" class="btn btn-primary show_modal_ex_lg btn-xs mb-1" data-action="'.route("{$this->identifier}.backend.photo.index", ['in-modal' => encrypt_decrypt('modal'), 'survey_id'=>$q->id]).'" data-method="GET" title="'. trans('label.survey_lihat_berita_acara') .'"><i class="fas fa-file-image"></i> ' . 'Foto Evidence Survei' . '</a>';
                 }
                 return $html;
             })

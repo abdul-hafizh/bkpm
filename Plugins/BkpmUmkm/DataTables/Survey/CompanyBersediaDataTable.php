@@ -68,19 +68,6 @@ class CompanyBersediaDataTable extends DataTable
             ->editColumn('sector.name', function($q){
                 return ($q->sector ? $q->sector->name : '-');
             })
-            /*->addColumn('kbli_name_raw', function($q){
-                if ($q->kbli){
-                    $html = "<ul class='table-ul'>";
-                    foreach ($q->kbli as $kbli) {
-                        $html .= "<li>[{$kbli->code}] {$kbli->name}</li>";
-                    }
-                    $html .= "</ul>";
-                    return $html;
-                }else{
-                    $q->sync_kbli_single_to_multiple();
-                }
-                return '-';
-            })*/
             ->addColumn('company_status.statusRaw', function ($q) {
                 /* Bersedia, Tidak Bersedia, Tidak Respon, Konsultasi BKPM, Menunggu Konfirmasi */
                 $status = ($q->company_status && $q->company_status->status  ? trans("label.company_status_{$q->company_status->status}") : '--------');
