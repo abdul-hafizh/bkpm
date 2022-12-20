@@ -10,15 +10,53 @@
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 	<style>
 		@import "https://code.highcharts.com/css/highcharts.css";
 
-		#container-1 {
-			height: 400px;
-			min-width: 300px;
+		.highcharts-figure,
+		.highcharts-data-table table {
+			min-width: 310px;
 			max-width: 800px;
-			margin: 0 auto;
+			margin: 1em auto;
+		}
+
+		.highcharts-data-table table {
+			font-family: Verdana, sans-serif;
+			border-collapse: collapse;
+			border: 1px solid #ebebeb;
+			margin: 10px auto;
+			text-align: center;
+			width: 100%;
+			max-width: 500px;
+		}
+
+		.highcharts-data-table caption {
+			padding: 1em 0;
+			font-size: 1.2em;
+			color: #555;
+		}
+
+		.highcharts-data-table th {
+			font-weight: 600;
+			padding: 0.5em;
+		}
+
+		.highcharts-data-table td,
+		.highcharts-data-table th,
+		.highcharts-data-table caption {
+			padding: 0.5em;
+		}
+
+		.highcharts-data-table thead tr,
+		.highcharts-data-table tr:nth-child(even) {
+			background: #f8f8f8;
+		}
+
+		.highcharts-data-table tr:hover {
+			background: #f1f7ff;
 		}
 
 		.nominal {
@@ -35,8 +73,8 @@
 		h5 { font-family: Righteous; font-size: 30px; font-style: normal; font-variant: normal; font-weight: 580; line-height: 30.4px; color: #2c2e83; } 
 		h6 { font-family: Montserrat; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; color: #ffffff; } 
 		h7 { font-family: Montserrat; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 500; color: #ffffff; }  
-		isi1 { font-family: Montserrat; font-size: 19px; font-style: normal; font-variant: normal; font-weight: 600; color: #ffffff; }   
-		isi2 { font-family: Montserrat; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 500; color: #ffffff; }     
+		isi1 { font-family: Montserrat; font-size: 22px; font-style: normal; font-variant: normal; font-weight: 600; color: #ffffff; margin:10px}   
+		isi2 { font-family: Montserrat; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 500; color: #ffffff; margin:10px }     
 		
 		.ol-popup {
 			position: absolute;
@@ -75,11 +113,6 @@
 			margin-left: -11px;
 		}
 
-		#dw1 td {
-			padding: 0 !important; 
-			margin: 0 !important;
-		}
-
 		#mapa {
 			background-image:url('https://kemitraan.fasilitasi.id/uploads/img/bck.jpeg')  ;
 			object-fit: fill;
@@ -92,6 +125,198 @@
 	</style>
 
     <div class="container-fluid nominal">
+		@foreach ($target_realisasi as $v)
+			<div class="row">
+				<div class="col-xl-4 col-12"> 
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #8ec045">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="far fa-building primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ $v->target_UB }}</span><br>
+										<span style="color: #fff; font-size: 25px;">Target Usaha Besar</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-12">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #8ec045">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="far fa-building primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ $v->realisasi_ub }}</span><br>
+										<span style="color: #fff; font-size: 25px;">Realisasi Usaha Besar</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-12">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #8ec045">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="fa fa-percent primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ number_format($v->UB_PERCENT, 2) }}%</span><br>
+										<span style="color: #fff; font-size: 25px;">Persentase Usaha Besar</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-4 col-12"> 
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #325bb3">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="fa fa-money primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ $v->target_realisasi/1000000000000 }} Triliun</span><br>
+										<span style="color: #fff; font-size: 25px;">Target Capaian Realisasi Kemitraan</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-12">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #325bb3">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="fa fa-money primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">
+											<a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.total_realisasi_nilai_kontrak') .'"' : '') !!}>
+												{{ number_format($v->realisasi_kemitraan/1000000000000, 2) }} Triliun
+											</a>
+										</span>
+										<br>
+										<span style="color: #fff; font-size: 25px;">Realisasi Kemitraan</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-12">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-body" style="background-color: #325bb3">
+								<div class="media d-flex">
+									<div class="align-self-center">
+										<i class="fa fa-percent primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
+									</div>
+									<div class="media-body text-right">
+										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ number_format($v->REALISASI_PERCENT, 2) }}%</span><br>
+										<span style="color: #fff; font-size: 25px;">Persentase Realisasi Kemitraan</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		@endforeach
+
+		<div class="row">
+			<div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+						<div class="row">
+							<div class="col-sm-2 col-12"></div>
+							<div class="col-xl-7 col-12">
+								<div >
+									<div class="text-center">
+										<h5><span>Total Nilai Komitmen Berdasarkan Usaha Besar (dalam miliyar)</span></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-12"></div>
+						</div> <hr/>
+						<div id="container-1"></div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+		<div class="row">
+			<div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+						<div class="row">
+							<div class="col-sm-2 col-12"></div>
+							<div class="col-xl-7 col-12">
+								<div >
+									<div class="text-center">
+										<h5><span>Total Nilai Komitmen Berdasarkan Sektor Usaha Yang Dimitrakan (dalam miliyar)</span></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-12"></div>
+						</div> <hr/>
+						<div id="container-2"></div>
+                    </div>
+                </div>
+            </div>
+    	</div>
+		<div class="row">
+			<div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+						<div class="row">
+							<div class="col-sm-2 col-12"></div>
+							<div class="col-xl-7 col-12">
+								<div >
+									<div class="text-center">
+										<h5><span>5 Usaha Besar Dengan Nilai Komitmen Tertinggi</span></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-12"></div>
+						</div> <hr/>
+						<div id="container-3"></div>
+                    </div>
+                </div>
+            </div>
+			<div class="col-lg-6 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+						<div class="row">
+							<div class="col-sm-2 col-12"></div>
+							<div class="col-xl-7 col-12">
+								<div >
+									<div class="text-center">
+										<h5><span>Total Nilai Komitmen Berdasarkan Jenis Kebutuhan</span></h5>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-12"></div>
+						</div> <hr/>
+						<div id="container-4"></div>
+                    </div>
+                </div>
+            </div>
+    	</div>
 		<div class="row">
             <div class="col-md-12">
 				<div class="col-lg-12"  >
@@ -118,9 +343,7 @@
 							<div class="col-sm-3 col-12">
 								<div >
 									<div class="text-center my-1 img-fluid">
-									<img src="https://kemitraan.fasilitasi.id/uploads/img/pulih_logo1.png"  width="100" >
-									<img src="https://kemitraan.fasilitasi.id/uploads/img/g20.png"  height="60" >
-
+										<img src="https://kemitraan.fasilitasi.id/uploads/img/pulih_logo1.png"  width="100" >
 									</div>
 								</div>
 							</div>
@@ -139,169 +362,133 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="row">
-							<div class="col-sm-3 col-12">
-								<div style="background-color: #1b1e3d">
-									<div class="text-center">
-										<h6>
-										<span>DW 1</span>
-									
-										</h6>    
-									</div>
-								</div>
-
-								<div style="background-color: #1b1e3d"  >
-									<div class="text-left">
-											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Komitmen</h7></td>
-													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 864,2 M </isi1></td>
-													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-												</tr>
-											</table>    
-									</div>
-								</div>
-
-								<div style="background-color: #1b1e3d">
-									<div class="text-left mt-2">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Potensi</h7></td>
-													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 646,9 M</isi1></td>
-												</tr>
-										</table> 
-									</div>
-								</div>
-
-							</div>
-
-							<div class="col-xl-3 col-12">
-								<div style="background-color: #2b5d2a">
-									<div class="text-center">
-										<h6>
-											<span>DW 2</span>
-									
-										</h6>    
-									</div>
-								</div>
-
-								<div style="background-color: #2b5d2a">
-									<div class="text-left">
-											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Komitmen</h7></td>
-													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 864,2 M </isi1></td>
-													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-												</tr>
-											</table>    
-									</div>
-								</div>
-
-								<div style="background-color: #2b5d2a">
-									<div class="text-left mt-2">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Potensi</h7></td>
-													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 646,9 M</isi1></td>
-												</tr>
-										</table> 
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-3 col-12">
-								<div  style="background-color: #1e4495">
-									<div class="text-center">
-										<h6>
-										<span>DW 3</span>
-									
-										</h6>    
-									</div>
-								</div>
-
-								<div  style="background-color: #1e4495">
-									<div class="text-left">
-											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Komitmen</h7></td>
-													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 864,2 M </isi1></td>
-													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-												</tr>
-											</table>    
-									</div>
-								</div>
-
-
-								<div  style="background-color: #1e4495">
-								<div class="text-left mt-2">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Potensi</h7></td>
-													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 646,9 M</isi1></td>
-												</tr>
-										</table> 
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-3 col-12">
-								<div  style="background-color: #0f6447">
-									<div class="text-center">
-										<h6>
-										<span>DW 4</span>
-									
-										</h6>    
-									</div>
-							</div>
-
-							<div  style="background-color: #0f6447">
-									<div class="text-left">
-											<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Komitmen</h7></td>
-													<td style="text-align:right"><h7>7 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 864,2 M </isi1></td>
-													<td style="text-align:right"><isi2>31 UMKM</isi2></td>
-												</tr>
-											</table>    
-									</div>
-							</div>
-
-							<div  style="background-color: #0f6447">
-									<div class="text-left mt-2">
-										<table  cellpadding="0" cellspacing="0" id="dw1" width="100%">
-												<tr style="padding:0"  >
-													<td><h7>Nilai Potensi</h7></td>
-													<td rowspan="2" style="text-align:right"><h7>9 Usaha Besar</h7></td>
-												</tr>    
-												<tr> 
-													<td><isi1> Rp 646,9 M</isi1></td>
-												</tr>
-										</table> 
-									</div>
-							</div>
-
-
+							<div class="col-12">
+								<table width="100%">	
+									<tr>
+										<td style="background-color: #1b1e3d; color:#fff; font-weight: bold; font-size: 24px">DW 1</td>
+										<td style="background-color: #2b5d2a; color:#fff; font-weight: bold; font-size: 24px">DW 2</td>
+										<td style="background-color: #1e4495; color:#fff; font-weight: bold; font-size: 24px">DW 3</td>
+										<td style="background-color: #8ec045; color:#fff; font-weight: bold; font-size: 24px">DW 4</td>
+										<td style="background-color: #2bad6f; color:#fff; font-weight: bold; font-size: 24px">DW 5</td>
+									</tr>	
+									<tr>
+										<td style="background-color: #d7ebe9;" colspan="5">&nbsp;</td>
+									</tr>							
+									<tr>
+										<td style="background-color: #1b1e3d; color:#fff; height: 80px;">
+											<div class="text-left">
+												@foreach ($data_dw1 as $v)
+												<table width="100%">
+													<tr>
+														<td><h7 style="margin:10px">Nilai Komitmen</h7></td>
+														<td style="text-align:right"><h7 style="margin:10px">{{ $v->JUM_UB }} Usaha Besar</h7></td>
+													</tr>    
+													<tr> 
+														<td><isi1> Rp 
+															@if (Str::length($v->nilai) > 12)
+																{{ number_format($v->nilai/1000000000000, 2) }} T 															
+															@elseif (Str::length($v->nilai) <= 12)
+																{{ number_format($v->nilai/1000000000, 1) }} M 
+															@endif
+														</isi1></td>
+														<td style="text-align:right"><isi2>{{ $v->JUM_UMKM }} UMKM</isi2></td>
+													</tr>
+												</table>    
+												@endforeach
+											</div>
+										</td>
+										<td style="background-color: #2b5d2a; color:#fff; height: 80px;">
+											<div class="text-left">
+												@foreach ($data_dw2 as $v)
+												<table width="100%">
+													<tr>
+														<td><h7 style="margin:10px">Nilai Komitmen</h7></td>
+														<td style="text-align:right"><h7 style="margin:10px">{{ $v->JUM_UB }} Usaha Besar</h7></td>
+													</tr>    
+													<tr> 
+														<td><isi1> Rp 
+															@if (Str::length($v->nilai) > 12)
+																{{ number_format($v->nilai/1000000000000, 2) }} T 
+															@elseif (Str::length($v->nilai) <= 12)
+																{{ number_format($v->nilai/1000000000, 1) }} M 
+															@endif
+														</isi1></td>
+														<td style="text-align:right"><isi2>{{ $v->JUM_UMKM }} UMKM</isi2></td>
+													</tr>
+												</table>    
+												@endforeach  
+											</div>
+										</td>
+										<td style="background-color: #1e4495; color:#fff; height: 80px;">
+											<div class="text-left">
+												@foreach ($data_dw3 as $v)
+												<table width="100%">
+													<tr>
+														<td><h7 style="margin:10px">Nilai Komitmen</h7></td>
+														<td style="text-align:right"><h7 style="margin:10px">{{ $v->JUM_UB }} Usaha Besar</h7></td>
+													</tr>    
+													<tr> 
+														<td><isi1> Rp 
+															@if (Str::length($v->nilai) > 12)
+																{{ number_format($v->nilai/1000000000000, 2) }} T 
+															@elseif (Str::length($v->nilai) <= 12)
+																{{ number_format($v->nilai/1000000000, 1) }} M 
+															@endif
+														</isi1></td>
+														<td style="text-align:right"><isi2>{{ $v->JUM_UMKM }} UMKM</isi2></td>
+													</tr>
+												</table>    
+												@endforeach    
+											</div>
+										</td>
+										<td style="background-color: #8ec045; color:#fff; height: 80px;">
+											<div class="text-left">
+												@foreach ($data_dw4 as $v)
+												<table width="100%">
+													<tr>
+														<td><h7 style="margin:10px">Nilai Komitmen</h7></td>
+														<td style="text-align:right"><h7 style="margin:10px">{{ $v->JUM_UB }} Usaha Besar</h7></td>
+													</tr>    
+													<tr> 
+														<td><isi1> Rp 
+															@if (Str::length($v->nilai) > 12)
+																{{ number_format($v->nilai/1000000000000, 2) }} T 
+															@elseif (Str::length($v->nilai) <= 12)
+																{{ number_format($v->nilai/1000000000, 1) }} M 
+															@endif
+														</isi1></td>
+														<td style="text-align:right"><isi2>{{ $v->JUM_UMKM }} UMKM</isi2></td>
+													</tr>
+												</table>    
+												@endforeach    
+											</div>
+										</td>
+										<td style="background-color: #2bad6f; color:#fff; height: 80px;">
+											<div class="text-left">
+												@foreach ($data_dw5 as $v)
+												<table width="100%">
+													<tr>
+														<td><h7 style="margin:10px">Nilai Komitmen</h7></td>
+														<td style="text-align:right"><h7 style="margin:10px">{{ $v->JUM_UB }} Usaha Besar</h7></td>
+													</tr>    
+													<tr> 
+														<td><isi1> Rp 
+															@if (Str::length($v->nilai) > 12)
+																{{ number_format($v->nilai/1000000000000, 2) }} T 
+															@elseif (Str::length($v->nilai) <= 12)
+																{{ number_format($v->nilai/1000000000, 1) }} M 
+															@endif
+														</isi1></td>
+														<td style="text-align:right"><isi2>{{ $v->JUM_UMKM }} UMKM</isi2></td>
+													</tr>
+												</table>    
+												@endforeach     
+											</div>
+										</td>
+									</tr>
+								</table>
 							</div>
 						</div>
 
@@ -309,19 +496,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-md-12">
-                <div class="card">
-					<div class="card-header">
-                        <h3 class="card-title">Chart Bar</h3>
-                    </div>
-                    <div class="card-body">
-						<div id="container-1"></div>
-                    </div>
-                </div>
-            </div>
-    	</div>
     </div>
 
 	<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
@@ -332,36 +506,150 @@
 		Highcharts.chart('container-1', {
 			chart: {
 				type: 'column',
+				height: 500,
 				styledMode: true,
 				options3d: {
 					enabled: true,
-					alpha: 15,
-					beta: 15,
+					alpha: 1,
+					beta: 1,
 					depth: 50
 				}
 			},
 			title: {
-				text: 'Highcharts 3d column in styled mode'
+				text: ''
 			},
 			plotOptions: {
 				column: {
-					depth: 25
-				}
+					depth: 40
+				},
+				series: {
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        inside: true
+                    },
+                }
+			},
+			legend:{ 
+				enabled:false 
 			},
 			xAxis: {
 				categories: [
 					@foreach ($data_komitmen as $v)
-					'{{ $v->sektor }},'
+					'{{ $v->sektor }}',
 					@endforeach
 				]
 			},
 			series: [{
+				name: 'NILAI',
 				data: [
 					@foreach ($data_komitmen as $v)
-					'{{ $v->nilai }},'
+					{{ $v->nilai }},
 					@endforeach
 				],
-				colorByPoint: true
+				colorByPoint: false
+			}]
+		});
+
+		Highcharts.chart('container-2', {
+			chart: {
+				type: 'column',
+				height: 500,
+				styledMode: true,
+				options3d: {
+					enabled: true,
+					alpha: 1,
+					beta: 1,
+					depth: 50
+				}
+			},
+			plotOptions: {
+				column: {
+					depth: 40
+				},
+				series: {
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        inside: true
+                    },
+                }
+			},
+			title: {
+				text: ''
+			},
+			legend:{ 
+				enabled:false 
+			},
+			xAxis: {
+				categories: [
+					@foreach ($data_sektor as $v)
+					'{{ $v->sektor }}',
+					@endforeach
+				]
+			},
+			series: [{
+				name: 'NILAI',
+				data: [
+					@foreach ($data_sektor as $v)
+					{{ $v->nilai }},
+					@endforeach
+				],
+				colorByPoint: false
+			}]
+		});
+
+		Highcharts.chart('container-3', {
+			chart: {
+				type: 'pie',
+				options3d: {
+					enabled: true,
+					alpha: 45
+				}
+			},
+			title: {
+				text: ''
+			},
+			plotOptions: {
+				pie: {
+				innerSize: 100,
+				depth: 45
+				}
+			},
+			series: [{
+				name: 'Nilai',
+				data: [
+					@foreach ($data_top_ub as $v)
+						['{{ $v->nama_ub }}', {{ $v->nilai }}],
+					@endforeach
+				]
+			}]
+		});
+
+		Highcharts.chart('container-4', {
+			chart: {
+				type: 'pie',
+				options3d: {
+					enabled: true,
+					alpha: 45
+				}
+			},
+			title: {
+				text: ''
+			},
+			plotOptions: {
+				pie: {
+				innerSize: 100,
+				depth: 45
+				}
+			},
+			series: [{
+				name: 'Nilai',
+				data: [
+					@foreach ($data_jenis_keb as $v)
+						['{{ $v->jasa }}', {{ $v->nilai }}],
+					@endforeach
+				]
 			}]
 		});
 
@@ -420,16 +708,11 @@
 				pict = "https://kemitraan.fasilitasi.id/uploads/img/map-biru.png";
 			}
 
-
-		
-
 			if (data_lokasi[i][6]=="Belum Selesai" && data_lokasi[i][7]=="Belum Selesai") {
 				
 				pict = "https://kemitraan.fasilitasi.id/uploads/img/map-merah.png";
 
 			}
-
-
 
 			var iconFeature = new ol.Feature({
 		
@@ -437,7 +720,6 @@
 			id : data_lokasi[i][0],
 			name : 'peta',
 			description : '<table width="480" border="0"  cellspacing="0" cellpadding="0" ><tr valign="top"><td width="166">Nama Badan Usaha</td><td width="5">:</td><td width="295">'+data_lokasi[i][1]+'</td></tr><tr valign="top"><td>Nama Proyek</td><td>:</td><td><a href="https://eri.progressreport.net/index.php/kunjungan/view/'+data_lokasi[i][0]+'" target="_blank" rel="noopener noreferrer">'+data_lokasi[i][2]+'</a></td></tr><tr valign="top"><td>Status Kunjungan</td><td>:</td><td>'+data_lokasi[i][6]+'</td></tr><tr valign="top"><td>Status FGD</td><td>:</td><td>'+data_lokasi[i][7]+'</td></tr></table>',
-	
 			
 			});
 
@@ -462,22 +744,25 @@
 		var styleFunction = function(feature) {
 			var color;
 
-			if ((feature.get("kode")>=11 && feature.get("kode")<=21)){
+			if ((feature.get("kode")>=11 && feature.get("kode")<=14) || (feature.get("kode")==16) || (feature.get("kode")==18) || (feature.get("kode")==21)){    
 				color  = "#ffffff";
 				fill   = "#1b1e3d";
 				stroke = "#ffffff";
-			} else if ((feature.get("kode")>=61 && feature.get("kode")<=65) || (feature.get("kode")==31) ||  (feature.get("kode")==34)  ){
+			} else if ((feature.get("kode")>=61 && feature.get("kode")<=64) || (feature.get("kode")==15) || (feature.get("kode")==31) ||  (feature.get("kode")==34)  ){
 				color  = "#ffffff";
 				fill   = "#2b5d2a";
 				stroke = "#ffffff";
-			} else if ((feature.get("kode")>=71 && feature.get("kode")<=76) || (feature.get("kode")==36) ||  (feature.get("kode")==32) ||  (feature.get("kode")==33)  ){   
+			} else if ((feature.get("kode")>=71 && feature.get("kode")<=74) || (feature.get("kode")==36) ||  (feature.get("kode")==32) ||  (feature.get("kode")==33)  ){   
 				color  = "#ffffff";
 				fill   = "#1e4495" ;
 				stroke = "#ffffff";     
-		
-			} else {
+			} else if ((feature.get("kode")>=51 && feature.get("kode")<=53) || (feature.get("kode")==81) ||  (feature.get("kode")==82) ||  (feature.get("kode")==91)  ){   
 				color  = "#ffffff"; 
 				fill   = "#8ec045";
+				stroke = "#ffffff";
+			} else {
+				color  = "#ffffff"; 
+				fill   = "#2bad6f";
 				stroke = "#ffffff";
 			}
 
