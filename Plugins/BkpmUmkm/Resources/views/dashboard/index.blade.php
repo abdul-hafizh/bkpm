@@ -187,6 +187,7 @@
                                 <th>{{ trans('label.wilayah_2') }}</th>
                                 <th>{{ trans('label.wilayah_3') }}</th>
                                 <th>{{ trans('label.wilayah_4') }}</th>
+                                <th>Wilayah 5</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -195,6 +196,7 @@
                                 <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '1', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_2') .'"' : '') !!}>{{ number_format($countUBWilayah2,0,",",".") }}</a></td>
                                 <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '2', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_3') .'"' : '') !!}>{{ number_format($countUBWilayah3,0,",",".") }}</a></td>
                                 <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '3', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '4', 'periode' => $year]) .'" data-method="GET" data-title="Wilayah 5"' : '') !!}>{{ number_format($countUBWilayah5,0,",",".") }}</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -355,6 +357,47 @@
                             <tbody>
                             <tr class="text-center">
                                 <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '3', 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.wilayah_4') .'"' : '') !!}>{{ number_format($countUBWilayah4,0,",",".") }}</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        @elseif($wilayah_id == 4)
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-2">
+                    <h3 class="podcast"><i class="fas fa-tags mr-2"></i> PMA/PMDN Yang Potensi Kontrak</h3>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="ub_by_wilayah5-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="ub_by_wilayah5-bar-tab" data-toggle="pill" href="#ub_by_wilayah5-bar-content" role="tab" aria-controls="ub_by_wilayah5-bar-content" aria-selected="true"><i class="fas fa-chart-bar"></i> Bar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="ub_by_wilayah5-pie-tab" data-toggle="pill" href="#ub_by_wilayah5-pie-content" role="tab" aria-controls="ub_by_wilayah5-pie-content" aria-selected="true"><i class="fas fa-chart-pie"></i> Pie</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="ub_by_wilayah5-tabContent">
+                            <div class="tab-pane fade show active" id="ub_by_wilayah5-bar-content" role="tabpanel" aria-labelledby="ub_by_wilayah5-bar-tab">
+                                <div id="ub_by_wilayah5_bar"></div>
+                            </div>
+                            <div class="tab-pane fade" id="ub_by_wilayah5-pie-content" role="tabpanel" aria-labelledby="ub_by_wilayah-pie-tab">
+                                <div id="ub_by_wilayah5_pie"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer p-0">
+                        <table class="table table-sm">
+                            <thead>
+                            <tr class="text-center">                                
+                                <th>Wilayah 5</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="text-center">
+                                <td><a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => 'bersedia', 'wilayah_id' => '4', 'periode' => $year]) .'" data-method="GET" data-title="Wilayah 5"' : '') !!}>{{ number_format($countUBWilayah5,0,",",".") }}</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -687,23 +730,32 @@
 
     <div class="col-sm-12 col-xs-12">
         <div class="mb-2">
-            <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Sebaran Survey</h3>
+            <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Sebaran Usaha Besar Bermitra</h3>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="box-body">
+                    <div id="map_ub" style="width:auto; height:450px"></div>
+                    <div id="popup_ub" class="ol-popup">
+                        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                        <div id="popup-contentUb"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-xs-12">
+        <div class="mb-2">
+            <h3 class="podcast"><i class="fas fa-tags mr-2"></i> Sebaran UMKM Bermitra</h3>
         </div>
         <div class="card">
             <div class="card-body">
                 <div class="box-body">
                     <div id="map" style="width:auto; height:450px"></div>
                     <div id="popup" class="ol-popup">
-                        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                        <a href="#" id="popup-closerUb" class="ol-popup-closer"></a>
                         <div id="popup-content"></div>
-                    </div>
-
-                    <div class="btn-group mt-1" style="width:60%">
-                        <button id="TO-ALLL" type="button" class="btn btn-secondary btn-sm col-4">All</button> &nbsp; &nbsp;
-                        <button id="TO-DWI" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-I</button> &nbsp; &nbsp;
-                        <button id="TO-DWII" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-II</button> &nbsp; &nbsp;
-                        <button id="TO-DWIII" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-III</button> &nbsp; &nbsp;
-                        <button id="TO-DWIV" type="button" class="btn btn-secondary btn-sm btn3d col-4">DW-IV</button> &nbsp; &nbsp;
                     </div>
                 </div>
             </div>
@@ -719,6 +771,7 @@
     // map start
 
         var data_lokasi = @json($lokasi);
+        var data_lokasi_ub = @json($lokasi_ub);
         var ALLL = ol.proj.fromLonLat([118.0148634,-2.548926 ]);
         var DWI = ol.proj.fromLonLat([98.678513,3.597031]);
         var DWII = ol.proj.fromLonLat([111.257832302, -7.50166466]);
@@ -726,6 +779,11 @@
         var DWIV = ol.proj.fromLonLat([120.57077305954977, -1.5781610328357976]);
 
         var view = new ol.View({
+            center: ALLL,
+            zoom: 5.2
+        });
+
+        var view2 = new ol.View({
             center: ALLL,
             zoom: 5.2
         });
@@ -742,8 +800,22 @@
             view: view
         });
 
+        var map_ub = new ol.Map({
+            target: 'map_ub',
+            layers: [
+                new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+            ],
+
+            loadTilesWhileAnimating: true,
+            view: view2
+        });
+
         var vectorSource = new ol.source.Vector({});
+        var vectorSourceUb = new ol.source.Vector({});
         var features = [];
+
         for (let i = 0; i < data_lokasi.length; i++) {
             var pict;
             var area  = data_lokasi[i][6];
@@ -784,21 +856,71 @@
             vectorSource.addFeature(iconFeature);
         }
 
+        for (let i = 0; i < data_lokasi_ub.length; i++) {
+            var pict_ub;
+            var area_ub  = data_lokasi_ub[i][6];
+
+            switch(area_ub) {
+            case 'DW1':
+                pict_ub = "https://eri.progressreport.net/assets/img/map-coklat.png";
+                break;
+            case 'DW2':
+                pict_ub = "https://eri.progressreport.net/assets/img/map-biru.png";
+                break;
+            case 'DW3':
+                pict_ub = "https://eri.progressreport.net/assets/img/map-hijautua.png";
+                break;
+            case 'DW4':
+                pict_ub = "https://eri.progressreport.net/assets/img/map-ungu.png";
+                break;        
+            default:
+                pict_ub = "https://eri.progressreport.net/assets/img/map-biru.png";
+            }
+
+            var iconFeatureUb = new ol.Feature({        
+                geometry: new ol.geom.Point(ol.proj.transform([data_lokasi_ub[i][7],data_lokasi_ub[i][8]],  'EPSG:4326', 'EPSG:3857')),
+                id : data_lokasi_ub[i][0],
+                name : 'peta_ub',
+                description : '<table width="480" border="0" cellspacing="0" cellpadding="0"><tr valign="top"><td width="166">Nama UMKM</td><td width="5">:</td><td width="295"><a href="https://kemitraan.fasilitasi.id/id/backend/bkpm-umkm/survey/umkm/detail?company='+data_lokasi_ub[i][9]+'&survey='+data_lokasi_ub[i][10]+'">'+data_lokasi_ub[i][1]+'</a></td></tr><tr valign="top"><td>Alamat</td><td>:</td><td>'+data_lokasi_ub[i][2]+'</td></tr><tr valign="top"><td>Nama Provinsi</td><td>:</td><td>'+data_lokasi_ub[i][3]+'</td></tr><tr valign="top"><td>Nama Kabupaten</td><td>:</td><td>'+data_lokasi_ub[i][4]+'</td></tr></table>',
+            });
+
+            var iconStyleUb = new ol.style.Style({
+                image: new ol.style.Icon({
+                    anchor: [0.5, 0.5],
+                    anchorXUnits: "fraction",
+                    anchorYUnits: "fraction",
+                    src: pict_ub
+                    })
+                });
+            iconFeatureUb.setStyle(iconStyleUb);
+            vectorSourceUb.addFeature(iconFeatureUb);
+        }
+
         var vectorLayer = new ol.layer.Vector({
             source: vectorSource,
             updateWhileAnimating: true,
             updateWhileInteracting: true
         });
 
+        var vectorLayerUb = new ol.layer.Vector({
+            source: vectorSourceUb,
+            updateWhileAnimating: true,
+            updateWhileInteracting: true
+        });
+
         map.addLayer(vectorLayer); 
+        map_ub.addLayer(vectorLayerUb); 
 
     // map end
 
     // initialize the popup
   
         var container = document.getElementById('popup');
+        var container2 = document.getElementById('popup_ub');
         var content = document.getElementById('popup-content');
+        var content2 = document.getElementById('popup-contentUb');
         var closer = document.getElementById('popup-closer');
+        var closer2 = document.getElementById('popup-closerUb');
 
         var overlay = new ol.Overlay({
             element: container,
@@ -808,11 +930,26 @@
             }
         });
 
+        var overlay2 = new ol.Overlay({
+            element: container2,
+            autoPan: true,
+            autoPanAnimation: {
+                duration: 250
+            }
+        });
+
         map.addOverlay(overlay);
+        map_ub.addOverlay(overlay2);
 
         closer.onclick = function() {
             overlay.setPosition(undefined);
             closer.blur();
+            return false;
+        };
+
+        closer2.onclick = function() {
+            overlay2.setPosition(undefined);
+            closer2.blur();
             return false;
         };
 
@@ -828,6 +965,21 @@
             } else {
                 overlay.setPosition(undefined);
                 closer.blur();
+            }
+        });
+
+        map_ub.on('click', function (event) {
+            var feature2 = map_ub.forEachFeatureAtPixel(event.pixel, 
+            function(feature2) {
+                return feature2;
+            });  
+            if (feature2) {
+                var coordinate2 = feature2.getGeometry().getCoordinates();
+                content2.innerHTML =feature2.get('description')
+                overlay2.setPosition(coordinate2);
+            } else {
+                overlay2.setPosition(undefined);
+                closer2.blur();
             }
         });
 

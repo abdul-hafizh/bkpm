@@ -62,6 +62,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
             'countUBWilayah2'           => 0,
             'countUBWilayah3'           => 0,
             'countUBWilayah4'           => 0,
+            'countUBWilayah5'           => 0,
             
             'countUB11'                 => 0,
             'countUB12'                 => 0,
@@ -128,13 +129,16 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
         $params['identifier'] = $identifier;
         $params['company_category'] = $company_category;
         
+        $sebaran_map_ub = DB::select("SELECT * from vw_map_info_ub");
         $sebaran_map = DB::select("SELECT * from vw_map_info");
 
         if ($wilayah_id!='') {                    
             $sebaran_map = DB::table('vw_map_info')->whereIn('id_province', $provinces_filter)->get();
+            $sebaran_map_ub = DB::table('vw_map_info_ub')->whereIn('id_province', $provinces_filter)->get();
         }
 
         $hasil = array();
+        $hasil_ub = array();
 
         foreach($sebaran_map as $row){
             $hasil[]= array(
@@ -150,9 +154,26 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
                 $row->category,
                 $row->survey_id
             );
+        }
+
+        foreach($sebaran_map_ub as $row){
+            $hasil_ub[]= array(
+                $row->id,
+                $row->nama_perusahaan,
+                $row->alamat,
+                $row->nama_provinsi,
+                $row->nama_kabupaten,
+                $row->nama_kecamatan,
+                $row->wilayah,
+                $row->long,
+                $row->lat,
+                $row->category,
+                $row->survey_id
+            );
         }  
 
         $params['lokasi'] = $hasil;
+        $params['lokasi_ub'] = $hasil_ub;
 
         $ub = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
             ->whereHas('company_status', function($q) use($year){
@@ -572,7 +593,7 @@ if ( ! function_exists('dashboard_bkpm_umkm') )
 
                 $provinces = [];
                 $wilayah = simple_cms_setting('bkpmumkm_wilayah');
-                for ($i=0; $i < 4; $i++) { 
+                for ($i=0; $i < 5; $i++) { 
                     $provinces = $wilayah[$i]['provinces'];
                     $a = \Plugins\BkpmUmkm\Models\CompanyModel::where('companies.category', CATEGORY_COMPANY)
                     ->whereHas('company_status', function($q) use($year){
