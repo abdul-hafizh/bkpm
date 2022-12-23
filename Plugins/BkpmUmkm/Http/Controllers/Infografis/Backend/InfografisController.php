@@ -21,6 +21,10 @@ class InfografisController extends Controller
 
     public function index(Request $request)
     {
+        $config = app('config')->get('simple_cms.plugins.bkpmumkm');   
+        
+        $year = $request->get('periode', \Carbon\Carbon::now()->format('Y'));        
+
         $sebaran_map = DB::select("SELECT * from vw_map_info");
 
         $berdasarkan_ub = DB::select("
@@ -31,7 +35,7 @@ class InfografisController extends Controller
                 kemitraan
                 INNER JOIN companies ON companies.id = kemitraan.company_id 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 
+                YEAR ( kemitraan.created_at ) = " . $year . " 
             GROUP BY
                 companies.sektor23
             ORDER BY nilai DESC
@@ -45,7 +49,7 @@ class InfografisController extends Controller
                 kemitraan
                 INNER JOIN companies ON companies.id = kemitraan.umkm_id 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 
+                YEAR ( kemitraan.created_at ) = " . $year . "  
             GROUP BY
                 companies.sektor23
             ORDER BY nilai DESC
@@ -59,7 +63,7 @@ class InfografisController extends Controller
                 kemitraan
                 INNER JOIN companies ON companies.id = kemitraan.company_id 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 
+                YEAR ( kemitraan.created_at ) = " . $year . "  
             GROUP BY
                 companies.`name` 
             ORDER BY
@@ -95,13 +99,13 @@ class InfografisController extends Controller
                         kemitraan
                         JOIN companies ON companies.id = kemitraan.company_id 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS ttl 
                 FROM
                     kemitraan
                     JOIN companies ON companies.id = kemitraan.company_id 
                 WHERE
-                    YEAR ( kemitraan.created_at ) = 2022 
+                    YEAR ( kemitraan.created_at ) = " . $year . "  
                 GROUP BY
                 companies.jenis_jasa 
                 ) TBL
@@ -130,7 +134,7 @@ class InfografisController extends Controller
             FROM
                 target 
             WHERE
-                tahun = 2022
+                tahun = " . $year . " 
             LIMIT 1
         
         ");
@@ -153,7 +157,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -173,7 +177,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -185,7 +189,7 @@ class InfografisController extends Controller
                 INNER JOIN companies ON companies.id = kemitraan.company_id
                 INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 AND wilayah.wilayah = 'DW1'
+                YEAR ( kemitraan.created_at ) = " . $year . "  AND wilayah.wilayah = 'DW1'
             GROUP BY
                 wilayah.wilayah 
             ORDER BY
@@ -211,7 +215,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -231,7 +235,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -243,7 +247,7 @@ class InfografisController extends Controller
                 INNER JOIN companies ON companies.id = kemitraan.company_id
                 INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 AND wilayah.wilayah = 'DW2'
+                YEAR ( kemitraan.created_at ) = " . $year . "  AND wilayah.wilayah = 'DW2'
             GROUP BY
                 wilayah.wilayah 
             ORDER BY
@@ -269,7 +273,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -289,7 +293,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -301,7 +305,7 @@ class InfografisController extends Controller
                 INNER JOIN companies ON companies.id = kemitraan.company_id
                 INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 AND wilayah.wilayah = 'DW3'
+                YEAR ( kemitraan.created_at ) = " . $year . "  AND wilayah.wilayah = 'DW3'
             GROUP BY
                 wilayah.wilayah 
             ORDER BY
@@ -327,7 +331,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -347,7 +351,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -359,7 +363,7 @@ class InfografisController extends Controller
                 INNER JOIN companies ON companies.id = kemitraan.company_id
                 INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 AND wilayah.wilayah = 'DW4'
+                YEAR ( kemitraan.created_at ) = " . $year . "  AND wilayah.wilayah = 'DW4'
             GROUP BY
                 wilayah.wilayah 
             ORDER BY
@@ -385,7 +389,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -405,7 +409,7 @@ class InfografisController extends Controller
                         INNER JOIN companies ON companies.id = kemitraan.company_id
                         INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
                     WHERE
-                        YEAR ( kemitraan.created_at ) = 2022 
+                        YEAR ( kemitraan.created_at ) = " . $year . "  
                     ) AS tbl 
                 WHERE
                     tbl.wilayah = wilayah.wilayah 
@@ -417,7 +421,7 @@ class InfografisController extends Controller
                 INNER JOIN companies ON companies.id = kemitraan.company_id
                 INNER JOIN wilayah ON wilayah.id_province = companies.id_provinsi 
             WHERE
-                YEAR ( kemitraan.created_at ) = 2022 AND wilayah.wilayah = 'DW5'
+                YEAR ( kemitraan.created_at ) = " . $year . "  AND wilayah.wilayah = 'DW5'
             GROUP BY
                 wilayah.wilayah 
             ORDER BY
@@ -443,6 +447,8 @@ class InfografisController extends Controller
             );
         }  
 
+		$params['year'] = $year;
+        $params['identifier'] = $config['identifier'];
         $params['lokasi'] = $hasil;
 
         $params['target_realisasi'] = $target_realisasi;
@@ -450,6 +456,7 @@ class InfografisController extends Controller
         $params['data_sektor'] = $berdasarkan_sektor;
         $params['data_top_ub'] = $top_ub;
         $params['data_jenis_keb'] = $jenis_keb;
+
         $params['data_dw1'] = $dw1;
         $params['data_dw2'] = $dw2;
         $params['data_dw3'] = $dw3;

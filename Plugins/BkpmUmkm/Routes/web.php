@@ -552,6 +552,14 @@ Route::group(['prefix' => \UriLocalizer::localeFromRequest(), 'middleware' => ['
             ])->name("index");
         });
 
+        /* Realisasi Route */
+        Route::group(['prefix' => 'realisasi', 'as'=>'realisasi.'], function() {
+            Route::get("/", [
+                'title' => "Realisasi: Index [Backend]",
+                'uses' => 'Realisasi\Backend\RealisasiController@index'
+            ])->name("index");
+        });
+
         /* Photo Route */
         Route::group(['prefix' => 'photo', 'as'=>'photo.'], function() {
             Route::get("/", [

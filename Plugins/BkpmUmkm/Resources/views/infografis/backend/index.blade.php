@@ -16,6 +16,11 @@
 	<style>
 		@import "https://code.highcharts.com/css/highcharts.css";
 
+		.dw_list, th, td {
+			border: 7px solid #d7ebe9;
+			border-collapse: collapse;
+		}
+
 		.highcharts-figure,
 		.highcharts-data-table table {
 			min-width: 310px;
@@ -125,6 +130,22 @@
 	</style>
 
     <div class="container-fluid nominal">
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" data-action="{{ route("{$bkpmumkm_identifier}.backend.infografis.index") }}">
+					<label class="mr-2">Tahun </label>
+					<div class="form-group">
+						<select class="form-control form-control-sm mr-2" name="periode" style="width:200px">
+							@foreach(list_years() as $th)
+							<option value="{{ $th }}" {{ ($th==$year?'selected':'') }}>{{ $th }}</option>
+							@endforeach
+						</select>
+					</div>
+					<input type="submit" class="btn btn-sm btn-primary" value="Search">         
+				</form>
+			</div>
+		</div>
+		
 		@foreach ($target_realisasi as $v)
 			<div class="row">
 				<div class="col-xl-4 col-12"> 
@@ -153,7 +174,12 @@
 										<i class="far fa-building primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
 									</div>
 									<div class="media-body text-right">
-										<span style="color: #fff; font-size: 50px; font-weight: bold">{{ $v->realisasi_ub }}</span><br>
+										<span style="font-size: 50px; font-weight: bold">
+											<a style="color:#fff" href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.survey.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.survey.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('verified'), 'periode' => $year, 'show_count' => true]) .'" data-method="GET" data-title="Realisasi Usaha Besar"' : '') !!}>
+												{{ number_format($v->realisasi_ub) }}
+											</a>
+										</span>
+										<br>
 										<span style="color: #fff; font-size: 25px;">Realisasi Usaha Besar</span>
 									</div>
 								</div>
@@ -206,8 +232,8 @@
 										<i class="fa fa-money primary float-left" style="font-size: 60px; opacity: 0.2;"></i>
 									</div>
 									<div class="media-body text-right">
-										<span style="color: #fff; font-size: 50px; font-weight: bold">
-											<a href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.total_realisasi_nilai_kontrak') .'"' : '') !!}>
+										<span style="font-size: 50px; font-weight: bold">
+											<a style="color:#fff" href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.kemitraan.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.kemitraan.index", ['in-modal' => encrypt_decrypt('modal'), 'periode' => $year]) .'" data-method="GET" data-title="'. trans('label.total_realisasi_nilai_kontrak') .'"' : '') !!}>
 												{{ number_format($v->realisasi_kemitraan/1000000000000, 2) }} Triliun
 											</a>
 										</span>
@@ -365,16 +391,13 @@
 
 						<div class="row">
 							<div class="col-12">
-								<table width="100%">	
+								<table width="100%" class="dw_list">	
 									<tr>
 										<td style="background-color: #1b1e3d; color:#fff; font-weight: bold; font-size: 24px">DW 1</td>
 										<td style="background-color: #2b5d2a; color:#fff; font-weight: bold; font-size: 24px">DW 2</td>
 										<td style="background-color: #1e4495; color:#fff; font-weight: bold; font-size: 24px">DW 3</td>
 										<td style="background-color: #8ec045; color:#fff; font-weight: bold; font-size: 24px">DW 4</td>
 										<td style="background-color: #2bad6f; color:#fff; font-weight: bold; font-size: 24px">DW 5</td>
-									</tr>	
-									<tr>
-										<td style="background-color: #d7ebe9;" colspan="5">&nbsp;</td>
 									</tr>							
 									<tr>
 										<td style="background-color: #1b1e3d; color:#fff; height: 80px;">
