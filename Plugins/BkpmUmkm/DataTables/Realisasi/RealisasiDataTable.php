@@ -73,7 +73,6 @@ class RealisasiDataTable extends DataTable
             ->editColumn("{$this->category_company}.provinsi.nama_provinsi", function($q){
                 return ($q->{$this->category_company}->provinsi ? $q->{$this->category_company}->provinsi->nama_provinsi : '-');
             })
-            ->rawColumns(["{$this->category_company}.name", "{$this->category_umkm}.name", 'statusRaw', 'file_kerjasama', 'file_kontrak', 'action'])
             ->setRowClass(function($q){
                 return ($q->trashed() ? 'bg-trashed':'');
             })
@@ -91,10 +90,6 @@ class RealisasiDataTable extends DataTable
 
         $model = $model->whereIn("kemitraan.status", ['bersedia'])
             ->with([$this->category_company => function($q){
-                return $q->with(['survey' => function($q){
-                    return $q->whereYear('surveys.created_at', $this->periode);
-                }]);
-            }, $this->category_umkm => function($q){
                 return $q->with(['survey' => function($q){
                     return $q->whereYear('surveys.created_at', $this->periode);
                 }]);
