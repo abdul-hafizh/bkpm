@@ -175,7 +175,7 @@
 									</div>
 									<div class="media-body text-right">
 										<span style="font-size: 50px; font-weight: bold">
-											<a style="color:#fff" href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.survey.company.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.survey.company.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('verified'), 'periode' => $year, 'show_count' => true]) .'" data-method="GET" data-title="Realisasi Usaha Besar"' : '') !!}>
+											<a style="color:#fff" href="javascript:void(0);" {!! (hasRoutePermission("{$identifier}.backend.realisasi.index") ? 'class="show_modal_ex_lg" data-action="'. route("{$identifier}.backend.realisasi.index", ['in-modal' => encrypt_decrypt('modal'), 'status' => encrypt_decrypt('verified'), 'periode' => $year, 'show_count' => true]) .'" data-method="GET" data-title="Realisasi Usaha Besar"' : '') !!}>
 												{{ number_format($v->realisasi_ub) }}
 											</a>
 										</span>
