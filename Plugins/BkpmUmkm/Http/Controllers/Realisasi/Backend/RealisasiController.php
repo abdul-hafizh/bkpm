@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugins\BkpmUmkm\Http\Controllers\Kemitraan\Backend;
+namespace Plugins\BkpmUmkm\Http\Controllers\Realisasi\Backend;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,7 +23,7 @@ class RealisasiController extends Controller
         $this->user = auth()->user();
     }
 
-    public function index(KemitraanDataTable $kemitraanDataTable)
+    public function index(RealisasiDataTable $realisasiDataTable)
     {
         $params['title'] = "Realisasi Usaha Besar";
         $view = "{$this->identifier}::kemitraan.backend.index";
@@ -31,7 +31,7 @@ class RealisasiController extends Controller
         if ($inModal && encrypt_decrypt($inModal, 2)=='modal'){
             $view = "{$this->identifier}::modal.datatable";
         }
-        return $kemitraanDataTable->render($view, $params);
+        return $realisasiDataTable->render($view, $params);
     }
 
 }

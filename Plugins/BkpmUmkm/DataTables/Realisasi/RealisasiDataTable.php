@@ -6,13 +6,15 @@
  * --------- 2/23/20 1:28 AM ---------
  */
 
-namespace Plugins\BkpmUmkm\DataTables\Kemitraan;
+namespace Plugins\BkpmUmkm\DataTables\Realisasi;
 
 use Plugins\BkpmUmkm\Models\CompanyModel;
 use Plugins\BkpmUmkm\Models\KemitraanModel;
+use Plugins\BkpmUmkm\Models\RealisasiModel;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Facades\DB;
 
 class RealisasiDataTable extends DataTable
 {
@@ -73,19 +75,17 @@ class RealisasiDataTable extends DataTable
             ->editColumn("{$this->category_company}.provinsi.nama_provinsi", function($q){
                 return ($q->{$this->category_company}->provinsi ? $q->{$this->category_company}->provinsi->nama_provinsi : '-');
             })
-            ->setRowClass(function($q){
-                return ($q->trashed() ? 'bg-trashed':'');
-            })
+            ->rawColumns(["{$this->category_company}.name"])
             ->addIndexColumn();
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \Plugins\BkpmUmkm\Models\KemitraanModel $model
+     * @param \Plugins\BkpmUmkm\Models\RealisasiModel $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(KemitraanModel $model)
+    public function query(RealisasiModel $model)
     {
 
         $model = $model->whereIn("kemitraan.status", ['bersedia'])
@@ -177,7 +177,7 @@ CDATA;
                 ->orderable(false)->searchable(false),
             Column::make("{$this->category_company}.name")->title(trans("label.name_{$this->category_company}")),
             Column::make("{$this->category_company}.nib")->title(trans("label.nib_{$this->category_company}"))->visible(false),
-            Column::make("{$this->category_company}.provinsi.nama_provinsi")->title(trans('wilayah::label.province'))->orderable(false)->searchable(false)            
+            Column::make("{$this->category_company}.provinsi.nama_provinsi")->title(trans('wilayah::label.province'))->orderable(false)->searchable(false)
         ];
         if ($this->viewed){
             unset($columns[12]);
