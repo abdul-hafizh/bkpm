@@ -173,8 +173,6 @@ class CompanyDataTable extends DataTable
                 if ( hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info mt-1 show_modal_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.survey.activity_log", ['log_name'=>encrypt_decrypt("LOG_SURVEY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: ' . ($q->{$this->company_category} ? $q->{$this->company_category}->name : '') .'"><i class="fas fa-history"></i> '. trans('label.history') .'</a>';
                 }
-                
-                $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->company->id]).'" data-method="GET" title="Journal: '. $q->company->name .'"><i class="fas fa-book-open"></i> Journal</a>';                
 
                 $html .= '</div>';
 

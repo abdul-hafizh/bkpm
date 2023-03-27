@@ -8,17 +8,16 @@
 
 namespace Plugins\BkpmUmkm\DataTables\Realisasi;
 
+use Illuminate\Support\Facades\DB;
 use Plugins\BkpmUmkm\Models\CompanyModel;
-use Plugins\BkpmUmkm\Models\KemitraanModel;
 use Plugins\BkpmUmkm\Models\RealisasiModel;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
-use Illuminate\Support\Facades\DB;
 
 class RealisasiDataTable extends DataTable
 {
-    protected $dataTableID = 'kemitraanDatatable';
+    protected $dataTableID = 'realisasiDatatable';
     protected $trash = 'all';
     protected $config;
     protected $identifier;
@@ -88,13 +87,13 @@ class RealisasiDataTable extends DataTable
     public function query(RealisasiModel $model)
     {
 
-        $model = $model->whereIn("kemitraan.status", ['bersedia'])
+        $model = $model->select('company_id')->whereIn("kemitraan.status", ['bersedia'])
             ->with([$this->category_company => function($q){
                 return $q->with(['survey' => function($q){
                     return $q->whereYear('surveys.created_at', $this->periode);
                 }]);
             }])
-            ->whereHas($this->category_company, function($q){
+            ->whereHas($this->category_company, function($q){                                
                 switch ($this->user->group_id){
                     case GROUP_QC_KORPROV:
                         $q->where('companies.id_provinsi', $this->user->id_provinsi);
@@ -134,6 +133,8 @@ class RealisasiDataTable extends DataTable
             });
 
         $model->whereYear('kemitraan.created_at', $this->periode);
+		$model->groupBy('company_id');
+		
         return $model->newQuery();
     }
 
@@ -148,12 +149,8 @@ class RealisasiDataTable extends DataTable
             Button::make('reset'),
             Button::make('reload')
         ];
-        $script = <<<CDATA
-                    var formData = $("form#{$this->dataTableID}Form", document).find("input, select").serializeArray();
-                    $.each(formData, function(i, obj){
-                        data[obj.name] = obj.value;
-                    });
-CDATA;
+
+        $script = '';
 
         return $this->builder()
             ->addTableClass('table table-bordered table-hover table-sm')
@@ -192,6 +189,6 @@ CDATA;
      */
     protected function filename()
     {
-        return "kemitraan_{$this->category_reverse}_" . date('YmdHis');
+        return "realisasi_{$this->category_reverse}_" . date('YmdHis');
     }
 }

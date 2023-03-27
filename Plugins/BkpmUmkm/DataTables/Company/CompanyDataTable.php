@@ -113,19 +113,6 @@ class CompanyDataTable extends DataTable
                 }
                 return '-';
             })
-            ->addColumn('journal_activity.jurnalRaw', function ($q) {
-                $task = '';
-                if ($q->journal_task == 1) { $task = 'Registrasi UB'; }
-                if ($q->journal_task == 2) { $task = 'Korespondensi dengan Usaha Besar'; }
-                if ($q->journal_task == 3) { $task = 'Kesediaan Usaha Besar'; }
-                if ($q->journal_task == 4) { $task = 'Identifikasi Kebutuhan Usaha Besar'; }
-                if ($q->journal_task == 5) { $task = 'Verifikasi UMKM Berdasarkan Kebutuhan Usaha Besar'; }
-                if ($q->journal_task == 6) { $task = 'Fasilitasi Pertemuan Usaha Besar dengan Kandidat UMKM'; }
-                if ($q->journal_task == 7) { $task = 'Komitmen/Prakontrak/Kontrak'; }
-                $formatDate = formatDate($q->journal_activity->activity_date);
-                $html = $formatDate . ' <b>' . $task . '</b> (' . $q->journal_activity->jurnal . ')';
-                return $html;
-            })
             ->addColumn('company_status.statusRaw', function ($q) {
                 /* Bersedia, Tidak Bersedia, Tidak Respon, Konsultasi BKPM, Menunggu Konfirmasi */
                 $status = ($q->company_status && $q->company_status->status  ? trans("label.company_status_{$q->company_status->status}") : '--------');
@@ -186,8 +173,6 @@ class CompanyDataTable extends DataTable
                 if ( hasRoute("{$this->identifier}.backend.company.activity_log") && hasRoutePermission("{$this->identifier}.backend.company.activity_log") ){
                     $html .= '<a class="btn btn-xs btn-info show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.company.activity_log", ['log_name'=>encrypt_decrypt("LOG_COMPANY"), 'subject'=>encrypt_decrypt($q->id)]).'" title="History: '.$q->name.'"><i class="fas fa-history"></i></a>';
                 }                
-                
-                $html .= '<a class="btn btn-xs btn-success show_modal_ex_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.journal.index", ['in-modal' => encrypt_decrypt('modal'), 'company_id'=>$q->id]).'" data-method="GET" title="Journal: '.$q->name.'"><i class="fas fa-book-open"></i></a>';                
 
                 $html .= '</div>';
 
@@ -399,9 +384,6 @@ class CompanyDataTable extends DataTable
     public function html()
     {
         $buttons = [
-            Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.company.add_journal").'"')
-            ->text("<i class='fas fa-plus'></i> " . trans("Tambah Journal"))
-            ->addClass('bg-info'),
             Button::make('create')->action('window.location.href = "' . route("{$this->identifier}.backend.company.confirm_add").'"')
                 ->text("<i class='fas fa-plus'></i> " . trans("label.add_new_{$this->company_category}"))
                 ->addClass('bg-primary'),
@@ -453,7 +435,6 @@ CDATA;
             Column::make('name_pic')->title(trans('label.name_pic_of_company'))->addClass('align-middle'),
             Column::make('email_pic')->visible(false)->addClass('align-middle'),
             Column::make('phone_pic')->visible(false)->addClass('align-middle'),
-            Column::make('journal_activity.jurnalRaw')->title('Update Terakhir')->addClass('align-middle')->orderable(false),
             Column::make('company_status.statusRaw')->title(trans('label.status'))->addClass('text-center')->addClass('align-middle')->orderable(false),
             Column::computed('action')->title('')
                 ->orderable(false)->searchable(false)
