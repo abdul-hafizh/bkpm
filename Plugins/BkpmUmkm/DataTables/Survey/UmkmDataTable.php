@@ -125,20 +125,16 @@ class UmkmDataTable extends DataTable
                     default:
                         $style_button = 'secondary';
                         break;
-
                 }
                 $in_status = in_array($q->status, ['progress', 'revision', 'menolak', 'tutup', 'pindah', 'bersedia']);
                 $status = '<div class="btn-group-sm">
                                 <button type="button" class="btn btn-'.$style_button.' btn-sm '. (!$in_status && enable_periode($q->created_at) ? 'dropdown-toggle" data-toggle="dropdown"' : '"') .'>'. $label_status .'</button>';
                 if (hasRoutePermission("{$this->identifier}.backend.survey.change_status") && enable_periode($q->created_at) && !$in_status && !$this->viewed) {
-                    $status .= ' <div class="dropdown-menu  dropdown-menu-right">
+                    $status .= ' <div class="dropdown-menu dropdown-menu-right">
                                     '. ($q->status != 'progress' ? '<a class="dropdown-item eventSurveyChangeStatus text-warning" href="javascript:void(0);" data-selecteddatatable="'.$this->dataTableID.'" data-action="'. route("{$this->identifier}.backend.survey.change_status", ['company' => $this->company_category, 'survey'=>encrypt_decrypt($q->id), 'status' => encrypt_decrypt('progress')]) .'">'. trans("label.survey_status_progress") .'</a>' : '') .'
                                 </div>';
                 }
-                $status .= '</div>';
-                if ( $q->status == 'revision' && hasRoute("{$this->identifier}.backend.survey.activity_log") && hasRoutePermission("{$this->identifier}.backend.survey.activity_log") ){
-                    $status .= '<a class="btn btn-xs btn-info mt-1 show_modal_lg" href="javascript:void(0);" data-action="'.route("{$this->identifier}.backend.survey.activity_log", ['log_name'=>encrypt_decrypt("LOG_SURVEY_NOTE_REVISION"), 'subject'=>encrypt_decrypt($q->id)]).'" title="'. trans('label.revision') .': ' . $q->{$this->company_category}->name.'"><i class="fas fa-sticky-note"></i> '. trans('label.revision') .'</a>';
-                }
+                $status .= '</div>';                
                 return $status;
             })
             ->editColumn('survey_result.documents', function ($q){
